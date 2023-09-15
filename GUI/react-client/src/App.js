@@ -6,6 +6,7 @@ function App() {
   useEffect(() => {
     fetch("/members").then(
       res => res.json()
+      
   ).then(
     data => {
       setData(data)
