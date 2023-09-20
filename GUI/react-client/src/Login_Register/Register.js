@@ -44,29 +44,28 @@ return <div class='register'>
       <div className={"subtitleContainer"}> GROWTH Web App</div>
         <div className="inputContainer">
             <label className="subtitle2Container" for="firstName">First Name </label>
-            <input className="subtitle2Container" type="text" value={firstName} onChange = {(e) => handleInputChange(e)} id="firstName" placeholder="Enter your first name"/>
-         <br />
+            <input className="inputBox" type="text" value={firstName} onChange = {(e) => handleInputChange(e)} id="firstName" placeholder="Enter your first name"/>
+       
             <label className="subtitle2Container" for="lastName">Last Name </label>
-            <input  className="subtitle2Container" type="text" name="" id="lastName" value={lastName}  onChange = {(e) => handleInputChange(e)} placeholder="Enter your last name"/>
-            <br />
+            <input  className="inputBox" type="text" name="" id="lastName" value={lastName}  onChange = {(e) => handleInputChange(e)} placeholder="Enter your last name"/>
+            
             <label className="subtitle2Container" for="email">Email </label>
-            <input className="subtitle2Container" type="email" id="email" value={email} onChange = {(e) => handleInputChange(e)} placeholder="Enter your email"/>
-            <br />
+            <input className="inputBox" type="email" id="email" value={email} onChange = {(e) => handleInputChange(e)} placeholder="Enter your email"/>
+           
             <label className="subtitle2Container" for="password">Password </label>
-            <input className="subtitle2Container" type="password"  id="password" value={password} onChange = {(e) => handleInputChange(e)} placeholder="Enter a password"/>
-            <br />
+            <input className="inputBox" type="password"  id="password" value={password} onChange = {(e) => handleInputChange(e)} placeholder="Enter a password"/>
+            
             <label className="subtitle2Container" for="confirmPassword">Confirm Password </label>
-            <input className="subtitle2Container" type="password" id="confirmPassword" value={confirmPassword} onChange = {(e) => handleInputChange(e)} placeholder="Confirm password"/>
+            <input className="inputBox" type="password" id="confirmPassword" value={confirmPassword} onChange = {(e) => handleInputChange(e)} placeholder="Confirm password"/>
             <br />
       <input
           className={"inputButton"}
           type="button"
           onClick={handleSubmit}
           value={"Register"} />
-
-        </div>
         <div className={"subtitle3Container"}> <p>Already Have an Account?  
         <Link to='/login'> Login</Link>  </p>
+        </div>
         </div>
     </div>
     <div><img  src={hydroponics2} height={500} width={800}  /></div>
