@@ -40,7 +40,7 @@
 .titleContainer {
   display: flex;
   flex-direction: column;
-  font-size: 54px;
+  font-size: 42px;
   font-weight: bolder;
   align-items: left;
   justify-content: left;
@@ -52,7 +52,7 @@
 .subtitleContainer {
   display: flex;
   flex-direction: column;
-  font-size: 24px;
+  font-size: 28px;
   align-items: left;
   justify-content: left;
   margin-left: 1%;
@@ -63,7 +63,7 @@
 .subtitle2Container {
   display: flex;
   flex-direction: column;
-  font-size: 18px;
+  font-size: 16px;
   align-items: left;
   justify-content: left;
   margin-left: 1%;
@@ -133,13 +133,25 @@
 div.login {
   margin: 5%; 
   width: 450px;
-  height: 550px; 
+  height: 490px; 
   background-color: white;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
+
+div.register {
+  margin: 5%; 
+  width: 450px;
+  height: 610px; 
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 
 
 html,
