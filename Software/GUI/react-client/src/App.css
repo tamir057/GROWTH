@@ -44,7 +44,7 @@
   font-weight: bolder;
   align-items: left;
   justify-content: left;
-  margin-left: 1%;
+  margin-left: 4%;
   font-family: "Poppins"; 
   
 }
@@ -55,7 +55,7 @@
   font-size: 28px;
   align-items: left;
   justify-content: left;
-  margin-left: 1%;
+  margin-left: 3%;
   font-family: "Poppins"; 
   
 }
@@ -112,7 +112,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  margin-left: 1%;
+  margin-left: 3%;
 }
 
 .inputContainer > .errorLabel {
@@ -158,7 +158,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  background-color: lightgray;
+  background-color: #ededed;
   font-family: Helvetica; 
 }
 
