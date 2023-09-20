@@ -28,7 +28,7 @@ const onButtonClick = () => {
 }
 
 return <div class='login'>
-<div class={'login'} className={"mainContainer"}>
+<div className={"mainContainer"}>
   <div className={"titleContainer"}>
       <div>Login To</div>
       </div>
@@ -65,7 +65,7 @@ return <div class='login'>
   <Link to='/register'> Register</Link>  </p>
   </div>
   </div>
-  <div><img style={{ align: 'right' }} src={hydroponics2} height={500} width={800}  /></div>
+  <div><img src={hydroponics2} height={500} width={800}  /></div>
   </div>
 
 
