@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
-
-function App() {
+function Login() {
   const [data, setData] = useState([{}])
-
   useEffect(() => {
     fetch("/members").then(
       res => res.json()
@@ -14,9 +12,8 @@ function App() {
     }
   )
 }, [])
-
   return (
-    <div className="App">
+    <div className="Login">
       {(typeof data.members === 'undefined') ? (
         <p>Loading...</p>
       ) : (
@@ -27,5 +24,4 @@ function App() {
     </div>
   );
 }
-
-export default App;
+export default Login;
