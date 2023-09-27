@@ -2,7 +2,7 @@
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/blink")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/motor_tests")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -39,17 +39,17 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH_FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/boot_picoboot/cmake_install.cmake")
-  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH_FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/boot_uf2/cmake_install.cmake")
-  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH_FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/pico_base/cmake_install.cmake")
-  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH_FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/pico_usb_reset_interface/cmake_install.cmake")
-  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH_FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/pico_bit_ops/cmake_install.cmake")
-  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH_FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/pico_binary_info/cmake_install.cmake")
-  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH_FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/pico_divider/cmake_install.cmake")
-  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH_FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/pico_sync/cmake_install.cmake")
-  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH_FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/pico_time/cmake_install.cmake")
-  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH_FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/pico_util/cmake_install.cmake")
-  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH_FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/pico_stdlib/cmake_install.cmake")
+  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH/FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/boot_picoboot/cmake_install.cmake")
+  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH/FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/boot_uf2/cmake_install.cmake")
+  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH/FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/pico_base/cmake_install.cmake")
+  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH/FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/pico_usb_reset_interface/cmake_install.cmake")
+  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH/FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/pico_bit_ops/cmake_install.cmake")
+  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH/FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/pico_binary_info/cmake_install.cmake")
+  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH/FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/pico_divider/cmake_install.cmake")
+  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH/FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/pico_sync/cmake_install.cmake")
+  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH/FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/pico_time/cmake_install.cmake")
+  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH/FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/pico_util/cmake_install.cmake")
+  include("C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH/FIRMWARE/tests/stepper motor control/build/pico-sdk/src/common/pico_stdlib/cmake_install.cmake")
 
 endif()
 
