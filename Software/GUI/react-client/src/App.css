@@ -33,8 +33,6 @@
   display: flex;
   align-items: left;
   justify-content: left;
-
-
 }
 
 .titleContainer {
@@ -45,8 +43,7 @@
   align-items: left;
   justify-content: left;
   margin-left: 4%;
-  font-family: "Poppins"; 
-  
+  font-family: "Poppins";
 }
 
 .subtitleContainer {
@@ -56,8 +53,7 @@
   align-items: left;
   justify-content: left;
   margin-left: 3%;
-  font-family: "Poppins"; 
-  
+  font-family: "Poppins";
 }
 
 .subtitle2Container {
@@ -67,7 +63,7 @@
   align-items: left;
   justify-content: left;
   margin-left: 1%;
-  font-family: "Poppins"; 
+  font-family: "Poppins";
 }
 
 .subtitle3Container {
@@ -77,11 +73,11 @@
   align-items: center;
   justify-content: center;
   margin-left: 1%;
-  font-family: "Poppins"; 
-  
+  font-family: "Poppins";
 }
 
-.resultContainer, .historyItem { 
+.resultContainer,
+.historyItem {
   flex-direction: row;
   display: flex;
   width: 400px;
@@ -104,7 +100,6 @@
   align-items: center;
   justify-content: center;
   height: 260px;
- 
 }
 
 .inputContainer {
@@ -127,13 +122,13 @@
   border-radius: 5px;
   border: 1px solid grey;
   padding-left: 8px;
-  font-family: "Poppins"; 
+  font-family: "Poppins";
 }
 
 div.login {
-  margin: 5%; 
+  margin: 5%;
   width: 450px;
-  height: 490px; 
+  height: 490px;
   background-color: white;
   border-radius: 10px;
   display: flex;
@@ -142,9 +137,9 @@ div.login {
 }
 
 div.register {
-  margin: 5%; 
+  margin: 5%;
   width: 450px;
-  height: 650px; 
+  height: 650px;
   background-color: white;
   border-radius: 10px;
   display: flex;
@@ -152,14 +147,12 @@ div.register {
   justify-content: space-between;
 }
 
-
-
 html,
 body {
   padding: 0;
   margin: 0;
-  background-color: #CFE1C9;
-  font-family: Helvetica; 
+  background-color: #cfe1c9;
+  font-family: Helvetica;
 }
 
 * {
@@ -183,16 +176,16 @@ code {
 }
 
 input[type="button"] {
-    border: none;
-    background: #CFE1C9;
-    color: black;
-    padding: 12px 24px;
-    margin: 8px;
-    font-size: 24px;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 400px; 
-    font-family: "Poppins"; 
+  border: none;
+  background: #cfe1c9;
+  color: black;
+  padding: 12px 24px;
+  margin: 8px;
+  font-size: 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 400px;
+  font-family: "Poppins";
 }
 
 @keyframes App-logo-spin {
