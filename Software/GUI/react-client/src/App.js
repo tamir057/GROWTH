@@ -26,6 +26,7 @@ return (
   <div>
   <HashRouter>
         <div>
+        <NavBar />
           <Routes>
           <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/login" element={<Login />} />
@@ -33,7 +34,7 @@ return (
             <Route path="/garden" element={<Garden/>} />
             <Route path="/plantprofile" element={<PlantProfile/>} />
           </Routes>
-        </div>
+        </div> 
       </HashRouter>
   </div>
 );

@@ -1,43 +1,28 @@
 import React from "react";
-import welcomeImage from "../images/welcome-banner.png";
-import travelBunch from "../images/welcome-pack.png";
-import "../css/index.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "./index.css"
+import PlotList from "./plot-list";
 
 function Garden() {
   return (
-    <div className="nav-padding position-relative mb-2 bg-my-primary wide">
-      <div className="w-100">
-        <img src={welcomeImage} className="w-100" alt={"Welcome"} />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </div>
-      <div className="row">
-        <div className="col-sm-12 col-md-5 parent">
-          <div className="center padding-70">
-            <h1>Wander</h1>
-            <h3>Travel with an Impact</h3>
-            <p>
-              Help small business build a name while vacationing around the world and exploring new adventures that await you!
-            </p>
-            <button
-              onClick={handleClick}
-              className="rounded-pill btn btn-primary"
-            >
-              Get Started
-            </button>
+    <div className="nav-padding bg-grey-c wide row">
+      <div class="col-11 bg-secondary-green container mt-4 wide round-10">
+        <div class="row">
+        <div class="col-6">
+            <h3 className="p-2">
+                Farm Layout
+            </h3>
+            </div>
+          <div class="col-6 float-end">
+            <div className="row">
+            <div className="col-2"></div>
+            <button class="m-2 col-3 btn button-primary round-15">Calibrate</button>
+            <button class="m-2 col-3 btn button-primary round-15">Run</button>
+            <button class="m-2 col-3 btn button-primary round-15">Add</button>
+            </div>
           </div>
         </div>
-        <div className="col-md-5 d-s-none">
-        <img
-              className="size-100"
-              src={travelBunch}
-              alt={"Tarvel 1"}
-            />
-        </div>
+        <PlotList/>
       </div>
     </div>
   );
