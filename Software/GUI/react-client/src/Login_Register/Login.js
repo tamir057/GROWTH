@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import hydroponics from './hydroponics_img.png'
 import hydroponics2 from './hydroponics_img2.png'
+import "./index.css"
 import { Link } from 'react-router-dom';
 
 function Login() {
