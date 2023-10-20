@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { AiOutlineSearch } from "react-icons/ai";
-import { GoGear } from "react-icons/go";
 import "bootstrap/dist/css/bootstrap.css";
 import "./PlantProfile.css";
 import img from "./lettuce.png";
 
 function PlantProfile() {
-  const [plantName, setPlantName] = useState("");
-  const [ph, setPH] = useState(0);
-  const [ec, setEC] = useState(0);
-  const [hoursLight, setHoursLight] = useState("");
+  //   const [plantName, setPlantName] = useState("");
+  //   const [ph, setPH] = useState(0);
+  //   const [ec, setEC] = useState(0);
+  //   const [hoursLight, setHoursLight] = useState("");
 
   return (
     <div>
