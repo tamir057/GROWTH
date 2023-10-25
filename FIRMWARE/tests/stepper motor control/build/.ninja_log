@@ -27,7 +27,7 @@
 409	840	7174917163488812	CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_sync/lock_core.c.obj	9ac0e9b8f85779cf
 416	851	7174917163488812	CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_sync/mutex.c.obj	6b8e280e41f24cec
 389	863	7174917163612275	CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj	ed419aa87d54df5b
-100	652	7175292152013812	CMakeFiles/motor_tests.dir/main.c.obj	f6ac8b397af5175a
+37	216	7198060465807977	CMakeFiles/motor_tests.dir/main.c.obj	f6ac8b397af5175a
 552	975	7174917165605265	CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj	74f67a9a3e8305af
 1416	1831	7174917173432185	CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S.obj	ddd2a7640fbb89cd
 1558	2117	7174917177131116	CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj	3ad944abc04b82c
@@ -46,6 +46,7 @@
 787	1415	7174917168389346	CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj	5fdaf14b607ae1b8
 1340	1585	7174917171385245	CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj	60500f86561b0e5e
 821	1473	7174917169181656	CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj	e5083b20cba0d9f4
+43	1306	7198041072087260	CMakeFiles/motor_tests.dir/stepper_motor.c.obj	f3dd25b65d6cccf0
 1093	1502	7174917169591951	CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj	d16eeb459e8947d1
 1358	1558	7174917171246573	CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj	b1b9f3fb4564278e
 2012	2333	7174917178874149	CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/class/dfu/dfu_device.c.obj	4e2b9dc9b204eae6
@@ -54,6 +55,7 @@
 1473	1653	7174917172485783	CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj	c3e5673485809cb0
 1349	1819	7174917173350719	CMakeFiles/motor_tests.dir/734ab788d52071b7ec936fd1cf9a593e/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.obj	eac9415fece4eced
 1368	1854	7174917174280933	CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_float/float_init_rom.c.obj	7effe763ef094ddf
+217	568	7198060468032506	motor_tests.elf	6467e3d991f5767a
 1462	1864	7174917174455958	CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c.obj	d0711c4674459b32
 1331	1992	7174917175728127	CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_double/double_math.c.obj	764578a05c995d6f
 1654	2012	7174917175787943	CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_unique_id/unique_id.c.obj	6402353dd6e4da53
@@ -75,8 +77,17 @@
 1844	2694	7174917182883509	CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/device/usbd.c.obj	47901d0fb84e174c
 2452	2849	7174917184373445	CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/tusb.c.obj	9aed91ae65a0d2da
 2461	2918	7174917185229906	CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj	e0bbca222576e529
-111	701	7175294504597575	CMakeFiles/motor_tests.dir/stepper_motor.c.obj	f3dd25b65d6cccf0
-705	1854	7175294512359552	motor_tests.elf	6467e3d991f5767a
-174	517	7175295215200961	CMakeFiles/motor_tests.dir/stepper_motor.c.obj	f3dd25b65d6cccf0
-163	523	7175295215255054	CMakeFiles/motor_tests.dir/main.c.obj	f6ac8b397af5175a
-523	1306	7175295220292883	motor_tests.elf	6467e3d991f5767a
+134	442	7198842060313574	CMakeFiles/motor_tests.dir/main.c.obj	f6ac8b397af5175a
+444	2171	7198842074323271	motor_tests.elf	6467e3d991f5767a
+172	642	7198850917768114	CMakeFiles/motor_tests.dir/main.c.obj	f6ac8b397af5175a
+643	1846	7198850926654712	motor_tests.elf	6467e3d991f5767a
+99	552	7198852008200984	CMakeFiles/motor_tests.dir/main.c.obj	f6ac8b397af5175a
+553	1593	7198852013620585	motor_tests.elf	6467e3d991f5767a
+161	650	7198853848332805	CMakeFiles/motor_tests.dir/main.c.obj	f6ac8b397af5175a
+651	1401	7198853853323719	motor_tests.elf	6467e3d991f5767a
+170	592	7198855269000467	CMakeFiles/motor_tests.dir/main.c.obj	f6ac8b397af5175a
+593	1365	7198855273698411	motor_tests.elf	6467e3d991f5767a
+124	509	7198858749028323	CMakeFiles/motor_tests.dir/main.c.obj	f6ac8b397af5175a
+510	1321	7198858754773012	motor_tests.elf	6467e3d991f5767a
+178	641	7198859211389381	CMakeFiles/motor_tests.dir/main.c.obj	f6ac8b397af5175a
+643	1409	7198859216132628	motor_tests.elf	6467e3d991f5767a
