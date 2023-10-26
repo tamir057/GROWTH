@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import "./garden_index.css";
+import "./select_index.css";
 
 function Select({ showModal, handleClose }) {
   let firstScreen = true; 
