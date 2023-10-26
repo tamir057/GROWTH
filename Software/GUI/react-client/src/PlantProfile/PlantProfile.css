@@ -1,0 +1,126 @@
+.mainContainer {
+  background-color: #c2bebe;
+
+  /* display: grid;
+  grid-template-columns: 50% 50%;
+  background-color: #d0dfdf;
+  margin: 2%;
+  border-radius: 10px; */
+  height: 100vh;
+}
+
+.bodyContainer {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  background-color: #d0dfdf;
+  margin: 1%;
+  border-radius: 10px;
+  padding: 10px 30px;
+}
+
+.profileContainer {
+  margin: 5%;
+  /* width: 100%;
+  height: 100%; */
+  background-color: grey;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  font-size: 28px;
+  align-items: left;
+  justify-content: left;
+  /* margin-left: 3%; */
+  font-family: "Inter";
+}
+
+.leftPanel {
+  margin: 2%;
+}
+
+.rightPanel {
+  margin: 2%;
+}
+
+.plantField {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-family: "Inter";
+  font-size: 20px;
+}
+.plantFieldTitle {
+  font-family: "Inter";
+  font-size: 20px;
+}
+
+.plantFieldInput {
+  border-radius: 10px;
+  border: solid 1px #f7fcfc;
+  padding: 0px 20px;
+  margin: 0px 30px;
+}
+
+.plotInput {
+  border-radius: 5px;
+  border: solid 1px #acba99;
+  padding: 0px 40px;
+}
+
+.wd-nudge-up {
+  bottom: 3px;
+  left: 25px;
+}
+
+.searchBar {
+  padding: 20px 0px;
+}
+
+.navBar {
+  background-color: #acba99;
+  height: 54px;
+  font-family: "Inter";
+  font-size: 25px;
+  color: #f7fcfc;
+  text-align: right;
+  padding: 10px 20px;
+}
+
+.imgContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+.longPlantDescription {
+  font-family: "Inter";
+  font-size: 18px;
+}
+
+.plotContainer {
+  border-radius: 5px;
+  /* border: solid 75px #d9d9d9; */
+  padding: 0px 40px;
+  height: 150px;
+  border: #d0dfdf solid 5px;
+}
+
+.plotRow {
+  border-radius: 7px;
+  border: solid 15px #acba99;
+  margin: 10px 20px;
+  height: 30px;
+}
+
+.plotRowEmpty {
+  border-radius: 7px;
+  border: solid 15px #989595;
+  margin: 10px 20px;
+  height: 30px;
+}
