@@ -1,0 +1,54 @@
+
+.bg-grey-c {
+    background-color: #C2BEBE;
+  }
+  
+  .nav-padding {
+    padding-top: 59px;
+}
+.round-10 {
+    border-radius: 10px;
+}
+
+.pos-fixed {
+    position: fixed;
+    right: 0px;
+    z-index: 50;
+}
+
+.bg-secondary-green {
+    background-color: #D0DFDF;
+}
+
+.bg-primary-green {
+    background-color: #acbb99;
+}
+
+
+.round-15 {
+    border-radius: 15px;
+}
+
+.button-primary {
+    width: 109px;
+    height: 32px;
+    line-height: 20px;
+    text-align: center;
+    background-color: #b5d3b1;
+    color: #F7FCFC;
+}
+
+/* CSS for the button hover effect */
+.button-primary:hover {
+background-color: #b5d3b1; /* Background color on hover */
+color: #F7FCFC; /* Text color on hover */
+}
+
+.button-square {
+    height: 70px;
+    width: 70px;
+    line-height: 20px;
+    text-align: center;
+    background-color: #b5d3b1;
+    color: #F7FCFC;
+}

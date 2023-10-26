@@ -196,3 +196,12 @@ input[type="button"] {
     transform: rotate(360deg);
   }
 }
+
+bg-grey-c {
+  background-color: #ac3939;
+}
+
+round-2 {
+  border-radius: 50%;
+  background-color: #ac3939;
+}
