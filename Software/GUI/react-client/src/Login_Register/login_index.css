@@ -1,5 +1,5 @@
   
-  .mainContainer {
+  .loginMainContainer {
     flex-direction: column;
     display: flex;
     align-items: left;
@@ -8,7 +8,7 @@
   
   }
 
-  .titleContainer {
+  .loginTitleContainer {
     display: flex;
     flex-direction: column;
     font-size: 42px;
@@ -20,7 +20,7 @@
     
   }
   
-  .subtitleContainer {
+  .loginSubtitleContainer {
     display: flex;
     flex-direction: column;
     font-size: 28px;
@@ -31,7 +31,7 @@
     
   }
   
-  .subtitle2Container {
+  .loginSubtitle2Container {
     display: flex;
     flex-direction: column;
     font-size: 16px;
@@ -41,7 +41,7 @@
     font-family: "Poppins"; 
   }
   
-  .subtitle3Container {
+  .loginSubtitle3Container {
     display: flex;
     flex-direction: column;
     font-size: 24px;
@@ -52,7 +52,7 @@
     
   }
   
-  .resultContainer, .historyItem { 
+  .loginResultContainer, .historyItem { 
     flex-direction: row;
     display: flex;
     width: 400px;
@@ -60,7 +60,7 @@
     justify-content: space-between;
   }
   
-  .historyContainer {
+  .loginHistoryContainer {
     flex-direction: column;
     display: flex;
     height: 200px;
@@ -69,7 +69,7 @@
     justify-content: flex-start;
   }
   
-  .buttonContainer {
+  .loginButtonContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -78,7 +78,7 @@
    
   }
   
-  .inputContainer {
+  .loginInputContainer {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -86,12 +86,12 @@
     margin-left: 3%;
   }
   
-  /* .inputContainer > .errorLabel {
+  .loginInputContainer > .errorLabel {
     color: red;
     font-size: 12px;
-  } */
+  }
   
-  .inputBox {
+  .loginInputBox {
     height: 48px;
     width: 400px;
     font-size: large;
@@ -101,7 +101,7 @@
     font-family: "Poppins"; 
   }
   
-  .login {
+  div.login {
     margin: 5%; 
     width: 450px;
     height: 490px; 
@@ -112,7 +112,7 @@
     justify-content: space-between;
   }
   
-  .register {
+  div.register {
     margin: 5%; 
     width: 450px;
     height: 650px; 
@@ -153,17 +153,17 @@
     font-family: Menlo, Monaco, Lucida Console, Courier New, monospace;
   }
   
- .buttonLogin{
-    border: none;
-    background: #CFE1C9;
-    color: black;
-    padding: 12px 24px;
-    margin: 8px;
-    font-size: 24px;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 400px; 
-    font-family: "Poppins"; 
+  .buttonLogin {
+      border: none;
+      background: #CFE1C9;
+      color: black;
+      padding: 12px 24px;
+      margin: 8px;
+      font-size: 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 400px; 
+      font-family: "Poppins"; 
   }
   
   @keyframes App-logo-spin {
