@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import "./garden_index.css";
 
 function Select({ showModal, handleClose }) {
+  let firstScreen = true; 
   const modalStyle = {
     position: 'fixed',
     right: 0, // Adjust the right position as needed
@@ -48,12 +50,12 @@ function Select({ showModal, handleClose }) {
           {/* Add your content for selecting options here */}
         </div>
         <div className={"subtitle2Container"}>  
-        <Link to='/register'> Create a New Plant Profile</Link> 
+        <Link to='/PlantProfile'> Create a New Plant Profile</Link> 
         </div>
         <div className="modal-footer" style={footerStyle}>
-          <div className={"inputButton"}>
+          <div className={"saveButton"}>
             <input
-              className={"inputButton"}
+              className={"saveButton"}
               type="button"
               value={"Save"} />
           </div>

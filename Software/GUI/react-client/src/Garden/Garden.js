@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./index.css";
+import "./garden_index.css";
 import PlotList from "./plot-list";
 import Select from './Select'; // Import the AddPlotModal component
 
