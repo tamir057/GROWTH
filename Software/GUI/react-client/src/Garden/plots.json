@@ -1,0 +1,63 @@
+[
+    {
+        "_id": 123,
+        "plotNumber": "1",
+        "plant": "Spinach"
+    },
+    {
+        "_id": 122,
+        "plotNumber": "2",
+        "plant": "Basil"
+    },
+    {
+        "_id": 121,
+        "plotNumber": "3",
+        "plant": "Tomato"
+    },
+    {
+        "_id": 124,
+        "plotNumber": "4",
+        "plant": "Corn"
+    },
+    {
+        "_id": 124,
+        "plotNumber": "5",
+        "plant": "Lettuce"
+    },
+    {
+        "_id": 126,
+        "plotNumber": "6",
+        "plant": "Cabbage"
+    },
+    {
+        "_id": 127,
+        "plotNumber": "7",
+        "plant": "Spinach"
+    },
+    {
+        "_id": 128,
+        "plotNumber": "8",
+        "plant": "Exotic"
+    },
+    {
+        "_id": 129,
+        "plotNumber": "9",
+        "plant": "Coriander"
+    },
+    {
+        "_id": 130,
+        "plotNumber": "10",
+        "plant": "Lemon"
+    },
+    {
+        "_id": 131,
+        "plotNumber": "11",
+        "plant": "Cucumber"
+    },
+    {
+        "_id": 132,
+        "plotNumber": "12",
+        "plant": "Radish"
+    }
+   ]
+   
