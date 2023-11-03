@@ -3,10 +3,9 @@
 
 #include "pico/stdlib.h"
 #include "hardware/spi.h"
+#include "stdio.h"
 
-#define ADC_INPUT1      (0x00)
-#define ADC_INPUT2      (0x01 << 3)
-
-uint16_t ADC122021_ReadADC(spi_inst_t* spi, const uint cs, bool channel);
+uint16_t ADC122S021_ReadADC(spi_inst_t* spi, const uint cs, bool channel);
+double ADC122S021_GetVoltage(spi_inst_t* spi, const uint cs, bool channel);
 
 #endif

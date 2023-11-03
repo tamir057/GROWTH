@@ -26,7 +26,8 @@ int main() {
     gpio_set_function(miso_pin, GPIO_FUNC_SPI);
 
     while(true) {
-        printf("%x\n", ADC122021_ReadADC(spi_port, cs_pin, 1));
+        printf("Channel 1 --> %f\n", ADC122S021_GetVoltage(spi_port, cs_pin, 0));
+        printf("Channel 2 --> %f\n\n", ADC122S021_GetVoltage(spi_port, cs_pin, 1));
         sleep_ms(1000);
     }
 

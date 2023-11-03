@@ -9,7 +9,7 @@
 347	431	7199067484245537	C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH/FIRMWARE/tests/analog digital converter/build/pico-sdk/src/rp2_common/boot_stage2/bs2_default_padded_checksummed.S	bd7542d38825c443
 347	431	7199067484245537	pico-sdk/src/rp2_common/boot_stage2/bs2_default_padded_checksummed.S	bd7542d38825c443
 312	346	7199067483447669	pico-sdk/src/rp2_common/boot_stage2/bs2_default.bin	177dfa289e0868c
-38	174	7199091424075801	CMakeFiles/adc_tests.dir/adc122s021.c.obj	72123de12576671d
+126	580	7199542289772391	CMakeFiles/adc_tests.dir/adc122s021.c.obj	72123de12576671d
 312	346	7199067483447669	C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH/FIRMWARE/tests/analog digital converter/build/pico-sdk/src/rp2_common/boot_stage2/bs2_default.bin	177dfa289e0868c
 233	427	7199072098153638	CMakeFiles/adc_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj	ace0b9456e18c19e
 61	321	7199075219657059	CMakeFiles/adc_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_unique_id/unique_id.c.obj	8a7f06021876ce25
@@ -73,14 +73,8 @@
 77	371	7199075376906348	CMakeFiles/adc_tests.dir/734ab788d52071b7ec936fd1cf9a593e/lib/tinyusb/src/portable/raspberrypi/pio_usb/dcd_pio_usb.c.obj	a47d91f7bb789659
 70	390	7199075377115793	CMakeFiles/adc_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/lib/tinyusb/src/class/video/video_device.c.obj	84ef8050d2ef5843
 96	453	7199075377744102	CMakeFiles/adc_tests.dir/ced4eaa08327413f0405a602206aac49/rp2040_usb_device_enumeration.c.obj	58b5b066df9e48f6
-38	232	7199084052585997	CMakeFiles/adc_tests.dir/main.c.obj	c92f2035c88303f4
+188	582	7199535571746134	CMakeFiles/adc_tests.dir/main.c.obj	c92f2035c88303f4
 105	482	7199075378073235	CMakeFiles/adc_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_spi/spi.c.obj	fcbcf907ad294b1e
 82	538	7199075378621750	CMakeFiles/adc_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/tusb.c.obj	141604b359200ff2
 89	597	7199075379220155	CMakeFiles/adc_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj	f7734ed62a189781
-174	488	7199091426040880	adc_tests.elf	2ef935a15944703a
-33	173	7199093065689113	CMakeFiles/adc_tests.dir/adc122s021.c.obj	72123de12576671d
-173	525	7199093067832976	adc_tests.elf	2ef935a15944703a
-43	253	7199099176480893	CMakeFiles/adc_tests.dir/main.c.obj	c92f2035c88303f4
-254	593	7199099178615514	adc_tests.elf	2ef935a15944703a
-39	175	7199100126935663	CMakeFiles/adc_tests.dir/adc122s021.c.obj	72123de12576671d
-175	506	7199100128950254	adc_tests.elf	2ef935a15944703a
+582	1528	7199542295208285	adc_tests.elf	2ef935a15944703a

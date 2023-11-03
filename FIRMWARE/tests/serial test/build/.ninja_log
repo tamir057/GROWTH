@@ -37,7 +37,7 @@
 921	1467	7194530823892693	CMakeFiles/usb_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj	5e8fdbf4767dacdc
 1450	2074	7194530827812189	CMakeFiles/usb_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj	b80da6ea2227e5b3
 461	1431	7194530823523649	CMakeFiles/usb_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_time/time.c.obj	8be70bf2d06bcdf5
-86	732	7194819452710015	CMakeFiles/usb_tests.dir/main.c.obj	45d8e064f6143b91
+84	562	7203880056625848	CMakeFiles/usb_tests.dir/main.c.obj	45d8e064f6143b91
 2114	3009	7194530839121963	CMakeFiles/usb_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/device/usbd.c.obj	d5b779b6caebbc91
 873	1477	7194530823962476	CMakeFiles/usb_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_util/queue.c.obj	c26f258bc58e73fa
 1699	1903	7194530828769627	CMakeFiles/usb_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj	6d8770a52a414949
@@ -75,12 +75,5 @@
 2981	3154	7194530841665158	CMakeFiles/usb_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/lib/tinyusb/src/portable/raspberrypi/pio_usb/dcd_pio_usb.c.obj	bf9a1b5b96e66f0b
 3010	3227	7194530842403188	CMakeFiles/usb_tests.dir/226ce844c917154b4591a68ffd645516/pico_fix/rp2040_usb_device_enumeration/rp2040_usb_device_enumeration.c.obj	b63362b7ca098593
 3000	3349	7194530843619933	CMakeFiles/usb_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj	7da7a70c98d7d478
-735	2204	7194819463668953	usb_tests.elf	f4a401d0474367ad
-112	512	7194823893613833	CMakeFiles/usb_tests.dir/main.c.obj	45d8e064f6143b91
-513	1165	7194823896563509	usb_tests.elf	f4a401d0474367ad
-103	461	7194823976676692	CMakeFiles/usb_tests.dir/main.c.obj	45d8e064f6143b91
-462	1093	7194823979745387	usb_tests.elf	f4a401d0474367ad
-60	406	7194824282345238	CMakeFiles/usb_tests.dir/main.c.obj	45d8e064f6143b91
-408	1190	7194824286906499	usb_tests.elf	f4a401d0474367ad
-203	3010	7195179536973177	CMakeFiles/usb_tests.dir/main.c.obj	45d8e064f6143b91
-3013	4123	7195179544186464	usb_tests.elf	f4a401d0474367ad
+563	1389	7203880062447605	usb_tests.elf	6553246061e4977
+93	504	7203880056070429	CMakeFiles/usb_tests.dir/serial_commands.c.obj	c4073855c31cf950
