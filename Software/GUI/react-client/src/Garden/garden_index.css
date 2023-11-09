@@ -122,7 +122,8 @@ outline: none; /* Change border color on focus */
 .round-15 {
   border-radius: 15px;
 }
-.button-primary {
+
+.button-primary-2 {
   width: 109px;
   height: 32px;
   line-height: 20px;
@@ -131,7 +132,7 @@ outline: none; /* Change border color on focus */
   color: #F7FCFC;
 }
 /* CSS for the button hover effect */
-.button-primary:hover {
+.button-primary-2:hover {
 background-color: #b5d3b1; /* Background color on hover */
 color: #F7FCFC; /* Text color on hover */
 }
