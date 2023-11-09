@@ -1,22 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./garden_index.css";
 import PlotList from "./plot-list";
-import Select from './Select'; // Import the AddPlotModal component
 
 
 function Garden() {
-  const [showAddPopup, setShowAddPopup] = useState(false);
 
-  const openAddPopup = () => {
-    setShowAddPopup(true);
-  };
-
-  const closeAddPopup = () => {
-    setShowAddPopup(false);
-  };
-
-  console.log("test: " + showAddPopup); 
 
   return (
     <div>
@@ -31,15 +20,14 @@ function Garden() {
                 <div className="col-2"></div>
                 <button className="m-2 col-3 btn button-primary round-15">Calibrate</button>
                 <button className="m-2 col-3 btn button-primary round-15">Run</button>
-                <button className="m-2 col-3 btn button-primary round-15" onClick={openAddPopup}>Add</button>
-                {showAddPopup && <Select/>}
+                <button className="m-2 col-3 btn button-primary round-15">Add</button>
               </div>
             </div>
           </div>
           <PlotList />
         </div>
       </div>
-      <Select showModal={showAddPopup} handleClose={closeAddPopup} />
+      
     </div>
   );
 }

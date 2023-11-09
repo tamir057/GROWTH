@@ -12,9 +12,10 @@ const Select = ({ showModal, handleClose }) => {
     top: 0,
     bottom: 0,
     width: '400px', // Adjust the width as needed
-    backgroundColor: 'white',
+    backgroundColor: '#F7FCFC',
     zIndex: 1050,
     display: showModal ? 'block' : 'none',
+    paddingLeft: '20px',
   };
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -75,31 +76,33 @@ const Select = ({ showModal, handleClose }) => {
               </button>
             </div>
             <div className="modal-body" style={contentStyle}>
-              <h5 className="subtitle3Container">Last Run Time:</h5>
-              <p>Last Run Time: [Insert Time Here]</p>
+              <h5 className="runTimeContainer">Last Run Time:</h5>
+              <p>[Insert Time Here]</p>
               <table>
-                <thead>
-                  <tr>
-                    <th>Temp</th>
-                    <th>pH</th>
-                    <th>Water Conductivity</th>
-                  </tr>
-                </thead>
                 <tbody>
                   <tr>
+                    <th>Temp: </th>
                     <td>[Temp Value]</td>
+                  </tr>
+                  <tr>
+                    <th>pH: </th>
                     <td>[pH Value]</td>
+                  </tr>
+                  <tr>
+                    <th>Water Conductivity: </th>
                     <td>[Water Conductivity Value]</td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <div className="modal-footer" style={footerStyle}>
+              <div className = 'topPadding'>
               <div className={"saveButton"}>
                 <input
                   className={"saveButton"}
                   type="button"
                   value={"Save"} />
+              </div>
               </div>
             </div>
           </div>
