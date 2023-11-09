@@ -4,6 +4,7 @@ import "./garden_index.css";
 import PlotList from "./plot-list";
 import Select from './Select'; // Import the AddPlotModal component
 
+
 function Garden() {
   const [showAddPopup, setShowAddPopup] = useState(false);
 
@@ -14,6 +15,8 @@ function Garden() {
   const closeAddPopup = () => {
     setShowAddPopup(false);
   };
+
+  console.log("test: " + showAddPopup); 
 
   return (
     <div>
@@ -29,6 +32,7 @@ function Garden() {
                 <button className="m-2 col-3 btn button-primary round-15">Calibrate</button>
                 <button className="m-2 col-3 btn button-primary round-15">Run</button>
                 <button className="m-2 col-3 btn button-primary round-15" onClick={openAddPopup}>Add</button>
+                {showAddPopup && <Select/>}
               </div>
             </div>
           </div>

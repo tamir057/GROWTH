@@ -175,7 +175,7 @@ code {
   font-family: Menlo, Monaco, Lucida Console, Courier New, monospace;
 }
 
-input[type="button"] {
+/* input[type="button"] {
   border: none;
   background: #cfe1c9;
   color: black;
@@ -186,7 +186,7 @@ input[type="button"] {
   cursor: pointer;
   width: 400px;
   font-family: "Poppins";
-}
+} */
 
 @keyframes App-logo-spin {
   from {
