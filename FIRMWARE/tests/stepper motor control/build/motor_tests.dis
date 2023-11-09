@@ -31,11 +31,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  13 .comment      00000049  00000000  00000000  0000cce8  2**0
                   CONTENTS, READONLY
- 14 .debug_info   0002b334  00000000  00000000  0000cd31  2**0
+ 14 .debug_info   0002b332  00000000  00000000  0000cd31  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_abbrev 00006df3  00000000  00000000  00038065  2**0
+ 15 .debug_abbrev 00006df3  00000000  00000000  00038063  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_loc    00020f98  00000000  00000000  0003ee58  2**0
+ 16 .debug_loc    00020f98  00000000  00000000  0003ee56  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_aranges 000015c0  00000000  00000000  0005fdf0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -43,9 +43,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  19 .debug_line   0001b91f  00000000  00000000  000663f8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_str    00007784  00000000  00000000  00081d17  2**0
+ 20 .debug_str    0000777f  00000000  00000000  00081d17  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_frame  00002e0c  00000000  00000000  0008949c  2**2
+ 21 .debug_frame  00002e0c  00000000  00000000  00089498  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 C:/Users/alree/Documents/Northeastern University/ECE Capstone/04 - Design/GROWTH/FIRMWARE/tests/stepper motor control/build/motor_tests.elf:     file format elf32-littlearm
@@ -344,74 +344,74 @@ Disassembly of section .text:
 1000031c <main>:
 1000031c:	b570      	push	{r4, r5, r6, lr}
 1000031e:	b08c      	sub	sp, #48	; 0x30
-10000320:	222c      	movs	r2, #44	; 0x2c
-10000322:	2100      	movs	r1, #0
-10000324:	a801      	add	r0, sp, #4
-10000326:	f004 ff53 	bl	100051d0 <__wrap_memset>
-1000032a:	2310      	movs	r3, #16
-1000032c:	9301      	str	r3, [sp, #4]
-1000032e:	3301      	adds	r3, #1
-10000330:	9302      	str	r3, [sp, #8]
+10000320:	f005 f8c0 	bl	100054a4 <stdio_init_all>
+10000324:	222c      	movs	r2, #44	; 0x2c
+10000326:	2100      	movs	r1, #0
+10000328:	a801      	add	r0, sp, #4
+1000032a:	f004 ff51 	bl	100051d0 <__wrap_memset>
+1000032e:	2310      	movs	r3, #16
+10000330:	9301      	str	r3, [sp, #4]
 10000332:	3301      	adds	r3, #1
-10000334:	9303      	str	r3, [sp, #12]
+10000334:	9302      	str	r3, [sp, #8]
 10000336:	3301      	adds	r3, #1
-10000338:	9304      	str	r3, [sp, #16]
+10000338:	9303      	str	r3, [sp, #12]
 1000033a:	3301      	adds	r3, #1
-1000033c:	9305      	str	r3, [sp, #20]
+1000033c:	9304      	str	r3, [sp, #16]
 1000033e:	3301      	adds	r3, #1
-10000340:	9306      	str	r3, [sp, #24]
-10000342:	23c8      	movs	r3, #200	; 0xc8
-10000344:	015b      	lsls	r3, r3, #5
-10000346:	9307      	str	r3, [sp, #28]
-10000348:	9308      	str	r3, [sp, #32]
-1000034a:	23c8      	movs	r3, #200	; 0xc8
-1000034c:	9309      	str	r3, [sp, #36]	; 0x24
-1000034e:	3b32      	subs	r3, #50	; 0x32
-10000350:	930a      	str	r3, [sp, #40]	; 0x28
-10000352:	2008      	movs	r0, #8
-10000354:	f000 fb3a 	bl	100009cc <gpio_init>
-10000358:	24d0      	movs	r4, #208	; 0xd0
-1000035a:	0624      	lsls	r4, r4, #24
-1000035c:	2380      	movs	r3, #128	; 0x80
-1000035e:	005b      	lsls	r3, r3, #1
-10000360:	62a3      	str	r3, [r4, #40]	; 0x28
-10000362:	2200      	movs	r2, #0
-10000364:	2100      	movs	r1, #0
-10000366:	2008      	movs	r0, #8
-10000368:	f000 fa48 	bl	100007fc <gpio_set_pulls>
-1000036c:	2101      	movs	r1, #1
-1000036e:	2008      	movs	r0, #8
-10000370:	f000 fa5e 	bl	10000830 <gpio_set_input_hysteresis_enabled>
-10000374:	4b2c      	ldr	r3, [pc, #176]	; (10000428 <main+0x10c>)
-10000376:	2201      	movs	r2, #1
-10000378:	2104      	movs	r1, #4
-1000037a:	2008      	movs	r0, #8
-1000037c:	f000 faca 	bl	10000914 <gpio_set_irq_enabled_with_callback>
-10000380:	2006      	movs	r0, #6
-10000382:	f000 fb23 	bl	100009cc <gpio_init>
-10000386:	2340      	movs	r3, #64	; 0x40
-10000388:	6263      	str	r3, [r4, #36]	; 0x24
-1000038a:	2205      	movs	r2, #5
-1000038c:	2101      	movs	r1, #1
-1000038e:	a801      	add	r0, sp, #4
-10000390:	f000 f852 	bl	10000438 <init_motor>
-10000394:	f005 f886 	bl	100054a4 <stdio_init_all>
-10000398:	2400      	movs	r4, #0
-1000039a:	e00b      	b.n	100003b4 <main+0x98>
-1000039c:	25d0      	movs	r5, #208	; 0xd0
-1000039e:	062d      	lsls	r5, r5, #24
-100003a0:	2640      	movs	r6, #64	; 0x40
-100003a2:	616e      	str	r6, [r5, #20]
-100003a4:	200a      	movs	r0, #10
-100003a6:	f001 fc89 	bl	10001cbc <sleep_ms>
-100003aa:	61ae      	str	r6, [r5, #24]
-100003ac:	205a      	movs	r0, #90	; 0x5a
+10000340:	9305      	str	r3, [sp, #20]
+10000342:	3301      	adds	r3, #1
+10000344:	9306      	str	r3, [sp, #24]
+10000346:	23c8      	movs	r3, #200	; 0xc8
+10000348:	015b      	lsls	r3, r3, #5
+1000034a:	9307      	str	r3, [sp, #28]
+1000034c:	9308      	str	r3, [sp, #32]
+1000034e:	23c8      	movs	r3, #200	; 0xc8
+10000350:	9309      	str	r3, [sp, #36]	; 0x24
+10000352:	3b32      	subs	r3, #50	; 0x32
+10000354:	930a      	str	r3, [sp, #40]	; 0x28
+10000356:	2008      	movs	r0, #8
+10000358:	f000 fb38 	bl	100009cc <gpio_init>
+1000035c:	24d0      	movs	r4, #208	; 0xd0
+1000035e:	0624      	lsls	r4, r4, #24
+10000360:	2380      	movs	r3, #128	; 0x80
+10000362:	005b      	lsls	r3, r3, #1
+10000364:	62a3      	str	r3, [r4, #40]	; 0x28
+10000366:	2200      	movs	r2, #0
+10000368:	2100      	movs	r1, #0
+1000036a:	2008      	movs	r0, #8
+1000036c:	f000 fa46 	bl	100007fc <gpio_set_pulls>
+10000370:	2101      	movs	r1, #1
+10000372:	2008      	movs	r0, #8
+10000374:	f000 fa5c 	bl	10000830 <gpio_set_input_hysteresis_enabled>
+10000378:	2006      	movs	r0, #6
+1000037a:	f000 fb27 	bl	100009cc <gpio_init>
+1000037e:	2340      	movs	r3, #64	; 0x40
+10000380:	6263      	str	r3, [r4, #36]	; 0x24
+10000382:	2205      	movs	r2, #5
+10000384:	2101      	movs	r1, #1
+10000386:	a801      	add	r0, sp, #4
+10000388:	f000 f856 	bl	10000438 <init_motor>
+1000038c:	2400      	movs	r4, #0
+1000038e:	e00b      	b.n	100003a8 <main+0x8c>
+10000390:	25d0      	movs	r5, #208	; 0xd0
+10000392:	062d      	lsls	r5, r5, #24
+10000394:	2640      	movs	r6, #64	; 0x40
+10000396:	616e      	str	r6, [r5, #20]
+10000398:	200a      	movs	r0, #10
+1000039a:	f001 fc8f 	bl	10001cbc <sleep_ms>
+1000039e:	61ae      	str	r6, [r5, #24]
+100003a0:	205a      	movs	r0, #90	; 0x5a
+100003a2:	f001 fc8b 	bl	10001cbc <sleep_ms>
+100003a6:	3401      	adds	r4, #1
+100003a8:	2c09      	cmp	r4, #9
+100003aa:	ddf1      	ble.n	10000390 <main+0x74>
+100003ac:	481e      	ldr	r0, [pc, #120]	; (10000428 <main+0x10c>)
 100003ae:	f001 fc85 	bl	10001cbc <sleep_ms>
-100003b2:	3401      	adds	r4, #1
-100003b4:	2c09      	cmp	r4, #9
-100003b6:	ddf1      	ble.n	1000039c <main+0x80>
-100003b8:	481c      	ldr	r0, [pc, #112]	; (1000042c <main+0x110>)
-100003ba:	f001 fc7f 	bl	10001cbc <sleep_ms>
+100003b2:	4b1e      	ldr	r3, [pc, #120]	; (1000042c <main+0x110>)
+100003b4:	2201      	movs	r2, #1
+100003b6:	2108      	movs	r1, #8
+100003b8:	2008      	movs	r0, #8
+100003ba:	f000 faab 	bl	10000914 <gpio_set_irq_enabled_with_callback>
 100003be:	a801      	add	r0, sp, #4
 100003c0:	f000 f9fd 	bl	100007be <enable_motor>
 100003c4:	2064      	movs	r0, #100	; 0x64
@@ -437,26 +437,26 @@ Disassembly of section .text:
 100003f4:	480f      	ldr	r0, [pc, #60]	; (10000434 <main+0x118>)
 100003f6:	f005 f849 	bl	1000548c <__wrap_printf>
 100003fa:	e7ec      	b.n	100003d6 <main+0xba>
-100003fc:	20fa      	movs	r0, #250	; 0xfa
-100003fe:	aa01      	add	r2, sp, #4
-10000400:	2100      	movs	r1, #0
-10000402:	01c0      	lsls	r0, r0, #7
-10000404:	f000 f872 	bl	100004ec <execute_steps>
-10000408:	25fa      	movs	r5, #250	; 0xfa
-1000040a:	00ad      	lsls	r5, r5, #2
-1000040c:	0028      	movs	r0, r5
-1000040e:	f001 fc55 	bl	10001cbc <sleep_ms>
-10000412:	20fa      	movs	r0, #250	; 0xfa
+100003fc:	26fa      	movs	r6, #250	; 0xfa
+100003fe:	01f6      	lsls	r6, r6, #7
+10000400:	aa01      	add	r2, sp, #4
+10000402:	2100      	movs	r1, #0
+10000404:	0030      	movs	r0, r6
+10000406:	f000 f871 	bl	100004ec <execute_steps>
+1000040a:	25fa      	movs	r5, #250	; 0xfa
+1000040c:	00ad      	lsls	r5, r5, #2
+1000040e:	0028      	movs	r0, r5
+10000410:	f001 fc54 	bl	10001cbc <sleep_ms>
 10000414:	aa01      	add	r2, sp, #4
 10000416:	2101      	movs	r1, #1
-10000418:	0200      	lsls	r0, r0, #8
+10000418:	0030      	movs	r0, r6
 1000041a:	f000 f867 	bl	100004ec <execute_steps>
 1000041e:	0028      	movs	r0, r5
 10000420:	f001 fc4c 	bl	10001cbc <sleep_ms>
 10000424:	3401      	adds	r4, #1
 10000426:	e7d1      	b.n	100003cc <main+0xb0>
-10000428:	10000305 	.word	0x10000305
-1000042c:	00001388 	.word	0x00001388
+10000428:	00000bb8 	.word	0x00000bb8
+1000042c:	10000305 	.word	0x10000305
 10000430:	20001328 	.word	0x20001328
 10000434:	10007be8 	.word	0x10007be8
 

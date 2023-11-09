@@ -13,7 +13,7 @@ set(CMAKE_CXX_STANDARD 17)
 pico_sdk_init()
 
 # Tell CMake where to find the executable source file
-add_executable(${PROJECT_NAME} 
+add_executable(${PROJECT_NAME}
     main.c
     stepper_motor.c
 )

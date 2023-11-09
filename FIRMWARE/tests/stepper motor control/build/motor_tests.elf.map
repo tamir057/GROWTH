@@ -1347,9 +1347,9 @@ Discarded input sections
  .debug_frame   0x00000000       0xa0 CMakeFiles/motor_tests.dir/ced4eaa08327413f0405a602206aac49/rp2040_usb_device_enumeration.c.obj
  .ARM.attributes
                 0x00000000       0x2c CMakeFiles/motor_tests.dir/ced4eaa08327413f0405a602206aac49/rp2040_usb_device_enumeration.c.obj
- .text          0x00000000        0x0 C:\Users\alree\AppData\Local\Temp\ccYOIK1D.o
- .data          0x00000000        0x0 C:\Users\alree\AppData\Local\Temp\ccYOIK1D.o
- .bss           0x00000000        0x0 C:\Users\alree\AppData\Local\Temp\ccYOIK1D.o
+ .text          0x00000000        0x0 C:\Users\alree\AppData\Local\Temp\cc885YAs.o
+ .data          0x00000000        0x0 C:\Users\alree\AppData\Local\Temp\cc885YAs.o
+ .bss           0x00000000        0x0 C:\Users\alree\AppData\Local\Temp\cc885YAs.o
  .data          0x00000000        0x0 c:/progra~1/raspberry pi/pico sdk v1.5.1/gcc-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp\libgcc.a(_dvmd_tls.o)
  .bss           0x00000000        0x0 c:/progra~1/raspberry pi/pico sdk v1.5.1/gcc-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp\libgcc.a(_dvmd_tls.o)
  .text          0x00000000        0x0 c:/progra~1/raspberry pi/pico sdk v1.5.1/gcc-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libg.a(lib_a-calloc.o)
@@ -1565,7 +1565,7 @@ LOAD c:/progra~1/raspberry pi/pico sdk v1.5.1/gcc-arm-none-eabi/bin/../lib/gcc/a
 .boot2          0x10000000      0x100
                 0x10000000                __boot2_start__ = .
  *(.boot2)
- .boot2         0x10000000      0x100 C:\Users\alree\AppData\Local\Temp\ccYOIK1D.o
+ .boot2         0x10000000      0x100 C:\Users\alree\AppData\Local\Temp\cc885YAs.o
                 0x10000100                __boot2_end__ = .
                 0x00000001                ASSERT (((__boot2_end__ - __boot2_start__) == 0x100), ERROR: Pico second stage bootloader must be 256 bytes in size)
 
@@ -3127,7 +3127,7 @@ LOAD CMakeFiles/motor_tests.dir/734ab788d52071b7ec936fd1cf9a593e/lib/tinyusb/src
 LOAD CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/tusb.c.obj
 LOAD CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
 LOAD CMakeFiles/motor_tests.dir/ced4eaa08327413f0405a602206aac49/rp2040_usb_device_enumeration.c.obj
-LOAD C:\Users\alree\AppData\Local\Temp\ccYOIK1D.o
+LOAD C:\Users\alree\AppData\Local\Temp\cc885YAs.o
 LOAD c:/progra~1/raspberry pi/pico sdk v1.5.1/gcc-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libstdc++.a
 LOAD c:/progra~1/raspberry pi/pico sdk v1.5.1/gcc-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libm.a
 START GROUP
@@ -3246,7 +3246,7 @@ LOAD linker stubs
  .ARM.attributes
                 0x000007ce       0x2c CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
  .ARM.attributes
-                0x000007fa       0x22 C:\Users\alree\AppData\Local\Temp\ccYOIK1D.o
+                0x000007fa       0x22 C:\Users\alree\AppData\Local\Temp\cc885YAs.o
  .ARM.attributes
                 0x0000081c       0x1e c:/progra~1/raspberry pi/pico sdk v1.5.1/gcc-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp\libgcc.a(_dvmd_tls.o)
  .ARM.attributes
@@ -3292,53 +3292,53 @@ LOAD linker stubs
  .comment       0x00000049       0x4a CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/tusb.c.obj
  .comment       0x00000049       0x4a CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
 
-.debug_info     0x00000000    0x2b334
- .debug_info    0x00000000      0xb20 CMakeFiles/motor_tests.dir/main.c.obj
- .debug_info    0x00000b20     0x11b1 CMakeFiles/motor_tests.dir/stepper_motor.c.obj
- .debug_info    0x00001cd1     0x187e CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj
- .debug_info    0x0000354f      0x1e3 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_platform/platform.c.obj
- .debug_info    0x00003732      0x6be CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj
- .debug_info    0x00003df0      0x58e CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
- .debug_info    0x0000437e     0x1c9e CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
- .debug_info    0x0000601c      0x1a4 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_sync/lock_core.c.obj
- .debug_info    0x000061c0     0x20d5 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_sync/mutex.c.obj
- .debug_info    0x00008295      0x2d1 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/common/pico_sync/critical_section.c.obj
- .debug_info    0x00008566     0x4068 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_time/time.c.obj
- .debug_info    0x0000c5ce     0x13f0 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
- .debug_info    0x0000d9be     0x123b CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_util/pheap.c.obj
- .debug_info    0x0000ebf9      0xfcf CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj
- .debug_info    0x0000fbc8      0x51b CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_pll/pll.c.obj
- .debug_info    0x000100e3      0x4ee CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj
- .debug_info    0x000105d1      0x1d8 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_xosc/xosc.c.obj
- .debug_info    0x000107a9     0x1053 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
- .debug_info    0x000117fc     0x1a5f CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
- .debug_info    0x0001325b       0x22 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.obj
- .debug_info    0x0001327d      0x27c CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj
- .debug_info    0x000134f9       0x22 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_divider/divider.S.obj
- .debug_info    0x0001351b       0x22 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
- .debug_info    0x0001353d      0x2d1 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_double/double_init_rom.c.obj
- .debug_info    0x0001380e     0x5586 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_double/double_math.c.obj
- .debug_info    0x00018d94       0x22 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
- .debug_info    0x00018db6       0x26 CMakeFiles/motor_tests.dir/734ab788d52071b7ec936fd1cf9a593e/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.obj
- .debug_info    0x00018ddc       0x22 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj
- .debug_info    0x00018dfe      0x2eb CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_float/float_init_rom.c.obj
- .debug_info    0x000190e9       0x22 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S.obj
- .debug_info    0x0001910b       0x22 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj
- .debug_info    0x0001912d       0x22 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.obj
- .debug_info    0x0001914f      0x2fb CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
- .debug_info    0x0001944a     0x1827 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
- .debug_info    0x0001ac71      0x79f CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
- .debug_info    0x0001b410     0x1b69 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
- .debug_info    0x0001cf79      0x5fc CMakeFiles/motor_tests.dir/734ab788d52071b7ec936fd1cf9a593e/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj
- .debug_info    0x0001d575      0x257 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_unique_id/unique_id.c.obj
- .debug_info    0x0001d7cc      0xf3a CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_flash/flash.c.obj
- .debug_info    0x0001e706     0x2080 CMakeFiles/motor_tests.dir/734ab788d52071b7ec936fd1cf9a593e/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
- .debug_info    0x00020786      0xfe4 CMakeFiles/motor_tests.dir/734ab788d52071b7ec936fd1cf9a593e/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
- .debug_info    0x0002176a     0x3c23 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
- .debug_info    0x0002538d      0x8be CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/device/usbd_control.c.obj
- .debug_info    0x00025c4b     0x19bd CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
- .debug_info    0x00027608     0x14db CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/tusb.c.obj
- .debug_info    0x00028ae3     0x2851 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
+.debug_info     0x00000000    0x2b332
+ .debug_info    0x00000000      0xb1e CMakeFiles/motor_tests.dir/main.c.obj
+ .debug_info    0x00000b1e     0x11b1 CMakeFiles/motor_tests.dir/stepper_motor.c.obj
+ .debug_info    0x00001ccf     0x187e CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj
+ .debug_info    0x0000354d      0x1e3 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_platform/platform.c.obj
+ .debug_info    0x00003730      0x6be CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj
+ .debug_info    0x00003dee      0x58e CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
+ .debug_info    0x0000437c     0x1c9e CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+ .debug_info    0x0000601a      0x1a4 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_sync/lock_core.c.obj
+ .debug_info    0x000061be     0x20d5 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_sync/mutex.c.obj
+ .debug_info    0x00008293      0x2d1 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/common/pico_sync/critical_section.c.obj
+ .debug_info    0x00008564     0x4068 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_time/time.c.obj
+ .debug_info    0x0000c5cc     0x13f0 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+ .debug_info    0x0000d9bc     0x123b CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_util/pheap.c.obj
+ .debug_info    0x0000ebf7      0xfcf CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj
+ .debug_info    0x0000fbc6      0x51b CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_pll/pll.c.obj
+ .debug_info    0x000100e1      0x4ee CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj
+ .debug_info    0x000105cf      0x1d8 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_xosc/xosc.c.obj
+ .debug_info    0x000107a7     0x1053 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+ .debug_info    0x000117fa     0x1a5f CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+ .debug_info    0x00013259       0x22 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.obj
+ .debug_info    0x0001327b      0x27c CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj
+ .debug_info    0x000134f7       0x22 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_divider/divider.S.obj
+ .debug_info    0x00013519       0x22 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+ .debug_info    0x0001353b      0x2d1 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_double/double_init_rom.c.obj
+ .debug_info    0x0001380c     0x5586 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_double/double_math.c.obj
+ .debug_info    0x00018d92       0x22 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+ .debug_info    0x00018db4       0x26 CMakeFiles/motor_tests.dir/734ab788d52071b7ec936fd1cf9a593e/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.obj
+ .debug_info    0x00018dda       0x22 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj
+ .debug_info    0x00018dfc      0x2eb CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_float/float_init_rom.c.obj
+ .debug_info    0x000190e7       0x22 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S.obj
+ .debug_info    0x00019109       0x22 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj
+ .debug_info    0x0001912b       0x22 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.obj
+ .debug_info    0x0001914d      0x2fb CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+ .debug_info    0x00019448     0x1827 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+ .debug_info    0x0001ac6f      0x79f CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
+ .debug_info    0x0001b40e     0x1b69 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
+ .debug_info    0x0001cf77      0x5fc CMakeFiles/motor_tests.dir/734ab788d52071b7ec936fd1cf9a593e/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj
+ .debug_info    0x0001d573      0x257 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_unique_id/unique_id.c.obj
+ .debug_info    0x0001d7ca      0xf3a CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_flash/flash.c.obj
+ .debug_info    0x0001e704     0x2080 CMakeFiles/motor_tests.dir/734ab788d52071b7ec936fd1cf9a593e/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
+ .debug_info    0x00020784      0xfe4 CMakeFiles/motor_tests.dir/734ab788d52071b7ec936fd1cf9a593e/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
+ .debug_info    0x00021768     0x3c23 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
+ .debug_info    0x0002538b      0x8be CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/device/usbd_control.c.obj
+ .debug_info    0x00025c49     0x19bd CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
+ .debug_info    0x00027606     0x14db CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/tusb.c.obj
+ .debug_info    0x00028ae1     0x2851 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
 
 .debug_abbrev   0x00000000     0x6df3
  .debug_abbrev  0x00000000      0x24e CMakeFiles/motor_tests.dir/main.c.obj
@@ -3614,98 +3614,98 @@ LOAD linker stubs
  .debug_line    0x000196db      0xc7f CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/tusb.c.obj
  .debug_line    0x0001a35a     0x15c5 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
 
-.debug_str      0x00000000     0x7784
- .debug_str     0x00000000      0x5e0 CMakeFiles/motor_tests.dir/main.c.obj
-                                0x65e (size before relaxing)
- .debug_str     0x000005e0      0x145 CMakeFiles/motor_tests.dir/stepper_motor.c.obj
+.debug_str      0x00000000     0x777f
+ .debug_str     0x00000000      0x5db CMakeFiles/motor_tests.dir/main.c.obj
+                                0x659 (size before relaxing)
+ .debug_str     0x000005db      0x145 CMakeFiles/motor_tests.dir/stepper_motor.c.obj
                                 0x60b (size before relaxing)
- .debug_str     0x00000725      0x5b2 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj
+ .debug_str     0x00000720      0x5b2 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj
                                 0xa75 (size before relaxing)
- .debug_str     0x00000cd7       0x9d CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_platform/platform.c.obj
+ .debug_str     0x00000cd2       0x9d CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_platform/platform.c.obj
                                 0x29c (size before relaxing)
- .debug_str     0x00000d74      0x1d8 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj
+ .debug_str     0x00000d6f      0x1d8 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj
                                 0x3e0 (size before relaxing)
- .debug_str     0x00000f4c      0x108 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
+ .debug_str     0x00000f47      0x108 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
                                 0x3c7 (size before relaxing)
- .debug_str     0x00001054      0x406 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+ .debug_str     0x0000104f      0x406 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
                                 0x845 (size before relaxing)
- .debug_str     0x0000145a       0x78 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_sync/lock_core.c.obj
+ .debug_str     0x00001455       0x78 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_sync/lock_core.c.obj
                                 0x27d (size before relaxing)
- .debug_str     0x000014d2      0x27b CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_sync/mutex.c.obj
+ .debug_str     0x000014cd      0x27b CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_sync/mutex.c.obj
                                 0x66f (size before relaxing)
- .debug_str     0x0000174d       0xe7 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/common/pico_sync/critical_section.c.obj
+ .debug_str     0x00001748       0xe7 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/common/pico_sync/critical_section.c.obj
                                 0x33d (size before relaxing)
- .debug_str     0x00001834      0x723 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_time/time.c.obj
+ .debug_str     0x0000182f      0x723 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_time/time.c.obj
                                 0xcd1 (size before relaxing)
- .debug_str     0x00001f57      0x167 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+ .debug_str     0x00001f52      0x167 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
                                 0x799 (size before relaxing)
- .debug_str     0x000020be      0x102 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_util/pheap.c.obj
+ .debug_str     0x000020b9      0x102 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_util/pheap.c.obj
                                 0x466 (size before relaxing)
- .debug_str     0x000021c0      0x346 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj
+ .debug_str     0x000021bb      0x346 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj
                                 0x736 (size before relaxing)
- .debug_str     0x00002506       0xdf CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_pll/pll.c.obj
+ .debug_str     0x00002501       0xdf CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_pll/pll.c.obj
                                 0x358 (size before relaxing)
- .debug_str     0x000025e5      0x13b CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj
+ .debug_str     0x000025e0      0x13b CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj
                                 0x39e (size before relaxing)
- .debug_str     0x00002720       0x87 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_xosc/xosc.c.obj
+ .debug_str     0x0000271b       0x87 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_xosc/xosc.c.obj
                                 0x29b (size before relaxing)
- .debug_str     0x000027a7      0x2f7 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+ .debug_str     0x000027a2      0x2f7 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
                                 0x85e (size before relaxing)
- .debug_str     0x00002a9e      0x229 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+ .debug_str     0x00002a99      0x229 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
                                 0x4fc (size before relaxing)
- .debug_str     0x00002cc7       0x71 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.obj
+ .debug_str     0x00002cc2       0x71 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.obj
                                  0xed (size before relaxing)
- .debug_str     0x00002d38       0xe0 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj
+ .debug_str     0x00002d33       0xe0 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj
                                 0x2d6 (size before relaxing)
- .debug_str     0x00002e18       0x5d CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_divider/divider.S.obj
+ .debug_str     0x00002e13       0x5d CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_divider/divider.S.obj
                                  0xe7 (size before relaxing)
- .debug_str     0x00002e75       0x61 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+ .debug_str     0x00002e70       0x61 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
                                  0xeb (size before relaxing)
- .debug_str     0x00002ed6       0xb9 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_double/double_init_rom.c.obj
+ .debug_str     0x00002ed1       0xb9 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_double/double_init_rom.c.obj
                                 0x315 (size before relaxing)
- .debug_str     0x00002f8f      0x2e4 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_double/double_math.c.obj
+ .debug_str     0x00002f8a      0x2e4 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_double/double_math.c.obj
                                 0x588 (size before relaxing)
- .debug_str     0x00003273       0x67 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+ .debug_str     0x0000326e       0x67 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
                                  0xf1 (size before relaxing)
- .debug_str     0x000032da       0x6c CMakeFiles/motor_tests.dir/734ab788d52071b7ec936fd1cf9a593e/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.obj
+ .debug_str     0x000032d5       0x6c CMakeFiles/motor_tests.dir/734ab788d52071b7ec936fd1cf9a593e/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.obj
                                  0xf6 (size before relaxing)
- .debug_str     0x00003346       0x5f CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj
+ .debug_str     0x00003341       0x5f CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj
                                  0xe9 (size before relaxing)
- .debug_str     0x000033a5       0x9d CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_float/float_init_rom.c.obj
+ .debug_str     0x000033a0       0x9d CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_float/float_init_rom.c.obj
                                 0x331 (size before relaxing)
- .debug_str     0x00003442       0x65 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S.obj
+ .debug_str     0x0000343d       0x65 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S.obj
                                  0xef (size before relaxing)
- .debug_str     0x000034a7       0x63 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj
+ .debug_str     0x000034a2       0x63 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj
                                  0xed (size before relaxing)
- .debug_str     0x0000350a       0x60 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.obj
+ .debug_str     0x00003505       0x60 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.obj
                                  0xea (size before relaxing)
- .debug_str     0x0000356a      0x260 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+ .debug_str     0x00003565      0x260 CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
                                 0x45e (size before relaxing)
- .debug_str     0x000037ca      0x4c8 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+ .debug_str     0x000037c5      0x4c8 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
                                 0xa34 (size before relaxing)
- .debug_str     0x00003c92      0x56a CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
+ .debug_str     0x00003c8d      0x56a CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
                                 0x7e2 (size before relaxing)
- .debug_str     0x000041fc      0x35d CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
+ .debug_str     0x000041f7      0x35d CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
                                 0xb68 (size before relaxing)
- .debug_str     0x00004559      0xafe CMakeFiles/motor_tests.dir/734ab788d52071b7ec936fd1cf9a593e/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj
+ .debug_str     0x00004554      0xafe CMakeFiles/motor_tests.dir/734ab788d52071b7ec936fd1cf9a593e/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj
                                 0xecd (size before relaxing)
- .debug_str     0x00005057       0xdc CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_unique_id/unique_id.c.obj
+ .debug_str     0x00005052       0xdc CMakeFiles/motor_tests.dir/ae783cfadb10a0055c655bcf0b179659/pico-sdk/src/rp2_common/pico_unique_id/unique_id.c.obj
                                 0x2ef (size before relaxing)
- .debug_str     0x00005133      0x32a CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_flash/flash.c.obj
+ .debug_str     0x0000512e      0x32a CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_flash/flash.c.obj
                                 0x672 (size before relaxing)
- .debug_str     0x0000545d      0xa37 CMakeFiles/motor_tests.dir/734ab788d52071b7ec936fd1cf9a593e/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
+ .debug_str     0x00005458      0xa37 CMakeFiles/motor_tests.dir/734ab788d52071b7ec936fd1cf9a593e/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
                                 0xf2c (size before relaxing)
- .debug_str     0x00005e94      0x161 CMakeFiles/motor_tests.dir/734ab788d52071b7ec936fd1cf9a593e/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
+ .debug_str     0x00005e8f      0x161 CMakeFiles/motor_tests.dir/734ab788d52071b7ec936fd1cf9a593e/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
                                 0x88d (size before relaxing)
- .debug_str     0x00005ff5      0x950 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
+ .debug_str     0x00005ff0      0x950 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
                                0x1753 (size before relaxing)
- .debug_str     0x00006945      0x107 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/device/usbd_control.c.obj
+ .debug_str     0x00006940      0x107 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/device/usbd_control.c.obj
                                 0x597 (size before relaxing)
- .debug_str     0x00006a4c      0x738 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
+ .debug_str     0x00006a47      0x738 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
                                0x1584 (size before relaxing)
- .debug_str     0x00007184      0x235 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/tusb.c.obj
+ .debug_str     0x0000717f      0x235 CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/tusb.c.obj
                                 0xb3d (size before relaxing)
- .debug_str     0x000073b9      0x3cb CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
+ .debug_str     0x000073b4      0x3cb CMakeFiles/motor_tests.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
                                 0x7bf (size before relaxing)
 
 .debug_frame    0x00000000     0x2e0c
