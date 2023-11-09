@@ -24,6 +24,9 @@ void init_motor(stepper_config* cfg, uint8_t en, uint8_t ustep) {
     gpio_put(cfg->M1_pin, (ustep>>1 & 0x01)?(true):(false));
     gpio_put(cfg->M2_pin, (ustep>>2 & 0x01)?(true):(false));
 
+    // initialize current position to zero
+    cfg->current_pos = 0;
+
 }
 
 void disable_motor(stepper_config* cfg) {
@@ -44,11 +47,16 @@ void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg, bool* kill,
     double delay_mag = (cfg->delay_max - cfg->delay_min) / 2.0;
     double delay_offset = (cfg->delay_max + cfg->delay_min) / 2.0;
     uint32_t delay;
+    int8_t pos_change;
 
     if (dir > 0) {
+        // left
         gpio_put(cfg->dir_pin, true);
+        pos_change = -1; // need to decide which end 0 will be, then correctly assign this
     } else {
+        // right
         gpio_put(cfg->dir_pin, false);
+        pos_change = 1;
     }
 
     enable_motor(cfg);
@@ -73,6 +81,7 @@ void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg, bool* kill,
             sleep_us(delay);
             gpio_put(cfg->step_pin, false);
             sleep_us(delay);
+            cfg->current_pos += pos_change;
         }
 
     } else {
@@ -90,6 +99,7 @@ void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg, bool* kill,
             sleep_us(delay);
             gpio_put(cfg->step_pin, false);
             sleep_us(delay);
+            cfg->current_pos += pos_change;
         }
 
         // constant velo. stage
@@ -104,6 +114,7 @@ void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg, bool* kill,
             sleep_us(delay);
             gpio_put(cfg->step_pin, false);
             sleep_us(delay);
+            cfg->current_pos += pos_change;
         }
 
         // deceleration stage
@@ -119,6 +130,7 @@ void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg, bool* kill,
             sleep_us(delay);
             gpio_put(cfg->step_pin, false);
             sleep_us(delay);
+            cfg->current_pos += pos_change;
         }
 
     }

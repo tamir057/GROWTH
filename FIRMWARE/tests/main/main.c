@@ -30,7 +30,8 @@ command_attributes valid_commands[] = {{MOVE_MOTOR_CMD, 3, false},
                                        {LIGHT_ON_CMD, 1, false},
                                        {LIGHT_OFF_CMD, 1, false},
                                        {LED_ON_CMD, 0, false},
-                                       {LED_OFF_CMD, 0, false}};
+                                       {LED_OFF_CMD, 0, false},
+                                       {RETURN_CURRENT_POS_CMD, 1, false}};
 
 command_queue_entry normal_priority_cmd[1];
 command_queue_entry immediate_priority_cmd[1];
@@ -149,6 +150,21 @@ void command_handler(command_queue_entry* cmd) {
         execute_steps(steps, dir, mtr, kill_motor, stop_motor);
 
     }
+    else if (strcmp(cmd->command, RETURN_CURRENT_POS_CMD) == 0){
+        // code for returning current position
+        stepper_config* mtr;
+        switch(cmd->args[0]){
+            case 0:
+            mtr = &x_axis_motor;
+            break;
+        case 1:
+            mtr = &z_axis_motor;
+            break;
+        default:
+            error_handler(0);
+        }
+        printf("Current position: %ld\n", mtr->current_pos);
+    }
 
     flags.command_running = false;
 
@@ -184,9 +200,9 @@ void core1_entry() {
                 printf("MESSAGE: %s\n\n", usb_rx_buf);
 
                 command_queue_entry tmp;
-                int8_t rtn = parse_command(usb_rx_buf, valid_commands, 10, &tmp);
+                int8_t rtn = parse_command(usb_rx_buf, valid_commands, 11, &tmp); // if adding new command, remember to change the len arg here
                 if (!flags.command_running && rtn == 0) {
-                    printf("%d parse return value\n", rtn);
+                    //printf("%d parse return value\n", rtn);
 
                     memcpy(normal_priority_cmd, &tmp, sizeof(command_queue_entry));
                     flags.read_command = true;
@@ -198,7 +214,7 @@ void core1_entry() {
                     if (strcmp(immediate_priority_cmd->command, STOP_MOTOR_CMD) == 0) {
 
                         if (immediate_priority_cmd->args[0] == 0) {
-                            printf("setting stop motor flag\n");
+                            //printf("setting stop motor flag\n");
                             flags.stop_x_motor = true;
                             // disable_motor(&x_axis_motor);
                         } else if (immediate_priority_cmd->args[0] == 1) {

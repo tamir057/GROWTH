@@ -76,9 +76,9 @@ int8_t parse_command(uint8_t* buf, command_attributes* command_list, uint8_t len
         }
     }
 
-    printf("command parse returning %d\n", priority);
+    //printf("command parse returning %d\n", priority);
     int8_t rtn = (int8_t) priority;
-    printf("command parse returning %d\n", priority);
+    //printf("command parse returning %d\n", priority);
 
     return rtn;
 }

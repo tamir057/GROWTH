@@ -15,6 +15,7 @@
 #define LIGHT_OFF_CMD       ("LIGHT_OFF")
 #define LED_ON_CMD          ("LED_IND_ON")
 #define LED_OFF_CMD         ("LED_IND_OFF")
+#define RETURN_CURRENT_POS_CMD  ("RETURN_POS")
 
 typedef struct {
 
