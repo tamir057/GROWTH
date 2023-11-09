@@ -1,9 +1,10 @@
 #include "serial_commands.h"
 
-uint8_t parse_command(uint8_t* buf, command_attributes* command_list, uint8_t len, command_queue_entry* queue) {
+int8_t parse_command(uint8_t* buf, command_attributes* command_list, uint8_t len, command_queue_entry* queue) {
 
     uint8_t command[32] = "";
     uint8_t arguments[64] = "";
+    bool priority = false;
 
     uint8_t* token = strtok(buf, ":");
     uint8_t ctr = 0;
@@ -27,12 +28,14 @@ uint8_t parse_command(uint8_t* buf, command_attributes* command_list, uint8_t le
 
     if (ctr != 1 && ctr != 2) {
         printf("%u parameters found, only 1 or 2 allowed\n\n", ctr);
-        return 1;
+        return -1;
     }
 
     for (uint8_t cmd=0; cmd<len; cmd++) {
 
         if (strcmp(command, command_list[cmd].command) == 0) {
+
+            priority = command_list[cmd].priority;
 
             strcpy((char*) queue->command, (char*) command);
 
@@ -52,7 +55,7 @@ uint8_t parse_command(uint8_t* buf, command_attributes* command_list, uint8_t le
                 
                 if (sscanf(arg_token, "%lu", &(queue->args[arg_ctr-1])) != 1) {
                     printf("Argument not a valid 32-bit unsigned integer\n\n");
-                    return 2;
+                    return -2;
                 };
 
                 arg_token = strtok(NULL, ",");
@@ -61,7 +64,7 @@ uint8_t parse_command(uint8_t* buf, command_attributes* command_list, uint8_t le
 
             if (arg_ctr != command_list[cmd].n_args) {
                 printf("Argument count does not match expected value\n\n");
-                return 3;
+                return -3;
             }
 
             break;
@@ -69,9 +72,13 @@ uint8_t parse_command(uint8_t* buf, command_attributes* command_list, uint8_t le
         } else if (cmd == len-1) {
 
             printf("Specified command not found in internal library\n\n");
-            return 4;
+            return -4;
         }
     }
 
-    return 0;
+    printf("command parse returning %d\n", priority);
+    int8_t rtn = (int8_t) priority;
+    printf("command parse returning %d\n", priority);
+
+    return rtn;
 }

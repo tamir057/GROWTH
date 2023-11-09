@@ -2,6 +2,7 @@
 #define STEPPER_MOTOR_H
 
 #include "pico/stdlib.h"
+#include "stdio.h"
 #include <math.h>
 
 /* THINGS TO ADD
@@ -68,9 +69,9 @@ typedef struct {
     
 } stepper_config;
 
-void init_motor(stepper_config* cfg, uint8_t en, uint8_t ustep);        // initialize motor GPIO pins and microstepping
-void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg);   // advance motor # steps in desired direction
-void disable_motor(stepper_config* cfg);                                // disable output to motor
-void enable_motor(stepper_config* cfg);                                 // enable output to motor
+void init_motor(stepper_config* cfg, uint8_t en, uint8_t ustep);                                // initialize motor GPIO pins and microstepping
+void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg, bool* kill, bool* stop);   // advance motor # steps in desired direction
+void disable_motor(stepper_config* cfg);                                                        // disable output to motor
+void enable_motor(stepper_config* cfg);                                                         // enable output to motor
 
 #endif

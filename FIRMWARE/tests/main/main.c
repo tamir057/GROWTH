@@ -21,18 +21,19 @@ spi_inst_t* spi_port = spi0;
 uint8_t usb_rx_buf[256];
 uint8_t usb_tx_buf[256];
 
-command_attributes valid_commands[] = {{MOVE_MOTOR_CMD, 3},
-                                       {STOP_MOTOR_CMD, 1},
-                                       {MOVE_CONT_CMD, 2},
-                                       {READ_SENSOR_CMD, 1},
-                                       {PUMP_ON_CMD, 1},
-                                       {PUMP_OFF_CMD, 1},
-                                       {LIGHT_ON_CMD, 1},
-                                       {LIGHT_OFF_CMD, 1},
-                                       {LED_ON_CMD, 0},
-                                       {LED_OFF_CMD, 0}};
+command_attributes valid_commands[] = {{MOVE_MOTOR_CMD, 3, false},
+                                       {STOP_MOTOR_CMD, 1, true},
+                                       {MOVE_CONT_CMD, 2, false},
+                                       {READ_SENSOR_CMD, 1, false},
+                                       {PUMP_ON_CMD, 1, false},
+                                       {PUMP_OFF_CMD, 1, false},
+                                       {LIGHT_ON_CMD, 1, false},
+                                       {LIGHT_OFF_CMD, 1, false},
+                                       {LED_ON_CMD, 0, false},
+                                       {LED_OFF_CMD, 0, false}};
 
-command_queue_entry command_queue[16];
+command_queue_entry normal_priority_cmd[1];
+command_queue_entry immediate_priority_cmd[1];
 
 stepper_config x_axis_motor = {X_MOTOR_STEP, X_MOTOR_DIR, X_MOTOR_M0, 
                                    X_MOTOR_M1, X_MOTOR_M2, X_MOTOR_EN,
@@ -49,7 +50,8 @@ struct flag_register {
     bool kill_z_motor;
     bool stop_x_motor;  // immediately stop motor (no calibration needed)
     bool stop_z_motor;
-} flags = {false, false, false, false, false};
+    bool command_running;
+} flags = {false, false, false, false, false, false};
 
 
 // error handler function
@@ -91,17 +93,10 @@ void limit_switch_triggered(uint gpio, uint32_t events) {
     return;
 }
 
-// multi-core interrupt handlers
-void core0_interrupt_handler() {
-
-}
-
-void core1_interrupt_handler() {
-
-}
-
 // command handler
 void command_handler(command_queue_entry* cmd) {
+
+    flags.command_running = true;
 
     if (strcmp(cmd->command, LED_ON_CMD) == 0) {;
         uint8_t reg_val = TCA9534_ReadReg(i2c_port, TCA9534_OUTPUT_REG);
@@ -122,13 +117,20 @@ void command_handler(command_queue_entry* cmd) {
     } else if (strcmp(cmd->command, MOVE_MOTOR_CMD) == 0) {
 
         stepper_config* mtr;
+        bool* kill_motor;
+        bool* stop_motor;
+
         switch(cmd->args[0]) {
         case 0:
             mtr = &x_axis_motor;
+            kill_motor = &flags.kill_x_motor;
+            stop_motor = &flags.stop_x_motor;
             break;
 
         case 1:
             mtr = &z_axis_motor;
+            kill_motor = &flags.kill_z_motor;
+            stop_motor = &flags.stop_z_motor;
             break;
 
         default:
@@ -144,11 +146,24 @@ void command_handler(command_queue_entry* cmd) {
 
         printf("Args: %lu\n", steps);
 
-        execute_steps(steps, dir, mtr);
+        execute_steps(steps, dir, mtr, kill_motor, stop_motor);
 
     }
 
+    flags.command_running = false;
+
 }
+
+// multi-core interrupt handlers
+// void core0_interrupt_handler() {
+
+//     // handle all immediate priority instructions
+
+// }
+
+// void core1_interrupt_handler() {
+
+// }
 
 // core1 main code
 void core1_entry() {
@@ -168,8 +183,29 @@ void core1_entry() {
                 printf("MESSAGE OF SIZE (%i) BYTES RECEIVED\n", counter);
                 printf("MESSAGE: %s\n\n", usb_rx_buf);
 
-                if (parse_command(usb_rx_buf, valid_commands, 10, command_queue) == 0) {
+                command_queue_entry tmp;
+                int8_t rtn = parse_command(usb_rx_buf, valid_commands, 10, &tmp);
+                if (!flags.command_running && rtn == 0) {
+                    printf("%d parse return value\n", rtn);
+
+                    memcpy(normal_priority_cmd, &tmp, sizeof(command_queue_entry));
                     flags.read_command = true;
+
+                } else if (rtn == 1) {
+
+                    memcpy(immediate_priority_cmd, &tmp, sizeof(command_queue_entry));
+
+                    if (strcmp(immediate_priority_cmd->command, STOP_MOTOR_CMD) == 0) {
+
+                        if (immediate_priority_cmd->args[0] == 0) {
+                            printf("setting stop motor flag\n");
+                            flags.stop_x_motor = true;
+                            // disable_motor(&x_axis_motor);
+                        } else if (immediate_priority_cmd->args[0] == 1) {
+                            flags.stop_z_motor = true;
+                            // disable_motor(&z_axis_motor);
+                        }
+                    }
                 }
 
                 counter = 0;
@@ -240,9 +276,14 @@ int main() {
 
     // enable interrupts
     gpio_set_irq_enabled_with_callback(GPIO1, GPIO_IRQ_EDGE_RISE, true, &limit_switch_triggered);
-    gpio_set_irq_enabled_with_callback(GPIO2, GPIO_IRQ_EDGE_RISE, true, &limit_switch_triggered);    
+    gpio_set_irq_enabled_with_callback(GPIO2, GPIO_IRQ_EDGE_RISE, true, &limit_switch_triggered);
     gpio_set_irq_enabled_with_callback(GPIO3, GPIO_IRQ_EDGE_RISE, true, &limit_switch_triggered);
     gpio_set_irq_enabled_with_callback(GPIO4, GPIO_IRQ_EDGE_RISE, true, &limit_switch_triggered);
+
+    // Configure Core 1 Interrupt
+    // multicore_fifo_clear_irq();
+    // irq_set_exclusive_handler(SIO_IRQ_PROC0, core0_interrupt_handler);
+    // irq_set_enabled(SIO_IRQ_PROC0, true);
 
     // blink MCU LED to indicate that MCU is starting up
     for (int i=0; i<10; i++) {
@@ -266,7 +307,7 @@ int main() {
     while(1) {
 
         if (flags.read_command) {
-            command_handler(&command_queue[0]);
+            command_handler(normal_priority_cmd);
             flags.read_command = false;
         }
 

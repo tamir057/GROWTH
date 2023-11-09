@@ -36,7 +36,10 @@ void enable_motor(stepper_config* cfg) {
 
 // advance the motor in the desired direction by the specified number of steps
 // if microstepping is used, it will take more steps to rotate the same number of revolutions
-void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg) {
+void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg, bool* kill, bool* stop) {
+
+    *kill = false;
+    *stop = false;
 
     double delay_mag = (cfg->delay_max - cfg->delay_min) / 2.0;
     double delay_offset = (cfg->delay_max + cfg->delay_min) / 2.0;
@@ -59,6 +62,11 @@ void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg) {
         double new_offset = (cfg->delay_max + new_ampl_min) / 2.0;
 
         for (uint32_t S=0; S<steps; S++) {
+
+            if (*stop || *kill) {
+                break;
+            }
+
             delay = (uint32_t) (new_mag * cos(2 * M_PI * (double) S / (double) steps) + new_offset) / 2;
 
             gpio_put(cfg->step_pin, true);
@@ -71,6 +79,11 @@ void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg) {
 
         // acceleration stage
         for (uint32_t A=0; A<cfg->s_accel; A++) {
+
+            if (*stop || *kill) {
+                break;
+            }
+
             delay = (uint32_t) ((delay_mag * cos(M_PI * ((double) A) / ((double) cfg->s_accel)) + delay_offset) / 2);
 
             gpio_put(cfg->step_pin, true);
@@ -82,6 +95,11 @@ void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg) {
         // constant velo. stage
         delay = cfg->delay_min / 2;
         for (uint32_t K=0; K<(steps - (cfg->s_accel + cfg->s_decel)); K++) {
+
+            if (*stop || *kill) {
+                break;
+            }
+
             gpio_put(cfg->step_pin, true);
             sleep_us(delay);
             gpio_put(cfg->step_pin, false);
@@ -90,6 +108,11 @@ void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg) {
 
         // deceleration stage
         for (uint32_t D=0; D<cfg->s_decel; D++) {
+
+            if (*stop || *kill) {
+                break;
+            }
+
             delay = (uint32_t) ((delay_mag * cos(M_PI * ((double) (D + cfg->s_decel)) / ((double) cfg->s_decel)) + delay_offset) / 2);
 
             gpio_put(cfg->step_pin, true);
@@ -99,6 +122,9 @@ void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg) {
         }
 
     }
+
+    *stop = false;
+    *kill = false;
 
     sleep_ms(100);
     disable_motor(cfg);

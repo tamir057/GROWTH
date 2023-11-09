@@ -20,6 +20,7 @@ typedef struct {
 
     const uint8_t command[32];
     uint8_t n_args;
+    bool priority;
 
 } command_attributes;
 
@@ -30,6 +31,6 @@ typedef struct {
 
 } command_queue_entry;
 
-uint8_t parse_command(uint8_t* buf, command_attributes* command_list, uint8_t len, command_queue_entry* queue);
+int8_t parse_command(uint8_t* buf, command_attributes* command_list, uint8_t len, command_queue_entry* queue);
 
 #endif
