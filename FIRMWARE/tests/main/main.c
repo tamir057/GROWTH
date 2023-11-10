@@ -80,6 +80,8 @@ void limit_switch_triggered(uint gpio, uint32_t events) {
     } else if (gpio == GPIO2) {
         disable_motor(&x_axis_motor);
         flags.kill_x_motor = true;
+        // set current position to 0
+        //x_axis_motor.current_pos = 0;
         printf("RIGHT LIMIT SWITCH TRIGGERED\n");
     } else if (gpio == GPIO3) {
         disable_motor(&z_axis_motor);
@@ -121,17 +123,35 @@ void command_handler(command_queue_entry* cmd) {
         bool* kill_motor;
         bool* stop_motor;
 
+        bool against_switch = false;
+
         switch(cmd->args[0]) {
         case 0:
             mtr = &x_axis_motor;
             kill_motor = &flags.kill_x_motor;
             stop_motor = &flags.stop_x_motor;
+            if (gpio_get(GPIO1) == 1 && cmd->args[1] == 0) {
+                printf("X axis against left limit switch. Not moving\n");
+                against_switch = true;
+            }
+            else if (gpio_get(GPIO2) == 1 && cmd->args[1] == 1) {
+                printf("X axis against right limit switch. Not moving\n");
+                against_switch = true;
+            }
             break;
 
         case 1:
             mtr = &z_axis_motor;
             kill_motor = &flags.kill_z_motor;
             stop_motor = &flags.stop_z_motor;
+            if (gpio_get(GPIO3) == 1 && cmd->args[1] == 0) {
+                printf("Z axis against top limit switch. Not moving\n");
+                against_switch = true;
+            }
+            else if (gpio_get(GPIO4) == 1 && cmd->args[1] == 1) {
+                printf("Z axis against bottom limit switch. Not moving\n");
+                against_switch = true;
+            }
             break;
 
         default:
@@ -147,8 +167,10 @@ void command_handler(command_queue_entry* cmd) {
 
         printf("Args: %lu\n", steps);
 
-        execute_steps(steps, dir, mtr, kill_motor, stop_motor);
 
+        if (!against_switch) {
+            execute_steps(steps, dir, mtr, kill_motor, stop_motor);
+        }
     }
     else if (strcmp(cmd->command, RETURN_CURRENT_POS_CMD) == 0){
         // code for returning current position
