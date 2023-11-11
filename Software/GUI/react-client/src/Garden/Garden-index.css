@@ -12,6 +12,11 @@
     width: 200px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
   }
+
+  .fullHeightDiv {
+    height: 100%;
+    background-color: #f0f0f0; /* Optional: Set a background color for visibility */
+  }
   
   /* .popup-overlay {
     background: rgba(0, 0, 0, 0.5);
