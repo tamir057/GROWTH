@@ -17,9 +17,11 @@ function Garden() {
   const closeAddPopup = () => {
       setIsAddPopupOpen(false);
   };
+
+  
   return (
     <div>
-      <div className="nav-padding bg-grey-c wide row">
+      <div className="nav-padding bg-grey-c wide row fullHeightDiv">
         <div className="col-11 bg-secondary-green container mt-4 wide round-10">
           <div className="row">
             <div className="col-6">
