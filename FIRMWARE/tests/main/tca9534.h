@@ -4,13 +4,15 @@
 #include "pico/stdlib.h"
 #include "hardware/i2c.h"
 
+// MACROS
+// useful for updating output register
+
 #define SET_BIT(pos, reg) (reg |= (1 << pos))
 #define CLR_BIT(pos, reg) (reg &= ~(1 << pos))
 
 // DEFINES
-
 // device I2C parameters
-#define TCA9534_ADDR			((uint8_t) 0x20)	    // need to left shift - bit 0 is for R/W
+#define TCA9534_ADDR			((uint8_t) 0x20)
 #define TCA9534_GOOD			(1)
 
 // IO states

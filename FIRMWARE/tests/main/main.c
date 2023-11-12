@@ -11,8 +11,8 @@
 #include "tca9534.h"
 
 // defines
-#define SPI_BIT_RATE 1000000
-#define I2C_BIT_RATE 100000
+#define SPI_BIT_RATE 1000000    // SPI clock speed
+#define I2C_BIT_RATE 100000     // I2C clock speed
 
 // global variables
 i2c_inst_t* i2c_port = i2c0;
@@ -21,6 +21,7 @@ spi_inst_t* spi_port = spi0;
 uint8_t usb_rx_buf[256];
 uint8_t usb_tx_buf[256];
 
+// list of all supported serial commands (including number of arguments and priority level)
 command_attributes valid_commands[] = {{MOVE_MOTOR_CMD, 3, false},
                                        {STOP_MOTOR_CMD, 1, true},
                                        {MOVE_CONT_CMD, 2, false},
@@ -30,10 +31,11 @@ command_attributes valid_commands[] = {{MOVE_MOTOR_CMD, 3, false},
                                        {LIGHT_ON_CMD, 1, false},
                                        {LIGHT_OFF_CMD, 1, false},
                                        {LED_ON_CMD, 0, false},
-                                       {LED_OFF_CMD, 0, false}};
+                                       {LED_OFF_CMD, 0, false},
+                                       {RETURN_CURRENT_POS_CMD, 1, false}};
 
-command_queue_entry normal_priority_cmd[1];
-command_queue_entry immediate_priority_cmd[1];
+command_queue_entry normal_priority_cmd[1];     // buffer stores one command that executes when the current has finished
+command_queue_entry immediate_priority_cmd[1];  // buffer stores one command that executes immediately
 
 stepper_config x_axis_motor = {X_MOTOR_STEP, X_MOTOR_DIR, X_MOTOR_M0, 
                                    X_MOTOR_M1, X_MOTOR_M2, X_MOTOR_EN,
@@ -52,7 +54,6 @@ struct flag_register {
     bool stop_z_motor;
     bool command_running;
 } flags = {false, false, false, false, false, false};
-
 
 // error handler function
 void error_handler(uint32_t error_code) {
@@ -76,14 +77,17 @@ void limit_switch_triggered(uint gpio, uint32_t events) {
         disable_motor(&x_axis_motor);
         flags.kill_x_motor = true;
         printf("LEFT LIMIT SWITCH TRIGGERED\n");
+
     } else if (gpio == GPIO2) {
         disable_motor(&x_axis_motor);
         flags.kill_x_motor = true;
         printf("RIGHT LIMIT SWITCH TRIGGERED\n");
+
     } else if (gpio == GPIO3) {
         disable_motor(&z_axis_motor);
         flags.kill_z_motor = true;
         printf("TOP LIMIT SWITCH TRIGGERED\n");
+
     } else if (gpio == GPIO4) {
         disable_motor(&z_axis_motor);
         flags.kill_z_motor = true;
@@ -96,7 +100,7 @@ void limit_switch_triggered(uint gpio, uint32_t events) {
 // command handler
 void command_handler(command_queue_entry* cmd) {
 
-    flags.command_running = true;
+    flags.command_running = true; // parse_command() will not read low priority commands while this is set
 
     if (strcmp(cmd->command, LED_ON_CMD) == 0) {;
         uint8_t reg_val = TCA9534_ReadReg(i2c_port, TCA9534_OUTPUT_REG);
@@ -143,27 +147,47 @@ void command_handler(command_queue_entry* cmd) {
         }
 
         uint32_t steps = cmd->args[2];
-
-        printf("Args: %lu\n", steps);
-
         execute_steps(steps, dir, mtr, kill_motor, stop_motor);
 
+    } else if (strcmp(cmd->command, RETURN_CURRENT_POS_CMD) == 0) {
+
+        // code for returning current position
+        stepper_config* mtr;
+        switch(cmd->args[0]) {
+        case 0:
+            mtr = &x_axis_motor;
+            break;
+        case 1:
+            mtr = &z_axis_motor;
+            break;
+        default:
+            error_handler(0);
+        }
+
+        printf("Current position: %ld\n", mtr->current_pos);
+
+    } else if (strcmp(cmd->command, READ_SENSOR_CMD) == 0) {
+
+        double sensor_val;
+
+        switch(cmd->args[0]) {
+        case 0:
+            // read temperature sensor
+            break;
+        case 1:
+            sensor_val = ADC122S021_GetVoltage(spi_port, ADC_CS, 0);
+            break;
+        case 2:
+            sensor_val = ADC122S021_GetVoltage(spi_port, ADC_CS, 1);
+            break;
+        default:
+            break;
+        }
     }
 
-    flags.command_running = false;
+    flags.command_running = false; // allows parse_command() to read new low priority commands
 
 }
-
-// multi-core interrupt handlers
-// void core0_interrupt_handler() {
-
-//     // handle all immediate priority instructions
-
-// }
-
-// void core1_interrupt_handler() {
-
-// }
 
 // core1 main code
 void core1_entry() {
@@ -184,9 +208,8 @@ void core1_entry() {
                 printf("MESSAGE: %s\n\n", usb_rx_buf);
 
                 command_queue_entry tmp;
-                int8_t rtn = parse_command(usb_rx_buf, valid_commands, 10, &tmp);
+                int8_t rtn = parse_command(usb_rx_buf, valid_commands, 11, &tmp); // if adding new command, remember to change the len arg here
                 if (!flags.command_running && rtn == 0) {
-                    printf("%d parse return value\n", rtn);
 
                     memcpy(normal_priority_cmd, &tmp, sizeof(command_queue_entry));
                     flags.read_command = true;
@@ -198,12 +221,9 @@ void core1_entry() {
                     if (strcmp(immediate_priority_cmd->command, STOP_MOTOR_CMD) == 0) {
 
                         if (immediate_priority_cmd->args[0] == 0) {
-                            printf("setting stop motor flag\n");
                             flags.stop_x_motor = true;
-                            // disable_motor(&x_axis_motor);
                         } else if (immediate_priority_cmd->args[0] == 1) {
                             flags.stop_z_motor = true;
-                            // disable_motor(&z_axis_motor);
                         }
                     }
                 }
@@ -280,11 +300,6 @@ int main() {
     gpio_set_irq_enabled_with_callback(GPIO3, GPIO_IRQ_EDGE_RISE, true, &limit_switch_triggered);
     gpio_set_irq_enabled_with_callback(GPIO4, GPIO_IRQ_EDGE_RISE, true, &limit_switch_triggered);
 
-    // Configure Core 1 Interrupt
-    // multicore_fifo_clear_irq();
-    // irq_set_exclusive_handler(SIO_IRQ_PROC0, core0_interrupt_handler);
-    // irq_set_enabled(SIO_IRQ_PROC0, true);
-
     // blink MCU LED to indicate that MCU is starting up
     for (int i=0; i<10; i++) {
         gpio_put(MCU_LED, true);
@@ -306,19 +321,11 @@ int main() {
     // main core0 loop
     while(1) {
 
+        // execute a command (when permitted to)
         if (flags.read_command) {
             command_handler(normal_priority_cmd);
             flags.read_command = false;
         }
-
-        // check command queue
-
-        // execute a command
-
-        // remove command from queue
-
-        // check flags
-
 
     }
 

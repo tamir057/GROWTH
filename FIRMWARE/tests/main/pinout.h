@@ -12,7 +12,6 @@
 #define ADC_CS              ((const uint) 5)
 
 // GPIO Pin Definitions/Functionality
-
 #define MCU_LED             ((const uint) 6)
 
 #define Z_MOTOR_EN          ((const uint) 29)

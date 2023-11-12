@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 
+// defines command strings
 #define MOVE_MOTOR_CMD      ("MOVE_MOTOR_STEPS")
 #define STOP_MOTOR_CMD      ("STOP_MOTOR")
 #define MOVE_CONT_CMD       ("MOVE_MOTOR_CONT")
@@ -15,7 +16,9 @@
 #define LIGHT_OFF_CMD       ("LIGHT_OFF")
 #define LED_ON_CMD          ("LED_IND_ON")
 #define LED_OFF_CMD         ("LED_IND_OFF")
+#define RETURN_CURRENT_POS_CMD  ("RETURN_POS")
 
+// command_attributes lists info used by parse_command()
 typedef struct {
 
     const uint8_t command[32];
@@ -24,6 +27,7 @@ typedef struct {
 
 } command_attributes;
 
+// command_queue_entry stores a valid command that will be executed
 typedef struct {
 
     const uint8_t command[32];

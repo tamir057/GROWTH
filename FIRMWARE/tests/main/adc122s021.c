@@ -1,5 +1,11 @@
 #include "adc122s021.h"
 
+// read 12-bit ADC value from the ADC122S021
+/* ARGS
+    spi     -> SPI port
+    cs      -> chip select pin
+    channel -> ADC channel to read from (0 or 1)
+*/
 uint16_t ADC122S021_ReadADC(spi_inst_t* spi, const uint cs, bool channel) {
 
     uint8_t ctrl_reg_val[2] = {(uint8_t) ((channel ^ 0x01) << 3), 0};
@@ -15,6 +21,12 @@ uint16_t ADC122S021_ReadADC(spi_inst_t* spi, const uint cs, bool channel) {
     return adc_reading;
 }
 
+// returns ADC value as a voltage (assuming 3.3V reference)
+/* ARGS
+    spi     -> SPI port
+    cs      -> chip select pin
+    channel -> ADC channel to read from (0 or 1)
+*/
 double ADC122S021_GetVoltage(spi_inst_t* spi, const uint cs, bool channel) {
 
     double volts = 3.300 * ((double) ADC122S021_ReadADC(spi, cs, channel)) / (double) 4095;
