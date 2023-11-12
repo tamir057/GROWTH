@@ -32,6 +32,7 @@ command_attributes valid_commands[] = {{MOVE_MOTOR_CMD, 3, false},
                                        {LIGHT_OFF_CMD, 1, false},
                                        {LED_ON_CMD, 0, false},
                                        {LED_OFF_CMD, 0, false},
+                                       {RETURN_CURRENT_POS_CMD, 1, false},
                                        {RETURN_CURRENT_POS_CMD, 1, false}};
 
 command_queue_entry normal_priority_cmd[1];     // buffer stores one command that executes when the current has finished
@@ -124,17 +125,37 @@ void command_handler(command_queue_entry* cmd) {
         bool* kill_motor;
         bool* stop_motor;
 
+        bool against_switch = false;
+
         switch(cmd->args[0]) {
         case 0:
             mtr = &x_axis_motor;
             kill_motor = &flags.kill_x_motor;
             stop_motor = &flags.stop_x_motor;
+
+            if (gpio_get(GPIO1) == 1 && cmd->args[1] == 0) {
+                printf("X axis against left limit switch. Not moving\n");
+                against_switch = true;
+            } else if (gpio_get(GPIO2) == 1 && cmd->args[1] == 1) {
+                printf("X axis against right limit switch. Not moving\n");
+                against_switch = true;
+            }
+            
             break;
 
         case 1:
             mtr = &z_axis_motor;
             kill_motor = &flags.kill_z_motor;
             stop_motor = &flags.stop_z_motor;
+
+            if (gpio_get(GPIO3) == 1 && cmd->args[1] == 0) {
+                printf("Z axis against top limit switch. Not moving\n");
+                against_switch = true;
+            } else if (gpio_get(GPIO4) == 1 && cmd->args[1] == 1) {
+                printf("Z axis against bottom limit switch. Not moving\n");
+                against_switch = true;
+            }
+
             break;
 
         default:
@@ -147,14 +168,19 @@ void command_handler(command_queue_entry* cmd) {
         }
 
         uint32_t steps = cmd->args[2];
-        execute_steps(steps, dir, mtr, kill_motor, stop_motor);
 
-    } else if (strcmp(cmd->command, RETURN_CURRENT_POS_CMD) == 0) {
+        printf("Args: %lu\n", steps);
 
+
+        if (!against_switch) {
+            execute_steps(steps, dir, mtr, kill_motor, stop_motor);
+        }
+    }
+    else if (strcmp(cmd->command, RETURN_CURRENT_POS_CMD) == 0){
         // code for returning current position
         stepper_config* mtr;
-        switch(cmd->args[0]) {
-        case 0:
+        switch(cmd->args[0]){
+            case 0:
             mtr = &x_axis_motor;
             break;
         case 1:
@@ -163,31 +189,23 @@ void command_handler(command_queue_entry* cmd) {
         default:
             error_handler(0);
         }
-
         printf("Current position: %ld\n", mtr->current_pos);
-
-    } else if (strcmp(cmd->command, READ_SENSOR_CMD) == 0) {
-
-        double sensor_val;
-
-        switch(cmd->args[0]) {
-        case 0:
-            // read temperature sensor
-            break;
-        case 1:
-            sensor_val = ADC122S021_GetVoltage(spi_port, ADC_CS, 0);
-            break;
-        case 2:
-            sensor_val = ADC122S021_GetVoltage(spi_port, ADC_CS, 1);
-            break;
-        default:
-            break;
-        }
     }
 
-    flags.command_running = false; // allows parse_command() to read new low priority commands
+    flags.command_running = false;
 
 }
+
+// multi-core interrupt handlers
+// void core0_interrupt_handler() {
+
+//     // handle all immediate priority instructions
+
+// }
+
+// void core1_interrupt_handler() {
+
+// }
 
 // core1 main code
 void core1_entry() {

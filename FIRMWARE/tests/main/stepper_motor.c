@@ -53,7 +53,11 @@ void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg, bool* kill,
     if (dir > 0) {
         // left
         gpio_put(cfg->dir_pin, true);
+<<<<<<< HEAD
         pos_change = -1; // ** need to decide which end 0 will be, then correctly assign this
+=======
+        pos_change = -1; // need to decide which end 0 will be, then correctly assign this
+>>>>>>> 6b68e8548c9ce7647cc660b661a9e9415beb3a06
     } else {
         // right
         gpio_put(cfg->dir_pin, false);
@@ -109,7 +113,10 @@ void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg, bool* kill,
             sleep_us(delay);
             gpio_put(cfg->step_pin, false);
             sleep_us(delay);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6b68e8548c9ce7647cc660b661a9e9415beb3a06
             cfg->current_pos += pos_change;
         }
 
@@ -126,7 +133,10 @@ void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg, bool* kill,
             sleep_us(delay);
             gpio_put(cfg->step_pin, false);
             sleep_us(delay);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6b68e8548c9ce7647cc660b661a9e9415beb3a06
             cfg->current_pos += pos_change;
         }
 
@@ -145,7 +155,10 @@ void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg, bool* kill,
             sleep_us(delay);
             gpio_put(cfg->step_pin, false);
             sleep_us(delay);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6b68e8548c9ce7647cc660b661a9e9415beb3a06
             cfg->current_pos += pos_change;
         }
 
