@@ -31,7 +31,7 @@ void writeBit(uint8_t pin, int b)
     sleep_us(delay2);
 }
 
-void WriteByte(uint8_t pin, int byte)
+void writeByte(uint8_t pin, int byte)
 {
     for (int i = 0; i < 8; i++)
     {
