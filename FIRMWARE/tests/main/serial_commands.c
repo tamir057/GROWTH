@@ -101,13 +101,7 @@ int8_t parse_command(uint8_t* buf, command_attributes* command_list, uint8_t len
         }
     }
 
-<<<<<<< HEAD
     // if reached here, command parse success -> return priority level
-=======
-    //printf("command parse returning %d\n", priority);
-    int8_t rtn = (int8_t) priority;
-    //printf("command parse returning %d\n", priority);
->>>>>>> 6b68e8548c9ce7647cc660b661a9e9415beb3a06
 
     int8_t rtn = (int8_t) priority;
     return rtn;
