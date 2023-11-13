@@ -19,6 +19,7 @@ add_executable(${PROJECT_NAME}
     stepper_motor.c
     tca9534.c
     adc122s021.c
+    ds18b20.c
 )
 
 # Create map/bin/hex/uf2 files

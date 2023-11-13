@@ -11,6 +11,9 @@
 #define SPI_MISO            ((const uint) 4)
 #define ADC_CS              ((const uint) 5)
 
+// DS18B20 Pin Definitions
+#define DS18B20_PIN         ((const uint) 7)
+
 // GPIO Pin Definitions/Functionality
 #define MCU_LED             ((const uint) 6)
 

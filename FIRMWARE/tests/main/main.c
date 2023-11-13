@@ -9,6 +9,7 @@
 #include "serial_commands.h"
 #include "stepper_motor.h"
 #include "tca9534.h"
+#include "ds18b20.h"
 
 // defines
 #define SPI_BIT_RATE 1000000    // SPI clock speed
@@ -190,6 +191,37 @@ void command_handler(command_queue_entry* cmd) {
             error_handler(0);
         }
         printf("Current position: %ld\n", mtr->current_pos);
+    }
+    else if (strcmp(cmd->command, READ_SENSOR_CMD) == 0){
+        double sensor_value;
+        switch(cmd->args[0]){
+            case 0:
+                // read from temp sensor
+                sensor_value = DS18B20_getTemperature(DS18B20_PIN) ;
+                if (sensor_value > -1000)
+                {
+                    // if no error, take the value
+                    break;
+                }
+                else{
+                    // if there was an error, try again
+                    sensor_value = DS18B20_getTemperature(DS18B20_PIN);
+                    // determine what to do if there is still an error
+                }
+            
+                break;
+            case 1:
+                // read from pH sensor
+                sensor_value = ADC122S021_GetVoltage(spi_port, ADC_CS, 0); // channel 0 is pH sensor
+                break;
+            case 2:
+                // read from conductivity sensor
+                sensor_value = ADC122S021_GetVoltage(spi_port, ADC_CS, 1); // channel 1 is conductivity sensor
+                break;
+            default:
+                error_handler(0);
+        }
+        printf("Sensor value: %f\n", sensor_value);
     }
 
     flags.command_running = false;
