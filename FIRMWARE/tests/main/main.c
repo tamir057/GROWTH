@@ -34,7 +34,7 @@ command_attributes valid_commands[] = {{MOVE_MOTOR_CMD, 3, false},
                                        {LED_ON_CMD, 0, false},
                                        {LED_OFF_CMD, 0, false},
                                        {RETURN_CURRENT_POS_CMD, 1, false},
-                                       {RETURN_CURRENT_POS_CMD, 1, false}};
+                                       {ZERO_POS_CMD, 1, false}};
 
 command_queue_entry normal_priority_cmd[1];     // buffer stores one command that executes when the current has finished
 command_queue_entry immediate_priority_cmd[1];  // buffer stores one command that executes immediately
@@ -176,12 +176,11 @@ void command_handler(command_queue_entry* cmd) {
         if (!against_switch) {
             execute_steps(steps, dir, mtr, kill_motor, stop_motor);
         }
-    }
-    else if (strcmp(cmd->command, RETURN_CURRENT_POS_CMD) == 0){
+    } else if (strcmp(cmd->command, RETURN_CURRENT_POS_CMD) == 0){
         // code for returning current position
         stepper_config* mtr;
         switch(cmd->args[0]){
-            case 0:
+        case 0:
             mtr = &x_axis_motor;
             break;
         case 1:
@@ -191,37 +190,50 @@ void command_handler(command_queue_entry* cmd) {
             error_handler(0);
         }
         printf("Current position: %ld\n", mtr->current_pos);
-    }
-    else if (strcmp(cmd->command, READ_SENSOR_CMD) == 0){
+    } else if (strcmp(cmd->command, READ_SENSOR_CMD) == 0){
         double sensor_value;
         switch(cmd->args[0]){
-            case 0:
-                // read from temp sensor
-                sensor_value = DS18B20_getTemperature(DS18B20_PIN) ;
-                if (sensor_value > -1000)
-                {
-                    // if no error, take the value
-                    break;
-                }
-                else{
-                    // if there was an error, try again
-                    sensor_value = DS18B20_getTemperature(DS18B20_PIN);
-                    // determine what to do if there is still an error
-                }
-            
+        case 0:
+            // read from temp sensor
+            sensor_value = DS18B20_getTemperature(DS18B20_PIN) ;
+            if (sensor_value > -1000)
+            {
+                // if no error, take the value
                 break;
-            case 1:
-                // read from pH sensor
-                sensor_value = ADC122S021_GetVoltage(spi_port, ADC_CS, 0); // channel 0 is pH sensor
-                break;
-            case 2:
-                // read from conductivity sensor
-                sensor_value = ADC122S021_GetVoltage(spi_port, ADC_CS, 1); // channel 1 is conductivity sensor
-                break;
-            default:
-                error_handler(0);
+            }
+            else{
+                // if there was an error, try again
+                sensor_value = DS18B20_getTemperature(DS18B20_PIN);
+                // determine what to do if there is still an error
+            }
+        
+            break;
+        case 1:
+            // read from pH sensor
+            sensor_value = ADC122S021_GetVoltage(spi_port, ADC_CS, 0); // channel 0 is pH sensor
+            break;
+        case 2:
+            // read from conductivity sensor
+            sensor_value = ADC122S021_GetVoltage(spi_port, ADC_CS, 1); // channel 1 is conductivity sensor
+            break;
+        default:
+            error_handler(0);
         }
         printf("Sensor value: %f\n", sensor_value);
+    } else if (strcmp(cmd->command, ZERO_POS_CMD) == 0){
+        stepper_config* mtr;
+        switch(cmd->args[0]){
+        case 0:
+            mtr = &x_axis_motor;
+            break;
+        case 1:
+            mtr = &z_axis_motor;
+            break;
+        default:
+            error_handler(0);
+        }
+        mtr->current_pos = 0;
+        printf("Current position set to 0\n");
     }
 
     flags.command_running = false;
@@ -317,6 +329,8 @@ int main() {
     gpio_set_function(I2C_SCL, GPIO_FUNC_I2C);
 
     // configure GPIO pin
+    gpio_init(DS18B20_PIN);
+
     gpio_init(MCU_LED);
     gpio_set_dir(MCU_LED, GPIO_OUT);
 
