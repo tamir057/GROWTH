@@ -35,6 +35,7 @@ command_attributes valid_commands[] = {{MOVE_MOTOR_CMD, 3, false},
                                        {LED_OFF_CMD, 0, false},
                                        {RETURN_CURRENT_POS_CMD, 1, false},
                                        {ZERO_POS_CMD, 1, false}};
+#define NUM_COMMANDS (sizeof(valid_commands) / sizeof(valid_commands[0])) // number of commands in valid_commands
 
 command_queue_entry normal_priority_cmd[1];     // buffer stores one command that executes when the current has finished
 command_queue_entry immediate_priority_cmd[1];  // buffer stores one command that executes immediately
@@ -288,7 +289,7 @@ void core1_entry() {
                 printf("MESSAGE:%s\n\n", usb_rx_buf);
 
                 command_queue_entry tmp;
-                int8_t rtn = parse_command(usb_rx_buf, valid_commands, 12, &tmp); // if adding new command, remember to change the len arg here
+                int8_t rtn = parse_command(usb_rx_buf, valid_commands, NUM_COMMANDS, &tmp); // if adding new command, remember to change the len arg here
                 if (!flags.command_running && rtn == 0) {
 
                     memcpy(normal_priority_cmd, &tmp, sizeof(command_queue_entry));
