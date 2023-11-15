@@ -1,11 +1,18 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template, request, url_for, redirect
 import os, json
+from pymongo import MongoClient
 
 from flask_cors import CORS
 
 app = Flask(__name__)
 
 CORS(app)
+
+client = MongoClient('localhost', 27017, username='username', password='password')
+db = client.flask_db
+plants = db.plants
+plots = db.plots
+
 
 @app.route("/members")
 def members():
