@@ -78,22 +78,22 @@ void limit_switch_triggered(uint gpio, uint32_t events) {
     if (gpio == GPIO1) {
         disable_motor(&x_axis_motor);
         flags.kill_x_motor = true;
-        printf("LEFT LIMIT SWITCH TRIGGERED\n");
+        printf("LEFT_LIMIT_SWITCH_TRIGGERED:\n");
 
     } else if (gpio == GPIO2) {
         disable_motor(&x_axis_motor);
         flags.kill_x_motor = true;
-        printf("RIGHT LIMIT SWITCH TRIGGERED\n");
+        printf("RIGHT_LIMIT_SWITCH_TRIGGERED:\n");
 
     } else if (gpio == GPIO3) {
         disable_motor(&z_axis_motor);
         flags.kill_z_motor = true;
-        printf("TOP LIMIT SWITCH TRIGGERED\n");
+        printf("TOP_LIMIT_SWITCH_TRIGGERED:\n");
 
     } else if (gpio == GPIO4) {
         disable_motor(&z_axis_motor);
         flags.kill_z_motor = true;
-        printf("BOTTOM LIMIT SWITCH TRIGGERED\n");
+        printf("BOTTOM_LIMIT_SWITCH_TRIGGERED:\n");
     }
 
     return;
@@ -135,10 +135,10 @@ void command_handler(command_queue_entry* cmd) {
             stop_motor = &flags.stop_x_motor;
 
             if (gpio_get(GPIO1) == 1 && cmd->args[1] == 0) {
-                printf("X axis against left limit switch. Not moving\n");
+                printf("X axis against left limit switch. Not moving\n"); // TODO: reformat
                 against_switch = true;
             } else if (gpio_get(GPIO2) == 1 && cmd->args[1] == 1) {
-                printf("X axis against right limit switch. Not moving\n");
+                printf("X axis against right limit switch. Not moving\n"); // TODO: reformat
                 against_switch = true;
             }
             
@@ -150,10 +150,10 @@ void command_handler(command_queue_entry* cmd) {
             stop_motor = &flags.stop_z_motor;
 
             if (gpio_get(GPIO3) == 1 && cmd->args[1] == 0) {
-                printf("Z axis against top limit switch. Not moving\n");
+                printf("Z axis against top limit switch. Not moving\n"); // TODO: reformat
                 against_switch = true;
             } else if (gpio_get(GPIO4) == 1 && cmd->args[1] == 1) {
-                printf("Z axis against bottom limit switch. Not moving\n");
+                printf("Z axis against bottom limit switch. Not moving\n"); // TODO: reformat
                 against_switch = true;
             }
 
@@ -170,7 +170,7 @@ void command_handler(command_queue_entry* cmd) {
 
         uint32_t steps = cmd->args[2];
 
-        printf("Args: %lu\n", steps);
+        //printf("Args: %lu\n", steps);
 
 
         if (!against_switch) {
@@ -189,7 +189,7 @@ void command_handler(command_queue_entry* cmd) {
         default:
             error_handler(0);
         }
-        printf("Current position: %ld\n", mtr->current_pos);
+        printf("CURRENT_POSITION:%ld\n", mtr->current_pos);
     } else if (strcmp(cmd->command, READ_SENSOR_CMD) == 0){
         //double sensor_value;
         double temp;
@@ -216,14 +216,14 @@ void command_handler(command_queue_entry* cmd) {
             }
 
             // print out the temperature value
-            printf("Temperature: %f\n", temp);
+            printf("TEMP:%f\n", temp);
             break;
         case 1:
             // read from pH sensor
             pH_voltage = ADC122S021_GetVoltage(spi_port, ADC_CS, 0); // channel 0 is pH sensor
             pH_value = pH_reading(pH_voltage, offset);
             // print out the pH value
-            printf("pH: %f\n", pH_value);
+            printf("PH:%f\n", pH_value);
             break;
         case 2:
             // read from conductivity sensor
@@ -233,12 +233,11 @@ void command_handler(command_queue_entry* cmd) {
             // maybe need to handle errors here a little bit
             
             // print out the conductivity value
-            printf("Conductivity: %f\n", conductivity_value);
+            printf("CONDUCTIVITY:%f\n", conductivity_value);
             break;
         default:
             error_handler(0);
         }
-        //printf("Sensor value: %f\n", sensor_value);
     } else if (strcmp(cmd->command, ZERO_POS_CMD) == 0){
         stepper_config* mtr;
         switch(cmd->args[0]){
@@ -252,7 +251,7 @@ void command_handler(command_queue_entry* cmd) {
             error_handler(0);
         }
         mtr->current_pos = 0;
-        printf("Current position set to 0\n");
+        printf("CURRENT_POS_ZEROED:\n");
     }
 
     flags.command_running = false;
@@ -285,8 +284,8 @@ void core1_entry() {
 
                 usb_rx_buf[counter] = '\0';
 
-                printf("MESSAGE OF SIZE (%i) BYTES RECEIVED\n", counter);
-                printf("MESSAGE: %s\n\n", usb_rx_buf);
+                printf("MESSAGE_OF_SIZE_(%i)_BYTES_RECEIVED:\n", counter);
+                printf("MESSAGE:%s\n\n", usb_rx_buf);
 
                 command_queue_entry tmp;
                 int8_t rtn = parse_command(usb_rx_buf, valid_commands, 12, &tmp); // if adding new command, remember to change the len arg here

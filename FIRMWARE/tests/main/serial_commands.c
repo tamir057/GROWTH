@@ -17,6 +17,8 @@ RETURN
     0   -> command successfully parsed, low priority command
     1   -> command successfully parsed, high priority command
 */
+
+// TODO: reformat print statements to fit formatting
 int8_t parse_command(uint8_t* buf, command_attributes* command_list, uint8_t len, command_queue_entry* queue) {
 
     uint8_t command[32] = "";
