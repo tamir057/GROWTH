@@ -191,35 +191,54 @@ void command_handler(command_queue_entry* cmd) {
         }
         printf("Current position: %ld\n", mtr->current_pos);
     } else if (strcmp(cmd->command, READ_SENSOR_CMD) == 0){
-        double sensor_value;
+        //double sensor_value;
+        double temp;
+        double pH_voltage;
+        double pH_value;
+        double offset = 0.0;
+        double conductivity_voltage;
+        double conductivity_value;
+
+
         switch(cmd->args[0]){
         case 0:
             // read from temp sensor
-            sensor_value = DS18B20_getTemperature(DS18B20_PIN) ;
-            if (sensor_value > -1000)
+            temp = DS18B20_getTemperature(DS18B20_PIN) ;
+            if (temp > -1000)
             {
                 // if no error, take the value
                 break;
             }
             else{
                 // if there was an error, try again
-                sensor_value = DS18B20_getTemperature(DS18B20_PIN);
+                temp = DS18B20_getTemperature(DS18B20_PIN);
                 // determine what to do if there is still an error
             }
-        
+
+            // print out the temperature value
+            printf("Temperature: %f\n", temp);
             break;
         case 1:
             // read from pH sensor
-            sensor_value = ADC122S021_GetVoltage(spi_port, ADC_CS, 0); // channel 0 is pH sensor
+            pH_voltage = ADC122S021_GetVoltage(spi_port, ADC_CS, 0); // channel 0 is pH sensor
+            pH_value = pH_reading(pH_voltage, offset);
+            // print out the pH value
+            printf("pH: %f\n", pH_value);
             break;
         case 2:
             // read from conductivity sensor
-            sensor_value = ADC122S021_GetVoltage(spi_port, ADC_CS, 1); // channel 1 is conductivity sensor
+            temp = DS18B20_getTemperature(DS18B20_PIN);
+            conductivity_voltage = ADC122S021_GetVoltage(spi_port, ADC_CS, 1); // channel 1 is conductivity sensor
+            conductivity_value = conductivity_reading(conductivity_voltage, temp);
+            // maybe need to handle errors here a little bit
+            
+            // print out the conductivity value
+            printf("Conductivity: %f\n", conductivity_value);
             break;
         default:
             error_handler(0);
         }
-        printf("Sensor value: %f\n", sensor_value);
+        //printf("Sensor value: %f\n", sensor_value);
     } else if (strcmp(cmd->command, ZERO_POS_CMD) == 0){
         stepper_config* mtr;
         switch(cmd->args[0]){
@@ -270,7 +289,7 @@ void core1_entry() {
                 printf("MESSAGE: %s\n\n", usb_rx_buf);
 
                 command_queue_entry tmp;
-                int8_t rtn = parse_command(usb_rx_buf, valid_commands, 11, &tmp); // if adding new command, remember to change the len arg here
+                int8_t rtn = parse_command(usb_rx_buf, valid_commands, 12, &tmp); // if adding new command, remember to change the len arg here
                 if (!flags.command_running && rtn == 0) {
 
                     memcpy(normal_priority_cmd, &tmp, sizeof(command_queue_entry));
