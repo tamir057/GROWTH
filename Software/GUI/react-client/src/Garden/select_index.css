@@ -1,11 +1,11 @@
 .popup-content {
     margin: auto;
-    background: rgb(255, 255, 255);
+    background: #E4F6F8;
     width: 50%;
     padding: 5px;
   }
   .popup-arrow {
-    color: rgb(255, 255, 255);
+    color: #E4F6F8; 
   }
   [role='tooltip'].popup-content {
     width: 200px;
@@ -31,7 +31,7 @@
     width: 100px; 
     font-family: "Poppins"; 
   
-  } */
+  } 
   
   /* Styling for the search bar */
   .modal-body input[type="text"] {
@@ -66,9 +66,10 @@
     color: black; /* Text color for the button */
     border: none; /* Remove button border */
     border-radius: 8px; /* Add a border radius for rounded corners */
-    padding: 10px; /* Add padding to the button */
+    padding: 5px; /* Add padding to the button */
     cursor: pointer; /* Display a pointer cursor on hover */
     font-family: "Poppins";
+    font-size: 20px;
   }
   
   /* Styling for the "Save" button on hover (adjust as needed) */
@@ -94,4 +95,18 @@
     justify-content: center;
     margin-top: 10%;
     font-family: "Poppins"; 
+  }
+  
+  .runTimeContainer {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    align-items: left;
+    justify-content: left;
+    margin-top: 10%;
+    font-family: "Poppins"; 
+  }
+
+  .topPadding {
+    padding-top: 20px; /* Add space inside the div at the bottom */
   }
