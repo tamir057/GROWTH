@@ -3,6 +3,7 @@ import os, json
 from pymongo import MongoClient
 from bson.json_util import dumps
 from flask_cors import CORS
+import subprocess 
 app = Flask(__name__)
 
 CORS(app)
@@ -157,8 +158,11 @@ def assign_plant():
 
 if __name__ == "__main__":
     app.run(debug=True)
-    
-# 169.254.59.97s (Raspberry Pi IP)
+
+@app.route('/api/addPlots', methods=['POST'])
+
+result = subprocess.check_output(['python', 'script2.py', arg1, arg2], text=True).strip()
+
 
 # try:
 #     # Attempt to create a MongoDB client instance
