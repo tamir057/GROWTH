@@ -21,6 +21,8 @@ data = {
 # total_fiducials = sys.argv[1:]
 total_fiducials = 3
 
+total_fiducials = sys.argv[1:]
+
 def receive_data(ser):
     #global received_message
     while True:

@@ -228,6 +228,26 @@ if __name__ == "__main__":
 #         # Write the updated array back to the file
 #         write_plots_to_file(json.dumps(plot_array)) 
 
-#         return jsonify({'success': True})
-#     except Exception as e:
-#         return jsonify({'error': str(e)})
+@app.route('/api/run', methods=['POST'])
+def run():
+    try:
+        steps_array = subprocess.check_output(['python', './serial-cmd-scripts/run.py'] + 3)
+        # for steps in steps_array {
+        #     plants.insert_one(steps)
+        # }
+        return jsonify({'success': True})
+    except Exception as e:
+        return jsonify({'error': str(e)})
+    
+
+@app.route('/api/calibrate', methods=['POST'])
+def calibrate():
+    try:
+        readings = subprocess.check_output(['python', './serial-cmd-scripts/calibrate.py'] + steps_array, text=True)
+        # get current time
+        # for reading in readings {
+        #     plants.insert_one()
+        # }
+        return jsonify({'success': True})
+    except Exception as e:
+        return jsonify({'error': str(e)})

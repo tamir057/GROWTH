@@ -8,6 +8,10 @@ import time
 import serial
 import threading
 
+import sys
+
+steps_array = sys.argv[1:]
+
 received_message = ""
 sensor_values = {
     'pH' : 0,
