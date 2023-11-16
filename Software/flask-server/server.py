@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, request, render_template, request, url_for, redirect
 import os, json
 from pymongo import MongoClient
-
 from flask_cors import CORS
+import subprocess 
 
 app = Flask(__name__)
 
@@ -12,7 +12,6 @@ client = MongoClient('localhost', 27017, username='username', password='password
 db = client.flask_db
 plants = db.plants
 plots = db.plots
-
 
 @app.route("/members")
 def members():
@@ -68,5 +67,7 @@ def add_data():
 
 if __name__ == "__main__":
     app.run(debug=True)
-    
-# 169.254.59.97s (Raspberry Pi IP)
+
+@app.route('/api/addPlots', methods=['POST'])
+
+result = subprocess.check_output(['python', 'script2.py', arg1, arg2], text=True).strip()
