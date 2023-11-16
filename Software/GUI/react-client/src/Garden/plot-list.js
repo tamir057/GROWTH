@@ -10,10 +10,13 @@ const PlotList = () => {
     // Fetch data from the Flask server when the component mounts
     fetch('/api/getPlots')
       .then(response => response.json())
-      .then(data => setPlotsArray(data))
+      .then(data => {
+        console.log('Received Data:', data);
+        setPlotsArray(data);
+      })
       .catch(error => console.error('Error fetching data:', error));
   }, []); // The empty dependency array ensures the effect runs only once on mount
-
+ 
   return (
     <div className="w-100">
       <ul className="list-group">
