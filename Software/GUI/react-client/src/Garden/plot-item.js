@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./garden_index.css";
-import PlotList from "./plot-list";
+import "./Garden-index.css";
 import Select from './Select'; // Import the AddPlotModal component
 
 
@@ -9,7 +8,7 @@ import Select from './Select'; // Import the AddPlotModal component
 const PlotItem = (
  {
    plot = {
-     "plotNumber": "1",
+     "plot_number": "1",
      "plant": "Spinach"
    }
  }
@@ -26,11 +25,11 @@ const PlotItem = (
   };
   
  return(
-  <li className="list-group-item bg-secondary-green">
+  <li className="list-group-item bg-secondary-green mt-2 mb-2">
    <div className="row">
      <div className="col-1">
      <input type="checkbox" id="checkbox"></input>
-        <button class="m-2 col-3 btn button-square round-15" onClick={openAddPopup}>Plot {plot.plotNumber} {plot.plant} </button>
+        <button class="m-2 col-3 btn button-square round-15" onClick={openAddPopup}>Plot {plot.plot_number} {plot.plant} </button>
         {showAddPopup && <Select/>}
      </div>
      <div className="col-10 mt-2 ml-0 pl-0">
@@ -51,25 +50,49 @@ const PlotItem = (
      <img width={70} height={70} className="float-end" src="/images/hydroponic.png"/>
      <img width={70} height={70} className="float-end" src="/images/hydroponic.png"/>
      <img width={70} height={70} className="float-end" src="/images/hydroponic.png"/> */}
+     {(plot.plant !== "") && 
+     <div>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
+     </div>
+}
+{(plot.plant == "") && 
+     <div>
+     <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
+     <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
+     <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
+     <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
+     <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
+     <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
+     <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
+     <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
+     <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
+     <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
+     <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
+     <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
+     <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
+     <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
+     <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
+     <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
+     <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
+    </div>
+}
 
-
-     <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-     <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-     <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-     <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-     <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-     <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-     <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-     <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-     <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-     <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-     <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-     <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-     <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-     <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-     <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-     <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-     <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
 
      </div>
      <Select showModal={showAddPopup} handleClose={closeAddPopup} />
