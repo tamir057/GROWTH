@@ -103,6 +103,8 @@ void limit_switch_triggered(uint gpio, uint32_t events) {
 // command handler
 void command_handler(command_queue_entry* cmd) {
 
+    uint8_t return_val[100] = ""; // string to store return values
+
     flags.command_running = true; // parse_command() will not read low priority commands while this is set
 
     if (strcmp(cmd->command, LED_ON_CMD) == 0) {;
@@ -123,7 +125,7 @@ void command_handler(command_queue_entry* cmd) {
 
     } else if (strcmp(cmd->command, MOVE_MOTOR_CMD) == 0 || strcmp(cmd->command, MOVE_CONT_CMD) == 0) {
 
-        if (strcmp(cmd->command, MOVE_CONT_CMD)) {
+        if (strcmp(cmd->command, MOVE_CONT_CMD) == 0) {
             cmd->args[2] = 1000000;
         }
 
@@ -195,9 +197,12 @@ void command_handler(command_queue_entry* cmd) {
         default:
             error_handler(0);
         }
-        printf("CURRENT_POSITION:%ld\n", mtr->current_pos);
 
-    } else if (strcmp(cmd->command, READ_SENSOR_CMD) == 0){
+        sprintf(return_val, "%ld", mtr->current_pos);
+        // printf("CURRENT_POSITION:%ld\n", mtr->current_pos);
+
+    } else if (strcmp(cmd->command, READ_SENSOR_CMD) == 0) {
+
         //double sensor_value;
         double temp;
         double pH_voltage;
@@ -206,11 +211,10 @@ void command_handler(command_queue_entry* cmd) {
         double conductivity_voltage;
         double conductivity_value;
 
-
-        switch(cmd->args[0]){
+        switch(cmd->args[0]) {
         case 0:
             // read from temp sensor
-            temp = DS18B20_getTemperature(DS18B20_PIN) ;
+            temp = DS18B20_getTemperature(DS18B20_PIN);
             if (temp > -1000)
             {
                 // if no error, take the value
@@ -223,15 +227,20 @@ void command_handler(command_queue_entry* cmd) {
             }
 
             // print out the temperature value
-            printf("TEMP:%f\n", temp);
+            // printf("TEMP:%f\n", temp);
+            sprintf(return_val, "%f", temp);
             break;
+
         case 1:
             // read from pH sensor
             pH_voltage = ADC122S021_GetVoltage(spi_port, ADC_CS, 0); // channel 0 is pH sensor
             pH_value = pH_reading(pH_voltage, offset);
+
             // print out the pH value
-            printf("PH:%f\n", pH_value);
+            // printf("PH:%f\n", pH_value);
+            sprintf(return_val, "%f", pH_value);
             break;
+
         case 2:
             // read from conductivity sensor
             temp = DS18B20_getTemperature(DS18B20_PIN);
@@ -240,8 +249,10 @@ void command_handler(command_queue_entry* cmd) {
             // maybe need to handle errors here a little bit
             
             // print out the conductivity value
-            printf("CONDUCTIVITY:%f\n", conductivity_value);
+            // printf("CONDUCTIVITY:%f\n", conductivity_value);
+            sprintf(return_val, "%f", conductivity_value);
             break;
+
         default:
             error_handler(0);
         }
@@ -259,8 +270,10 @@ void command_handler(command_queue_entry* cmd) {
             error_handler(0);
         }
         mtr->current_pos = 0;
-        printf("CURRENT_POS_ZEROED:\n");
+        // printf("CURRENT_POS_ZEROED:\n");
     }
+
+    printf("ACK:%s:%s\n", cmd->command, return_val);
 
     flags.command_running = false;
 

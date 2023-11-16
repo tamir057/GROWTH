@@ -6,18 +6,18 @@
 #include <string.h>
 
 // defines command strings
-#define MOVE_MOTOR_CMD      ("MOVE_MOTOR_STEPS")
-#define STOP_MOTOR_CMD      ("STOP_MOTOR")
-#define MOVE_CONT_CMD       ("MOVE_MOTOR_CONT")
-#define READ_SENSOR_CMD     ("READ_SENSOR")
-#define PUMP_ON_CMD         ("PUMP_ON")
-#define PUMP_OFF_CMD        ("PUMP_OFF")
-#define LIGHT_ON_CMD        ("LIGHT_ON")
-#define LIGHT_OFF_CMD       ("LIGHT_OFF")
-#define LED_ON_CMD          ("LED_IND_ON")
-#define LED_OFF_CMD         ("LED_IND_OFF")
+#define MOVE_MOTOR_CMD          ("MOVE_MOTOR_STEPS")
+#define STOP_MOTOR_CMD          ("STOP_MOTOR")
+#define MOVE_CONT_CMD           ("MOVE_MOTOR_CONT")
+#define READ_SENSOR_CMD         ("READ_SENSOR")
+#define PUMP_ON_CMD             ("PUMP_ON")
+#define PUMP_OFF_CMD            ("PUMP_OFF")
+#define LIGHT_ON_CMD            ("LIGHT_ON")
+#define LIGHT_OFF_CMD           ("LIGHT_OFF")
+#define LED_ON_CMD              ("LED_IND_ON")
+#define LED_OFF_CMD             ("LED_IND_OFF")
 #define RETURN_CURRENT_POS_CMD  ("RETURN_POS")
-#define ZERO_POS_CMD        ("SET_ZERO_POS")
+#define ZERO_POS_CMD            ("SET_ZERO_POS")
 
 // command_attributes lists info used by parse_command()
 typedef struct {
