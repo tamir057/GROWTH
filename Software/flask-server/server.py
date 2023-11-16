@@ -70,4 +70,12 @@ if __name__ == "__main__":
 
 @app.route('/api/addPlots', methods=['POST'])
 
-result = subprocess.check_output(['python', 'script2.py', arg1, arg2], text=True).strip()
+
+@app.route('/api/addPlantInfo/<int:pid>', methods=['POST'])
+def generate_plant_info(pid):
+    try:
+        plant_info = subprocess.check_output(['python', './openai.py'] + pid, text=True)
+        plants.insert_one(plant_info)
+        return jsonify({'success': True})
+    except Exception as e:
+        return jsonify({'error': str(e)})
