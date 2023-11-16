@@ -115,13 +115,17 @@ void command_handler(command_queue_entry* cmd) {
 
     } else if (strcmp(cmd->command, PUMP_ON_CMD) == 0) {
         uint8_t reg_val = TCA9534_ReadReg(i2c_port, TCA9534_OUTPUT_REG);
-        TCA9534_WriteReg(i2c_port, TCA9534_OUTPUT_REG, SET_BIT((uint8_t) cmd->args[0], reg_val));
+        TCA9534_WriteReg(i2c_port, TCA9534_OUTPUT_REG, SET_BIT((uint8_t) (7 - cmd->args[0]), reg_val));
 
     } else if (strcmp(cmd->command, PUMP_OFF_CMD) == 0) {
         uint8_t reg_val = TCA9534_ReadReg(i2c_port, TCA9534_OUTPUT_REG);
-        TCA9534_WriteReg(i2c_port, TCA9534_OUTPUT_REG, CLR_BIT((uint8_t) cmd->args[0], reg_val));
+        TCA9534_WriteReg(i2c_port, TCA9534_OUTPUT_REG, CLR_BIT((uint8_t) (7 - cmd->args[0]), reg_val));
 
-    } else if (strcmp(cmd->command, MOVE_MOTOR_CMD) == 0) {
+    } else if (strcmp(cmd->command, MOVE_MOTOR_CMD) == 0 || strcmp(cmd->command, MOVE_CONT_CMD) == 0) {
+
+        if (strcmp(cmd->command, MOVE_CONT_CMD)) {
+            cmd->args[2] = 1000000;
+        }
 
         stepper_config* mtr;
         bool* kill_motor;
@@ -177,6 +181,7 @@ void command_handler(command_queue_entry* cmd) {
         if (!against_switch) {
             execute_steps(steps, dir, mtr, kill_motor, stop_motor);
         }
+
     } else if (strcmp(cmd->command, RETURN_CURRENT_POS_CMD) == 0){
         // code for returning current position
         stepper_config* mtr;
@@ -191,6 +196,7 @@ void command_handler(command_queue_entry* cmd) {
             error_handler(0);
         }
         printf("CURRENT_POSITION:%ld\n", mtr->current_pos);
+
     } else if (strcmp(cmd->command, READ_SENSOR_CMD) == 0){
         //double sensor_value;
         double temp;
@@ -239,6 +245,7 @@ void command_handler(command_queue_entry* cmd) {
         default:
             error_handler(0);
         }
+
     } else if (strcmp(cmd->command, ZERO_POS_CMD) == 0){
         stepper_config* mtr;
         switch(cmd->args[0]){
