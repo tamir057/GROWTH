@@ -6,8 +6,8 @@
 242	598	7212560585098667	pico-sdk/src/rp2_common/boot_stage2/bs2_default.elf	4fe1b4b3f09e630a
 1063	2230	7212560600694131	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj	312b65efc3fa09d4
 693	942	7212560589939666	C:/Users/dhsav/OneDrive/Desktop/capstone/GROWTH/FIRMWARE/tests/build/pico-sdk/src/rp2_common/boot_stage2/bs2_default_padded_checksummed.S	65af667d0f5ac080
-3255	4631	7212560624622705	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_double/double_math.c.obj	3754b115d683a752
 3181	3594	7212560616440778	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_divider/divider.S.obj	54bce44f41f2ae8d
+3255	4631	7212560624622705	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_double/double_math.c.obj	3754b115d683a752
 693	942	7212560589939666	pico-sdk/src/rp2_common/boot_stage2/bs2_default_padded_checksummed.S	65af667d0f5ac080
 598	693	7212560587579043	pico-sdk/src/rp2_common/boot_stage2/bs2_default.bin	a63f3123fe59f6b7
 3221	4064	7212560620753034	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_double/double_init_rom.c.obj	7eedc3f10004858f
@@ -22,9 +22,9 @@
 1136	1964	7212560599975846	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj	967e716db279b215
 1038	2313	7212560600155879	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.obj	ab18275ff724874f
 3198	3803	7212560616578268	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj	877bf83b61be043f
-116	1040	7216944027684295	CMakeFiles/TESTING.dir/serial_commands.c.obj	bf5a14d024d695af
+130	544	7217805077502338	CMakeFiles/TESTING.dir/serial_commands.c.obj	bf5a14d024d695af
 1232	2296	7212560600664151	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_sync/lock_core.c.obj	bca5d32048fe7b82
-70	395	7216133456483292	CMakeFiles/TESTING.dir/adc122s021.c.obj	fd66a39722694c7b
+110	671	7217795001184319	CMakeFiles/TESTING.dir/adc122s021.c.obj	fd66a39722694c7b
 1201	2400	7212560601889244	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_sync/sem.c.obj	769dca5c2a2e869b
 1964	3181	7212560606916196	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_time/timeout_helper.c.obj	d2853d15b4612a5e
 1152	2480	7212560601987596	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj	bc9364cf8c448e83
@@ -33,7 +33,7 @@
 2372	3092	7212560610953981	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj	d0a768c8e9cdf8de
 2401	3110	7212560610132980	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_pll/pll.c.obj	fc353fa4e6ed18fa
 5845	6534	7212560645327948	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/class/vendor/vendor_device.c.obj	391680e7150dfe3e
-42	393	7216944713128756	CMakeFiles/TESTING.dir/main.c.obj	9f09770101812455
+122	855	7217821459028728	CMakeFiles/TESTING.dir/main.c.obj	9f09770101812455
 2481	3147	7212560611236512	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_vreg/vreg.c.obj	e6000cdfb09467ce
 3278	3930	7212560618298869	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj	225145132138205e
 1549	3163	7212560605473888	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/common/pico_sync/mutex.c.obj	ca94a6a184c7781b
@@ -82,15 +82,5 @@
 6357	7001	7212560650322224	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_spi/spi.c.obj	8ce2b29325a132a6
 6404	7063	7212560651242188	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/src/rp2_common/hardware_i2c/i2c.c.obj	ec33620111bf46d4
 5994	7112	7212560651742194	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj	a7bd9b493f405cd5
-395	920	7216944716373194	TESTING.elf	e3ebb918deb6cac
-200	798	7216210975915130	CMakeFiles/TESTING.dir/ds18b20.c.obj	97692b18f8722f2a
-110	671	7217795001184319	CMakeFiles/TESTING.dir/adc122s021.c.obj	fd66a39722694c7b
-90	749	7217797698293258	CMakeFiles/TESTING.dir/main.c.obj	9f09770101812455
-754	3218	7217797719611322	TESTING.elf	e3ebb918deb6cac
-130	544	7217805077502338	CMakeFiles/TESTING.dir/serial_commands.c.obj	bf5a14d024d695af
-119	715	7217805079200052	CMakeFiles/TESTING.dir/main.c.obj	9f09770101812455
-716	1700	7217805083640591	TESTING.elf	e3ebb918deb6cac
-71	700	7217809381334325	CMakeFiles/TESTING.dir/main.c.obj	9f09770101812455
-706	1973	7217809390245412	TESTING.elf	e3ebb918deb6cac
-122	855	7217821459028728	CMakeFiles/TESTING.dir/main.c.obj	9f09770101812455
 858	1759	7217821465094261	TESTING.elf	e3ebb918deb6cac
+200	798	7216210975915130	CMakeFiles/TESTING.dir/ds18b20.c.obj	97692b18f8722f2a

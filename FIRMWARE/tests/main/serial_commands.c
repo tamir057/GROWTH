@@ -18,7 +18,6 @@ RETURN
     1   -> command successfully parsed, high priority command
 */
 
-// TODO: reformat print statements to fit formatting
 int8_t parse_command(uint8_t* buf, command_attributes* command_list, uint8_t len, command_queue_entry* queue) {
 
     uint8_t command[32] = "";
@@ -51,7 +50,7 @@ int8_t parse_command(uint8_t* buf, command_attributes* command_list, uint8_t len
     // if the input string was separated into more than 2 segments, error occurred
 
     if (ctr > 2) {
-        printf("%u parameters found, only 1 or 2 allowed\n\n", ctr);
+        //printf("%u parameters found, only 1 or 2 allowed\n\n", ctr);
         return -1;
     }
 
@@ -80,17 +79,17 @@ int8_t parse_command(uint8_t* buf, command_attributes* command_list, uint8_t len
                 
                 // arguments must be uint32_t
                 if (sscanf(arg_token, "%lu", &(queue->args[arg_ctr-1])) != 1) {
-                    printf("Argument not a valid 32-bit unsigned integer\n\n");
+                    //printf("Argument not a valid 32-bit unsigned integer\n\n");
                     return -2;
                 };
 
                 arg_token = strtok(NULL, ",");
             }
 
-            printf("\n");
+            //printf("\n");
 
             if (arg_ctr != command_list[cmd].n_args) {
-                printf("Argument count does not match expected value\n\n");
+                //printf("Argument count does not match expected value\n\n");
                 return -3;
             }
 
@@ -98,7 +97,7 @@ int8_t parse_command(uint8_t* buf, command_attributes* command_list, uint8_t len
 
         } else if (cmd == len-1) {
 
-            printf("Specified command not found in internal library\n\n");
+            //printf("Specified command not found in internal library\n\n");
             return -4;
         }
     }

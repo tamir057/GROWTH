@@ -79,22 +79,22 @@ void limit_switch_triggered(uint gpio, uint32_t events) {
     if (gpio == GPIO1) {
         disable_motor(&x_axis_motor);
         flags.kill_x_motor = true;
-        printf("LEFT_LIMIT_SWITCH_TRIGGERED:\n");
+        printf("ACK:LIMIT_SWITCH_TRIGGERED:LEFT\n");
 
     } else if (gpio == GPIO2) {
         disable_motor(&x_axis_motor);
         flags.kill_x_motor = true;
-        printf("RIGHT_LIMIT_SWITCH_TRIGGERED:\n");
+        printf("ACK:LIMIT_SWITCH_TRIGGERED:RIGHT\n");
 
     } else if (gpio == GPIO3) {
         disable_motor(&z_axis_motor);
         flags.kill_z_motor = true;
-        printf("TOP_LIMIT_SWITCH_TRIGGERED:\n");
+        printf("ACK:LIMIT_SWITCH_TRIGGERED:UP\n");
 
     } else if (gpio == GPIO4) {
         disable_motor(&z_axis_motor);
         flags.kill_z_motor = true;
-        printf("BOTTOM_LIMIT_SWITCH_TRIGGERED:\n");
+        printf("ACK:LIMIT_SWITCH_TRIGGERED:DOWN\n");
     }
 
     return;
@@ -142,10 +142,10 @@ void command_handler(command_queue_entry* cmd) {
             stop_motor = &flags.stop_x_motor;
 
             if (gpio_get(GPIO1) == 1 && cmd->args[1] == 0) {
-                printf("X axis against left limit switch. Not moving\n"); // TODO: reformat
+                //printf("X axis against left limit switch. Not moving\n"); // TODO: reformat
                 against_switch = true;
             } else if (gpio_get(GPIO2) == 1 && cmd->args[1] == 1) {
-                printf("X axis against right limit switch. Not moving\n"); // TODO: reformat
+                //printf("X axis against right limit switch. Not moving\n"); // TODO: reformat
                 against_switch = true;
             }
             
@@ -157,10 +157,10 @@ void command_handler(command_queue_entry* cmd) {
             stop_motor = &flags.stop_z_motor;
 
             if (gpio_get(GPIO3) == 1 && cmd->args[1] == 0) {
-                printf("Z axis against top limit switch. Not moving\n"); // TODO: reformat
+                //printf("Z axis against top limit switch. Not moving\n"); // TODO: reformat
                 against_switch = true;
             } else if (gpio_get(GPIO4) == 1 && cmd->args[1] == 1) {
-                printf("Z axis against bottom limit switch. Not moving\n"); // TODO: reformat
+                //printf("Z axis against bottom limit switch. Not moving\n"); // TODO: reformat
                 against_switch = true;
             }
 
@@ -273,8 +273,9 @@ void command_handler(command_queue_entry* cmd) {
         // printf("CURRENT_POS_ZEROED:\n");
     }
 
-    printf("ACK:%s:%s\n", cmd->command, return_val);
-
+    if (strcmp(cmd->command, MOVE_CONT_CMD) != 0){
+        printf("ACK:%s:%s\n", cmd->command, return_val);
+    }
     flags.command_running = false;
 
 }
@@ -305,8 +306,8 @@ void core1_entry() {
 
                 usb_rx_buf[counter] = '\0';
 
-                printf("MESSAGE_OF_SIZE_(%i)_BYTES_RECEIVED:\n", counter);
-                printf("MESSAGE:%s\n\n", usb_rx_buf);
+                //printf("MESSAGE_OF_SIZE_(%i)_BYTES_RECEIVED:\n", counter);
+                //printf("MESSAGE:%s\n\n", usb_rx_buf);
 
                 command_queue_entry tmp;
                 int8_t rtn = parse_command(usb_rx_buf, valid_commands, NUM_COMMANDS, &tmp); // if adding new command, remember to change the len arg here
