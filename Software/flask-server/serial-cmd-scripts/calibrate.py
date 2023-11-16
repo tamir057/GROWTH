@@ -7,6 +7,7 @@ from picamera2 import Picamera2
 import time
 import serial
 import threading
+import sys
 
 received_message = ""
 boundary_offset = 4000
@@ -16,6 +17,8 @@ data = {
     "2" : 0,
     "3" : 0
 }
+
+total_fiducials = sys.argv[1:]
 
 def receive_data(ser):
     while True:
@@ -90,45 +93,74 @@ def fiducial_detection():
         if key == ord('q'):
             break
 
-#TODO: CREATE HELPER FOR ACKS !!! 
-def calibrate(total_fiducials):
-        message = "MOVE_MOTOR_CONT:1,0"  # send up first 
-        ser.write(message.encode('utf-8')+ b'\n')
-        # wait for ack -- while received mssg is not the ack 
-        # set state of z motor as 'up' -- store locally? 
-        message = "MOVE_MOTOR_CONT:0,1" # send to right  
-        ser.write(message.encode('utf-8')+ b'\n')
-        while (received_message != "ACK"): # TODO: ack mssg that at limit swirtch
-            pass 
-        message = "MOVE_MOTOR_STEPS:0,0," + boundary_offset # TODO: verify string formatting
-        ser.write(message.encode('utf-8')+ b'\n')
-        while (received_message != "ACK"): # TODO: ack mssg that it moved the offset val 
-            pass 
-        message = "SET_ZERO_POS:0" 
-        ser.write(message.encode('utf-8')+ b'\n')
-        while (received_message != "ACK"): # TODO: ack mssg for zero state
-            pass 
-        
-        while (received_message != "ACK"): # TODO: at limit switch mssg
-            message = "MOVE_MOTOR_CONT:0,0"
-            ser.write(message.encode('utf-8')+ b'\n')
-            fiducial_detection()
-            message = "STOP_MOTOR:0"
-            ser.write(message.encode('utf-8')+ b'\n')
-            # add wait for ack 
-            message = "RETURN_POS:0"
-            ser.write(message.encode('utf-8')+ b'\n')
-            current_position = received_message.split(":")[1]
-            fiducials_detected += 1
-            data[fiducials_detected + ""] = current_position
+# helper to wait for acks 
+def wait_for_ack(message):
+    received_message = received_message.split(":")[1]
+    while (received_message != message):
+        pass 
 
-        message = "MOVE_MOTOR_STEPS:0,0," + boundary_offset   # moving to left 
+#TODO: CREATE HELPER FOR ACKS !!! 
+def calibrate():
+    message = "MOVE_MOTOR_CONT:1,0"  # send up first 
+    ser.write(message.encode('utf-8')+ b'\n')
+    wait_for_ack("LIMIT_SWITCH_TRIGGERED") #ack mssg that at limit switch
+    if received_message.split(":")[2] != 'UP':
+        raise ValueError("wrong direction!!!!!!! should be up")
+    # TODO: set state of z motor as 'up' -- store locally? 
+    message = "MOVE_MOTOR_CONT:0,1" # send to right  
+    ser.write(message.encode('utf-8')+ b'\n')
+    wait_for_ack("LIMIT_SWITCH_TRIGGERED")
+    if received_message.split(":")[2] != 'RIGHT':
+        raise ValueError("wrong direction!!!!!!! should be right")
+    # TODO: set state of z motor as 'up' -- store locally? 
+    message = f"MOVE_MOTOR_STEPS:0,0,{boundary_offset}" # TODO: verify string formatting
+    ser.write(message.encode('utf-8')+ b'\n')
+    wait_for_ack("LIMIT_SWITCH_TRIGGERED")
+    if received_message.split(":")[2] != 'LEFT':
+        raise ValueError("wrong direction!!!!!!! should be left")
+    message = "SET_ZERO_POS:0" 
+    ser.write(message.encode('utf-8')+ b'\n')
+    wait_for_ack("SET_ZERO_POS")
+    
+    while (received_message != "LIMIT_SWITCH_TRIGGERED"): 
+        message = "MOVE_MOTOR_CONT:0,0"
         ser.write(message.encode('utf-8')+ b'\n')
+        fiducial_detection()
+        message = "STOP_MOTOR:0"
+        ser.write(message.encode('utf-8')+ b'\n')
+        wait_for_ack("STOP_MOTOR")  #ack mssg that it moved the stopped the motor   
+        message = "RETURN_POS:0"
+        ser.write(message.encode('utf-8')+ b'\n')
+        # while received message split[0]!= CURRENT_POS
+        while (received_message.split(":")[0]!= 'CURRENT_POSITION'): # TODO: ack mssg that it moved the offset val 
+            pass 
+        current_position = received_message.split(":")[1]
+        fiducials_detected += 1
+        data[fiducials_detected + ""] = current_position
+        time.sleep(1)
+
+    message = f"MOVE_MOTOR_STEPS:0,0,{boundary_offset}"   # moving to left 
+    ser.write(message.encode('utf-8')+ b'\n')
+    # request current position and store that as outer boundary 
+    # create helper for returning current position
+    message = "RETURN_POS:0"
+    ser.write(message.encode('utf-8')+ b'\n')
+    # while received message split[0]!= CURRENT_POS
+    while (received_message.split(":")[0]!= 'CURRENT_POSITION'): # TODO: ack mssg that it moved the offset val 
+        pass 
+    current_position = received_message.split(":")[1]
+    
         
-        if fiducials_detected < total_fiducials:
-            fiducials_detected = 0
-            calibrate(total_fiducials)
-        
+if __name__ == "__main__":
+    calibrate() 
+    if fiducials_detected < total_fiducials:
+        fiducials_detected = 0
+        calibrate()
+
+    if fiducials_detected == total_fiducials:
+        print(data)
+    else:
+        raise ValueError("Failed to final all fiducials") 
 
 # do a bit of cleanup
 cv2.destroyAllWindows()
