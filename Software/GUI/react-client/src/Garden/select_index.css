@@ -110,3 +110,26 @@
   .topPadding {
     padding-top: 20px; /* Add space inside the div at the bottom */
   }
+
+  .custom-dropdown {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+  }
+  
+  /* Style the dropdown options */
+  .custom-dropdown option {
+    padding: 12px; /* Increase padding for thicker tab height */
+    font-size: 14px; /* Increase font size */
+    background-color: #D0DFDF; /* Light green background color */
+    line-height: 1.5; /* Adjust the line-height to match the select box */
+    cursor: pointer;
+
+  }
+  
+  /* Style the dropdown options on hover */
+.custom-dropdown option:hover {
+  background-color: #006400; /* Dark green background color on hover */
+  color: #fff; /* White text color on hover */
+}

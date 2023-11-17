@@ -1,9 +1,8 @@
 from flask import Flask, jsonify, request, render_template, request, url_for, redirect
 import os, json
 from pymongo import MongoClient
-
+from bson.json_util import dumps
 from flask_cors import CORS
-
 app = Flask(__name__)
 
 CORS(app)
@@ -62,34 +61,93 @@ def get_data():
     except Exception as e:
         return jsonify({'error': str(e)})
     
-# TODO: Redo with Mongo
-# @app.route('/api/addPlots', methods=['POST'])
-# def add_data():
-#     try:
-#         data = request.json  # Assuming the request contains JSON data
-#         plots_number = data.get('plots_number', 0)  # Extract the number of plots from the JSON data
-#         plot_array = json.loads(read_plots_from_file())
-#         size = len(plot_array)
-#         # plots_number = 5
-#         # TODO: get the number of plots 
-#         new_data = []
-#         for i in range(plots_number):
-#             # You can add any value or object to the list here
-#             new_data.append({
-#                 "_id": f"{i + 1 + size}",
-#                 "plot_number": f"{i + 1 + size}",  # Adjust the plot_number as needed
-#                 "plant": ""
-#             })
 
-#         # Extend the existing array with the new data
-#         plot_array.extend(new_data)
+    
 
-#         # Write the updated array back to the file
-#         write_plots_to_file(json.dumps(plot_array))
+@app.route('/api/addPlots', methods=['POST'])
+def add_data():
+    try:
+        data = request.json
+        plots_number = data.get('plots_number', 0)
+        plot_array = list(plots.find())  # Assuming each document in the collection represents a plot
 
-#         return jsonify({'success': True})
-#     except Exception as e:
-#         return jsonify({'error': str(e)})
+        new_data = []
+        size = plots.count_documents({})  # Get the current number of documents in the collection
+
+        for i in range(plots_number):
+            new_data.append({
+                "_id": i + 1 + size,
+                "plot_number": i + 1 + size,
+                "plant_id": "",
+                "steps": 0
+            })
+
+        # Insert the new data into the MongoDB collection
+        plots.insert_many(new_data)
+
+        return jsonify({'success': True})
+    except Exception as e:
+        return jsonify({'error': str(e)})
+    
+@app.route('/api/plants', methods=['GET'])
+def get_plants():
+    try:
+
+        # Fetch all plants from the collection
+        plantsArray = list(plants.find({}, {'_id': 0}))  # Exclude _id field from the response
+
+        # Send the plants as a JSON response
+        return jsonify(plantsArray)
+    except Exception as e:
+        # Handle errors
+        print('Error fetching plants:', str(e))
+        return jsonify({'error': 'Internal Server Error'}), 500
+    
+@app.route('/api/plots/<int:plot_number>', methods=['GET'])
+def get_plot(plot_number):
+    try:
+        # Find the plot based on plot_number
+        plot = plots.find_one({'plot_number': plot_number})
+        
+        # Check if the plot exists
+        if plot:
+            return jsonify(json.loads(dumps(plot)))
+        else:
+            return jsonify({'error': 'Plot not found'}), 404
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
+@app.route('/api/assign-plant', methods=['POST'])
+def assign_plant():
+    try:
+        data = request.json  # Assuming the request contains JSON data
+        plot_number = data.get('plotNumber')
+        selected_plant = data.get('selectedPlant')
+        print("Plant: "+ selected_plant)
+
+        # Check if the plot exists
+        plot = plots.find_one({"plot_number": plot_number})
+        plant = plants.find_one({"name": selected_plant})
+
+        if plant:
+            plant_id = str(plant['_id'])  # Convert ObjectId to string
+            # Rest of your code
+        else:
+            return jsonify({'error': 'Selected plant not found'})
+        if plot:
+            # Update the plant field of the specified plot
+            plots.update_one({"plot_number": plot_number}, {"$set": {"plant_id": plant_id}})
+
+            print("Success")
+            return jsonify({'success': True, 'message': 'Plant assigned successfully'})
+        else:
+            print("Error")
+            return jsonify({'error': 'Plot not found'})
+
+    except Exception as e:
+        return jsonify({'error': str(e)})
+
 
 if __name__ == "__main__":
     app.run(debug=True)
@@ -132,5 +190,34 @@ if __name__ == "__main__":
 #         # Read data from 'plots.json' file and parse it as JSON
 #         plot_array = json.loads(read_plots_from_file())
 #         return jsonify(plot_array)
+#     except Exception as e:
+#         return jsonify({'error': str(e)})
+
+# TODO: Redo with Mongo
+# @app.route('/api/addPlots', methods=['POST'])
+# def add_data():
+#     try:
+#         data = request.json  # Assuming the request contains JSON data
+#         plots_number = data.get('plots_number', 0)  # Extract the number of plots from the JSON data
+#         plot_array = json.loads(read_plots_from_file())
+#         size = len(plot_array)
+#         # plots_number = 5
+#         # TODO: get the number of plots 
+#         new_data = []
+#         for i in range(plots_number):
+#             # You can add any value or object to the list here
+#             new_data.append({
+#                 "_id": f"{i + 1 + size}",
+#                 "plot_number": f"{i + 1 + size}",  # Adjust the plot_number as needed
+#                 "plant": ""
+#             })
+
+#         # Extend the existing array with the new data
+#         plot_array.extend(new_data)
+
+#         # Write the updated array back to the file
+#         write_plots_to_file(json.dumps(plot_array))
+
+#         return jsonify({'success': True})
 #     except Exception as e:
 #         return jsonify({'error': str(e)})
