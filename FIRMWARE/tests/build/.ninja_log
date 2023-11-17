@@ -84,3 +84,6 @@
 5994	7112	7212560651742194	CMakeFiles/TESTING.dir/C_/Program_Files/Raspberry_Pi/Pico_SDK_v1.5.1/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj	a7bd9b493f405cd5
 858	1759	7217821465094261	TESTING.elf	e3ebb918deb6cac
 200	798	7216210975915130	CMakeFiles/TESTING.dir/ds18b20.c.obj	97692b18f8722f2a
+105	593	7218808425557266	CMakeFiles/TESTING.dir/serial_commands.c.obj	bf5a14d024d695af
+91	847	7218808428099393	CMakeFiles/TESTING.dir/main.c.obj	9f09770101812455
+847	2059	7218808437666698	TESTING.elf	e3ebb918deb6cac

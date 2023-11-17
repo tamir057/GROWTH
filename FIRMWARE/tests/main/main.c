@@ -327,6 +327,7 @@ void core1_entry() {
                         } else if (immediate_priority_cmd->args[0] == 1) {
                             flags.stop_z_motor = true;
                         }
+                        printf("ACK:STOP_MOTOR:\n");
                     }
                 }
 
