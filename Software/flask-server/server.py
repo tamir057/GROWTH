@@ -159,9 +159,9 @@ def assign_plant():
 if __name__ == "__main__":
     app.run(debug=True)
 
-@app.route('/api/addPlots', methods=['POST'])
+# @app.route('/api/addPlots', methods=['POST'])
 
-result = subprocess.check_output(['python', 'script2.py', arg1, arg2], text=True).strip()
+# result = subprocess.check_output(['python', 'script2.py', arg1, arg2], text=True).strip()
 
 
 # try:
