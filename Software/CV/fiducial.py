@@ -58,7 +58,7 @@ while True:
 			cv2.circle(im, (cX, cY), 4, (0, 0, 255), -1) 
 			if (cX > 157 and cX < 163):
 				cv2.imshow("Middle Frame", im)
-                                print("In the middle")
+				print("In the middle")
  			# draw the ArUco marker ID on the frame
 			cv2.putText(im, str(markerID),(topLeft[0], topLeft[1] - 15), cv2.FONT_HERSHEY_SIMPLEX,0.5, (0, 255, 0), 2)
 	# show the output frame
