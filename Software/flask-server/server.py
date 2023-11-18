@@ -216,7 +216,7 @@ if __name__ == "__main__":
 #         plot_array.extend(new_data)
  
 #         # Write the updated array back to the file
-#         write_plots_to_file(json.dumps(plot_array))
+#         write_plots_to_file(json.dumps(plot_array)) 
 
 #         return jsonify({'success': True})
 #     except Exception as e:
