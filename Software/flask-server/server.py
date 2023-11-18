@@ -76,10 +76,14 @@ def add_data():
 
         for i in range(plots_number):
             new_data.append({
-                "_id": i + 1 + size,
                 "plot_number": i + 1 + size,
                 "plant_id": "",
-                "steps": 0
+                "last_reading": {
+                    "time": "",
+                    "ph": 0,
+                    "ec": 0
+                },  
+                "steps": 0              
             })
 
         # Insert the new data into the MongoDB collection
