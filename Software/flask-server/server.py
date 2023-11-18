@@ -8,7 +8,10 @@ app = Flask(__name__)
 
 CORS(app)
 
-client = MongoClient('localhost', 27017, username='', password='')
+connection_string = "mongodb+srv://capstone:capstone123@capstone.m5fs3fi.mongodb.net/?retryWrites=true&w=majority"
+# Create a MongoClient instance
+client = MongoClient(connection_string)
+# client = MongoClient('localhost', 27017, username='', password='')
 db = client['Capstone']
 plants = db.plants
 plots = db.plots
@@ -17,19 +20,20 @@ plots = db.plots
 def members():
     return {"members" : ["Rida", "Tracy", "Tas"]}
 
-plots_file_path = os.path.join(os.path.dirname(__file__), 'plots.json')
+plots_file_path = os.path.join(os.path.dirname(__file__), 'motor-status.json')
 
 @app.route('/update_steps', methods=['POST'])
-def update_steps():
+def update_steps(steps_array):
     try:
-        data = request.get_json()
+        # data = request.get_json()
 
         # Ensure the received data is an array
-        if not isinstance(data, list):
-            return jsonify({'error': 'Invalid data format. Expected an array.'}), 400
+        if not isinstance(steps_array, list):
+            print("Steps array is not an array")
+            # return jsonify({'error': 'Invalid data format. Expected an array.'}), 400
 
         # Iterate through each plot in the array and update the steps
-        for plot_data in data:
+        for plot_data in steps_array:
             # Ensure required fields are present in the plot_data
             if 'plot_number' not in plot_data or 'steps' not in plot_data:
                 return jsonify({'error': 'Missing required fields in plot data'}), 400
@@ -61,8 +65,6 @@ def get_data():
         return jsonify(plot_array)
     except Exception as e:
         return jsonify({'error': str(e)})
-    
-
     
 
 @app.route('/api/addPlots', methods=['POST'])
@@ -154,9 +156,73 @@ def assign_plant():
 
     except Exception as e:
         return jsonify({'error': str(e)})
+    
+def read_status_from_file():
+    with open(plots_file_path, 'r') as file:
+        data = file.read()
+        return data
+    
+def write_status_to_file(data):
+    with open(plots_file_path, 'w') as file:
+        file.write(data)
 
+def get_status():
+    try:
+        # Read data from 'plots.json' file and parse it as JSON
+        status_data = json.loads(read_status_from_file())
+        return status_data
+    except Exception as e:
+        return jsonify({'error': str(e)})
+    
+def save_status(vertical_motor, horizontal_boundary):
+    try:
+        # Read existing status from the file
+        status_data = json.loads(read_status_from_file())
+
+        # Update the specific fields
+        status_data["vertical-motor"] = vertical_motor
+        status_data["horizontal-boundary"] = horizontal_boundary
+
+        # Convert the updated status back to JSON
+        updated_status_json = json.dumps(status_data, indent=2)
+
+        # Write the updated status back to the file
+        write_status_to_file(updated_status_json)
+
+        return status_data
+    except Exception as e:
+        return {'error': str(e)}
+
+
+@app.route('/api/calibrate', methods=['POST'])
+def calibrate():
+    try:
+        # TODO: get request number of plants in plot collection to pass in as arg for calibrate.py
+        plot_count = plots.count_documents({})
+        data = subprocess.check_output(['python', './serial-cmd-scripts/calibrate.py'] + 3)
+        update_steps(data['steps_array'])
+        save_status(vertical_motor=data["vertical-motor"],  horizontal_boundary=data["horizontal-boundary"])
+        return jsonify({'success': True})
+    except Exception as e:
+        return jsonify({'error': str(e)})
+    
+
+@app.route('/api/run', methods=['POST'])
+def run():
+    try:
+        readings = subprocess.check_output(['python', './serial-cmd-scripts/run.py'] + steps_array, text=True)
+        # call function to update the most recent sensor readings and time collected
+        return jsonify({'success': True})
+    except Exception as e:
+        return jsonify({'error': str(e)})
+    
+
+# TODO: pull steps from database to use in run
+# TODO: save sensor reading to database from run
+# TODO: Update run endpoint to include 
 
 if __name__ == "__main__":
+    # print(plots.count_documents({}))
     app.run(debug=True)
 
 # @app.route('/api/addPlots', methods=['POST'])
@@ -182,16 +248,7 @@ if __name__ == "__main__":
 #     # You may want to exit the application or take other appropriate action here
 
 
-# # TODO: No need for this after redone
-# def read_plots_from_file():
-#     with open(plots_file_path, 'r') as file:
-#         data = file.read()
-#         return data
-    
-# # TODO: No need for this after redone
-# def write_plots_to_file(data):
-#     with open(plots_file_path, 'w') as file:
-#         file.write(data)
+
 
 # # TODO: replace with mongo connection
 # @app.route('/api/getPlots', methods=['GET'])
