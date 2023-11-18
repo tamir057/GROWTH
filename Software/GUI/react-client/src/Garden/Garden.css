@@ -138,7 +138,7 @@
   }
 /* CSS for the button hover effect */
 .button-primary-2:hover {
-background-color: #b5d3b1 !important; /* Background color on hover */
+background-color: #6CB136 !important; /* Background color on hover */
 color: #F7FCFC !important; /* Text color on hover */
 }
 
@@ -149,6 +149,11 @@ line-height: 20px !important;
 text-align: center !important;
 background-color: #b5d3b1 !important;
 color: #F7FCFC !important;
+}
+
+.button-square:hover {
+background-color: #6CB136 !important;
+color: #ffffff !important;
 }
 
   
