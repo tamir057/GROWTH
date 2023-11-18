@@ -12,10 +12,14 @@ import sys
 received_message = ["::"]
 boundary_offset = 4000
 current_position = 0
-data = { 
-    "1": 0,
-    "2" : 0,
-    "3" : 0
+data = {
+    'vertical-motor': 0, 
+    'horizontal-boundary': 0,
+    'steps_array': { 
+        "1": 0,
+        "2" : 0,
+        "3" : 0
+    }
 }
 
 # total_fiducials = sys.argv[1:]

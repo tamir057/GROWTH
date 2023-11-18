@@ -230,6 +230,7 @@ if __name__ == "__main__":
 
 @app.route('/api/calibrate', methods=['POST'])
 def calibrate():
+    print("hit calibrate endpoint")
     try:
         # TODO: get request number of plants in plot collection to pass in as arg for calibrate.py
         data = subprocess.check_output(['python', './serial-cmd-scripts/calibrate.py'] + 3)
@@ -241,6 +242,7 @@ def calibrate():
 
 @app.route('/api/run', methods=['POST'])
 def run():
+    print("hit run endpoint")
     try:
         readings = subprocess.check_output(['python', './serial-cmd-scripts/run.py'] + steps_array, text=True)
         # call function to update the most recent sensor readings and time collected

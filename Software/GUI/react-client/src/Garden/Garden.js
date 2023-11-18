@@ -1,23 +1,30 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./Garden.css";
 import PlotList from "./plot-list";
-import AddPlots from './AddPlots';
-
+import AddPlots from "./AddPlots";
 
 function Garden() {
   const [isAddPopupOpen, setIsAddPopupOpen] = useState();
   const [isCheckedAll, setIsCheckedAll] = useState(false);
 
   const handleAddButtonClick = () => {
-      setIsAddPopupOpen(true);
+    setIsAddPopupOpen(true);
+  };
+
+  const handleCalibrateButtonClick = () => {
+    fetch("http://localhost:5000/api/calibrate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   };
 
   const closeAddPopup = () => {
-      setIsAddPopupOpen(false);
+    setIsAddPopupOpen(false);
   };
 
-  
   return (
     <div>
       <div className="nav-padding bg-grey-c wide row fullHeightDiv">
@@ -28,9 +35,21 @@ function Garden() {
             </div>
             <div className="col-6 float-end">
               <div className="float-end">
-                  <button className="m-2 btn button-primary-2 round-15 float-end">Run</button>
-                  <button className="m-2 btn button-primary-2 round-15 float-end">Calibrate</button>
-                  <button className="m-2 btn button-primary-2 round-15 float-end" onClick={handleAddButtonClick}>Add</button>
+                <button className="m-2 btn button-primary-2 round-15 float-end">
+                  Run
+                </button>
+                <button
+                  className="m-2 btn button-primary-2 round-15 float-end"
+                  onClick={handleCalibrateButtonClick}
+                >
+                  Calibrate
+                </button>
+                <button
+                  className="m-2 btn button-primary-2 round-15 float-end"
+                  onClick={handleAddButtonClick}
+                >
+                  Add
+                </button>
                 {isAddPopupOpen && <AddPlots onClose={closeAddPopup} />}
               </div>
             </div>
@@ -38,7 +57,6 @@ function Garden() {
           <PlotList onCheckAll={setIsCheckedAll} isCheckedAll={isCheckedAll} />
         </div>
       </div>
-      
     </div>
   );
 }
