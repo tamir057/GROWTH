@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./garden_index.css";
+import "./Garden.css";
 import PlotList from "./plot-list";
 import AddPlots from './AddPlots';
 
 
 function Garden() {
   const [isAddPopupOpen, setIsAddPopupOpen] = useState();
-  console.log(isAddPopupOpen);
-
+  const [isCheckedAll, setIsCheckedAll] = useState(false);
 
   const handleAddButtonClick = () => {
       setIsAddPopupOpen(true);
@@ -28,16 +27,15 @@ function Garden() {
               <h3 className="p-2">Farm Layout</h3>
             </div>
             <div className="col-6 float-end">
-              <div className="row">
-                <div className="col-2"></div>
-                <button className="m-2 col-3 btn button-primary-2 round-15">Calibrate</button>
-                <button className="m-2 col-3 btn button-primary-2 round-15">Run</button>
-                <button className="m-2 col-3 btn button-primary-2 round-15" onClick={handleAddButtonClick}>Add</button>
+              <div className="float-end">
+                  <button className="m-2 btn button-primary-2 round-15 float-end">Run</button>
+                  <button className="m-2 btn button-primary-2 round-15 float-end">Calibrate</button>
+                  <button className="m-2 btn button-primary-2 round-15 float-end" onClick={handleAddButtonClick}>Add</button>
                 {isAddPopupOpen && <AddPlots onClose={closeAddPopup} />}
               </div>
             </div>
           </div>
-          <PlotList />
+          <PlotList onCheckAll={setIsCheckedAll} isCheckedAll={isCheckedAll} />
         </div>
       </div>
       

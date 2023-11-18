@@ -3,6 +3,8 @@ import hydroponics from "./hydroponics_img.png";
 import hydroponics2 from "./hydroponics_img2.png";
 import "./login_index.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+
 
 function Login() {
   const [data, setData] = useState([{}]);
@@ -11,6 +13,8 @@ function Login() {
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
+  
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/members")
@@ -22,7 +26,7 @@ function Login() {
   }, []);
 
   const onButtonClick = () => {
-    // update this function later
+    navigate('/garden');
   };
 
   return (
@@ -50,6 +54,7 @@ function Login() {
         <div className={"loginInputContainer"}>
           <div className={"loginSubtitle2Container"}> Password </div>
           <input
+            type="password"
             value={password}
             placeholder="Enter your password here"
             onChange={(ev) => setPassword(ev.target.value)}
