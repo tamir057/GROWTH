@@ -103,53 +103,52 @@
   }
   
   .bg-grey-c {
-    background-color: #C2BEBE;
+    background-color: #C2BEBE !important;
   }
   
   .nav-padding {
-    padding-top: 59px;
+    padding-top: 59px !important;
   }
   .round-10 {
-    border-radius: 10px;
+    border-radius: 10px !important;
   }
   .pos-fixed {
-    position: fixed;
-    right: 0px;
-    z-index: 50;
+    position: fixed !important;
+    right: 0px !important;
+    z-index: 50 !important;
   }
   .bg-secondary-green {
-    background-color: #D0DFDF;
+    background-color: #D0DFDF !important;
   }
   .bg-primary-green {
-    background-color: #acbb99;
+    background-color: #acbb99 !important;
   }
   
   .round-15 {
-    border-radius: 15px;
+    border-radius: 15px !important;
   }
   
   .button-primary-2 {
-    width: 109px;
-    height: 32px;
-    line-height: 20px;
-    text-align: center;
-    background-color: #b5d3b1;
-    color: #F7FCFC;
+    width: 109px !important;
+    height: 32px !important;
+    line-height: 20px !important;
+    text-align: center !important;
+    background-color: #b5d3b1 !important;
+    color: #F7FCFC !important;
   }
 /* CSS for the button hover effect */
 .button-primary-2:hover {
-background-color: #b5d3b1; /* Background color on hover */
-color: #F7FCFC; /* Text color on hover */
+background-color: #b5d3b1 !important; /* Background color on hover */
+color: #F7FCFC !important; /* Text color on hover */
 }
 
 .button-square {
-height: 70px;
-width: 180px;
-line-height: 20px;
-text-align: center;
-background-color: #b5d3b1;
-color: #F7FCFC;
-border: #b5d3b1;
+height: 70px !important;
+width: 180px !important;
+line-height: 20px !important;
+text-align: center !important;
+background-color: #b5d3b1 !important;
+color: #F7FCFC !important;
 }
 
   

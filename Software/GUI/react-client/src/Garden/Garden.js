@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./garden_index.css";
+import "./Garden.css";
 import PlotList from "./plot-list";
 import AddPlots from './AddPlots';
 

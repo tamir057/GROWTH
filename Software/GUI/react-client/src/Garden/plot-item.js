@@ -31,7 +31,7 @@ const PlotItem = (
    <div className="row">
      <div className="col-1">
      <input type="checkbox" id="checkbox"></input>
-        <button class="m-2 col-3 btn button-square round-15" onClick={openAddPopup}>Plot {plot.plot_number} {plot.plant} </button>
+        <button class="m-2 col-3  button-square round-15" onClick={openAddPopup}>Plot {plot.plot_number} {plot.plant} </button>
         {showAddPopup && <Select/>}
      </div>
      <div className="col-10 mt-2 ml-0 pl-0">
@@ -54,14 +54,14 @@ const PlotItem = (
      <img width={70} height={70} className="float-end" src="/images/hydroponic.png"/> */}
      {(plot.plant_id !== "") && 
      <div>
-      <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
-      <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
-      <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
-      <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
-      <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
-      <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
-      <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
-      <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={140} height={80} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={140} height={80} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={140} height={80} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={140} height={80} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={140} height={80} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={140} height={80} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={140} height={80} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={140} height={80} className="float-end" src="/images/garden-plant.jpg"/>
       {/* <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/> */}
       {/* <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
       <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
