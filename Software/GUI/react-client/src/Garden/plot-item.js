@@ -4,7 +4,7 @@ import "./Garden-index.css";
 import Select from './Select'; // Import the AddPlotModal component
 
 
-const PlotItem = ({ plot, isCheckedAll }) => {
+const PlotItem = ({ plot, isCheckedAll, onPlotCheckboxChange }) => {
   
   const [showAddPopup, setShowAddPopup] = useState(false);
   const [isChecked, setIsChecked] = useState(isCheckedAll);
@@ -38,9 +38,13 @@ const PlotItem = ({ plot, isCheckedAll }) => {
             type="checkbox"
             id="checkbox"
             checked={isChecked}
-            onChange={() => setIsChecked(!isChecked)}
-          />        <button class="m-2 col-3  button-square round-15" onClick={openAddPopup}>Plot {plot.plot_number} {plot.plant} </button>
-        {showAddPopup && <Select/>}
+            onChange={() => {
+              setIsChecked(!isChecked);
+              onPlotCheckboxChange(plot.plot_number);
+            }}
+          />
+        <button class="m-2 col-3  button-square round-15" onClick={openAddPopup}>Plot {plot.plot_number} {plot.plant} </button>
+        {showAddPopup && <Select/>}     
      </div>
 
      <div className="col-10 mt-2">

@@ -222,7 +222,12 @@ def calibrate():
 def run():
     print("hit run endpoint")
     try:
-        steps_array = get_steps_array
+        data = request.json
+        selected_plots = data.get('checkedPlots')  # Access the checkedPlots key
+        # selected_plant = data.get('selectedPlant')
+        print("Plots:", selected_plots)
+
+        steps_array = get_steps_array(selected_plots)
         readings = subprocess.check_output(['python', './serial-cmd-scripts/run.py'] + steps_array, text=True)
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         # appending the time

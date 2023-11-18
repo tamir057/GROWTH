@@ -3,7 +3,7 @@ import PlotItem from "./plot-item";
 import React, { useState, useEffect } from 'react';
 
 
-const PlotList = ({ onCheckAll, isCheckedAll }) => {
+const PlotList = ({ onCheckAll, isCheckedAll, onPlotCheckboxChange }) => {
   const [plotsArray, setPlotsArray] = useState([]);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const PlotList = ({ onCheckAll, isCheckedAll }) => {
       </div>
       <ul className="list-group">
         {plotsArray.map((plot) => (
-          <PlotItem key={plot._id} plot={plot} isCheckedAll={isCheckedAll} />
+          <PlotItem key={plot._id} plot={plot} isCheckedAll={isCheckedAll} onPlotCheckboxChange={onPlotCheckboxChange} />
           ))}
       </ul>
     </div>
