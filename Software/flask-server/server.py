@@ -78,6 +78,7 @@ def add_data():
             new_data.append({
                 "plot_number": i + 1 + size,
                 "plant_id": "",
+                "plant" : "Empty",
                 "last_reading": {
                     "time": "",
                     "ph": 0,
@@ -136,12 +137,13 @@ def assign_plant():
 
         if plant:
             plant_id = str(plant['_id'])  # Convert ObjectId to string
+            plant_name = str(plant['name']) 
             # Rest of your code
         else:
             return jsonify({'error': 'Selected plant not found'})
         if plot:
             # Update the plant field of the specified plot
-            plots.update_one({"plot_number": plot_number}, {"$set": {"plant_id": plant_id}})
+            plots.update_one({"plot_number": plot_number}, {"$set": {"plant_id": plant_id, "plant": plant_name}})
 
             print("Success")
             return jsonify({'success': True, 'message': 'Plant assigned successfully'})
