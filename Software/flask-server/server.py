@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from bson.json_util import dumps
 from flask_cors import CORS
 import subprocess 
+from datetime import datetime
 app = Flask(__name__)
 
 CORS(app)
@@ -213,25 +214,94 @@ def calibrate():
 def run():
     print("hit run endpoint")
     try:
+        steps_array = get_steps_array
         readings = subprocess.check_output(['python', './serial-cmd-scripts/run.py'] + steps_array, text=True)
-        # call function to update the most recent sensor readings and time collected
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        # appending the time
+        modified_readings = {
+            plot_number: {'time': current_time, **readings}
+            for plot_number, readings in readings.items()
+        }       
+        save_sensor_readings(modified_readings)
         return jsonify({'success': True})
     except Exception as e:
         return jsonify({'error': str(e)})
     
+def get_steps_array(plot_numbers):
+    try:
+        steps_dict = {}
 
-# TODO: pull steps from database to use in run
-# TODO: save sensor reading to database from run
+        # Iterate through each plot number and fetch the corresponding steps
+        for plot_number in plot_numbers:
+            # Find the plot based on plot_number
+            plot = plots.find_one({'plot_number': plot_number})
+
+            # Check if the plot exists
+            if plot:
+                steps_dict[plot_number] = plot.get('steps', 0)
+            else:
+                raise ValueError(f'Plot with plot_number {plot_number} not found')
+
+        return steps_dict
+
+    except Exception as e:
+        raise ValueError(str(e))
+
+def save_sensor_readings(plot_readings):
+    try:
+        for plot_number, readings in plot_readings.items():
+            # Find the plot based on plot_number
+            plot = plots.find_one({'plot_number': plot_number})
+            print(plot_number)
+
+            # Check if the plot exists
+            if plot:
+                # Update the "last_reading" field of the specified plot
+                plots.update_one(
+                    {'plot_number': plot_number},
+                    {'$set': {'last_reading': readings}}
+                )
+            else:
+                print('Plot with plot_number {plot_number} not found')
+
+        print('success')
+
+    except Exception as e:
+        print('Exception')
+
 # TODO: Update run endpoint to include 
 
 if __name__ == "__main__":
-    # print(plots.count_documents({}))
     app.run(debug=True)
 
 # @app.route('/api/addPlots', methods=['POST'])
 
 # result = subprocess.check_output(['python', 'script2.py', arg1, arg2], text=True).strip()
 
+
+    # print(plots.count_documents({}))
+    # plot_reading = {
+    #     1: {
+    #         'time': '12:00',
+    #         'pH': 6.5,
+    #         'temperature': 25.0,
+    #         'ec': 1.8
+    #     },
+    #     2: {
+    #         'time': '12:00',
+    #         'pH': 7.2,
+    #         'temperature': 24.5,
+    #         'ec': 2.0
+    #     },
+    #     3: {
+    #         'time': '12:00',
+    #         'pH': 6.8,
+    #         'temperature': 26.0,
+    #         'ec': 1.5
+    #     }
+    # }
+    # save_sensor_readings(plot_reading)
+    # print(get_steps_array([1,2,3,4]))
 
 # try:
 #     # Attempt to create a MongoDB client instance
