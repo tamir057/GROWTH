@@ -189,6 +189,9 @@ def save_status(vertical_motor, horizontal_boundary):
     except Exception as e:
         return {'error': str(e)}
 
+# TODO: pull steps from database to use in run
+# TODO: save sensor reading to database from run
+# TODO: Update run endpoint to include 
 
 if __name__ == "__main__":
     app.run(debug=True)
