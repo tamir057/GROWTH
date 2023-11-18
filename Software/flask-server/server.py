@@ -228,26 +228,22 @@ if __name__ == "__main__":
 #         # Write the updated array back to the file
 #         write_plots_to_file(json.dumps(plot_array)) 
 
-@app.route('/api/run', methods=['POST'])
-def run():
+@app.route('/api/calibrate', methods=['POST'])
+def calibrate():
     try:
-        steps_array = subprocess.check_output(['python', './serial-cmd-scripts/run.py'] + 3)
-        # for steps in steps_array {
-        #     plants.insert_one(steps)
-        # }
+        # TODO: get request number of plants in plot collection to pass in as arg for calibrate.py
+        data = subprocess.check_output(['python', './serial-cmd-scripts/calibrate.py'] + 3)
+        update_steps(data['steps_array'])
         return jsonify({'success': True})
     except Exception as e:
         return jsonify({'error': str(e)})
     
 
-@app.route('/api/calibrate', methods=['POST'])
-def calibrate():
+@app.route('/api/run', methods=['POST'])
+def run():
     try:
-        readings = subprocess.check_output(['python', './serial-cmd-scripts/calibrate.py'] + steps_array, text=True)
-        # get current time
-        # for reading in readings {
-        #     plants.insert_one()
-        # }
+        readings = subprocess.check_output(['python', './serial-cmd-scripts/run.py'] + steps_array, text=True)
+        # call function to update the most recent sensor readings and time collected
         return jsonify({'success': True})
     except Exception as e:
         return jsonify({'error': str(e)})
