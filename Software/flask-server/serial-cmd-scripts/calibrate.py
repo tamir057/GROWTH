@@ -48,8 +48,6 @@ picam2 = Picamera2()
 picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888', "size": (320, 240)}, controls={"FrameDurationLimits": (50000, 50000)}))
 picam2.start()
 
-fiducials_detected = 0
-
 def fiducial_detection():
     while received_message[0].split(":")[1] != "LIMIT_SWITCH_TRIGGERED":
         im = picam2.capture_array()
@@ -87,7 +85,7 @@ def fiducial_detection():
                     #cv2.imshow("Middle Frame", im)
                     print("found a fiducial")
                     time.sleep(0.1)
-                    return 
+                    return 0
                 # draw the ArUco marker ID on the frame
             cv2.putText(im, str(markerID),(topLeft[0], topLeft[1] - 15), cv2.FONT_HERSHEY_SIMPLEX,0.5, (0, 255, 0), 2)
         # show the output frame
@@ -95,6 +93,8 @@ def fiducial_detection():
         # key = cv2.waitKey(1) & 0xFF
         # if key == ord('q'):
         #     break
+
+    return 1
 
 # helper to wait for acks 
 def wait_for_ack(message):
@@ -114,12 +114,16 @@ def send_serial(command):
 
 #TODO: CREATE HELPER FOR ACKS !!! 
 def calibrate():
+    
     fiducials_detected = 0
 
     send_serial("MOVE_MOTOR_CONT:1,0")   # send up first 
     wait_for_ack("LIMIT_SWITCH_TRIGGERED") #ack mssg that at limit switch
     if received_message[0].split(":")[2] != 'UP':
         raise ValueError("wrong direction!!!!!!! should be up")
+
+    send_serial(f"MOVE_MOTOR_STEPS:1,1,{2*boundary_offset}")
+    wait_for_ack("MOVE_MOTOR_STEPS")
 
     # TODO: set state of z motor as 'up' -- store locally? 
     send_serial("MOVE_MOTOR_CONT:0,1") # send to right  
@@ -136,7 +140,10 @@ def calibrate():
     while (received_message[0].split(":")[1] != "LIMIT_SWITCH_TRIGGERED"): 
         send_serial("MOVE_MOTOR_CONT:0,0")
 
-        fiducial_detection()
+        fiducial_status = fiducial_detection()
+        if fiducial_status == 1:
+            break
+        
 
         send_serial("STOP_MOTOR:0")
         wait_for_ack("STOP_MOTOR")  #ack mssg that it moved the stopped the motor
@@ -150,12 +157,11 @@ def calibrate():
         data[f"{fiducials_detected}"] = current_position
         time.sleep(1)
 
-    send_serial(f"MOVE_MOTOR_STEPS:0,0,{boundary_offset}") # moving to left 
+    time.sleep(0.5)
+    send_serial(f"MOVE_MOTOR_STEPS:0,1,{boundary_offset}") # moving to right 
     wait_for_ack("MOVE_MOTOR_STEPS")
 
-    send_serial("STOP_MOTOR:0")
-    wait_for_ack("STOP_MOTOR")
-    time.sleep(0.01)
+    #time.sleep(0.01)
 
     # request current position and store that as outer boundary 
     # TODO: current position helper
@@ -164,17 +170,19 @@ def calibrate():
     current_position = received_message[0].split(":")[2]
     print(current_position)
 
+    return fiducials_detected
+
     
         
 # if __name__ == "__main__":
-calibrate() 
+fiducials_detected = calibrate() 
 if fiducials_detected < total_fiducials:
-    fiducials_detected = 0
-    calibrate()
+    fiducials_detected = calibrate()
 
 if fiducials_detected == total_fiducials:
     print(data)
     print("All fiducials found!")
+
 else:
     raise ValueError("Failed to final all fiducials") 
 
