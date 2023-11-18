@@ -8,7 +8,10 @@ app = Flask(__name__)
 
 CORS(app)
 
-client = MongoClient('localhost', 27017, username='', password='')
+connection_string = "mongodb+srv://capstone:capstone123@capstone.m5fs3fi.mongodb.net/?retryWrites=true&w=majority"
+# Create a MongoClient instance
+client = MongoClient(connection_string)
+# client = MongoClient('localhost', 27017, username='', password='')
 db = client['Capstone']
 plants = db.plants
 plots = db.plots
@@ -20,16 +23,17 @@ def members():
 plots_file_path = os.path.join(os.path.dirname(__file__), 'motor-status.json')
 
 @app.route('/update_steps', methods=['POST'])
-def update_steps():
+def update_steps(steps_array):
     try:
-        data = request.get_json()
+        # data = request.get_json()
 
         # Ensure the received data is an array
-        if not isinstance(data, list):
-            return jsonify({'error': 'Invalid data format. Expected an array.'}), 400
+        if not isinstance(steps_array, list):
+            print("Steps array is not an array")
+            # return jsonify({'error': 'Invalid data format. Expected an array.'}), 400
 
         # Iterate through each plot in the array and update the steps
-        for plot_data in data:
+        for plot_data in steps_array:
             # Ensure required fields are present in the plot_data
             if 'plot_number' not in plot_data or 'steps' not in plot_data:
                 return jsonify({'error': 'Missing required fields in plot data'}), 400
@@ -189,13 +193,37 @@ def save_status(vertical_motor, horizontal_boundary):
     except Exception as e:
         return {'error': str(e)}
 
+
+@app.route('/api/calibrate', methods=['POST'])
+def calibrate():
+    try:
+        # TODO: get request number of plants in plot collection to pass in as arg for calibrate.py
+        plot_count = plots.count_documents({})
+        data = subprocess.check_output(['python', './serial-cmd-scripts/calibrate.py'] + 3)
+        update_steps(data['steps_array'])
+        save_status(vertical_motor=data["vertical-motor"],  horizontal_boundary=data["horizontal-boundary"])
+        return jsonify({'success': True})
+    except Exception as e:
+        return jsonify({'error': str(e)})
+    
+
+@app.route('/api/run', methods=['POST'])
+def run():
+    try:
+        readings = subprocess.check_output(['python', './serial-cmd-scripts/run.py'] + steps_array, text=True)
+        # call function to update the most recent sensor readings and time collected
+        return jsonify({'success': True})
+    except Exception as e:
+        return jsonify({'error': str(e)})
+    
+
 # TODO: pull steps from database to use in run
 # TODO: save sensor reading to database from run
 # TODO: Update run endpoint to include 
 
 if __name__ == "__main__":
+    # print(plots.count_documents({}))
     app.run(debug=True)
-
 
 # @app.route('/api/addPlots', methods=['POST'])
 
@@ -256,23 +284,3 @@ if __name__ == "__main__":
  
 #         # Write the updated array back to the file
 #         write_plots_to_file(json.dumps(plot_array)) 
-
-@app.route('/api/calibrate', methods=['POST'])
-def calibrate():
-    try:
-        # TODO: get request number of plants in plot collection to pass in as arg for calibrate.py
-        data = subprocess.check_output(['python', './serial-cmd-scripts/calibrate.py'] + 3)
-        update_steps(data['steps_array'])
-        return jsonify({'success': True})
-    except Exception as e:
-        return jsonify({'error': str(e)})
-    
-
-@app.route('/api/run', methods=['POST'])
-def run():
-    try:
-        readings = subprocess.check_output(['python', './serial-cmd-scripts/run.py'] + steps_array, text=True)
-        # call function to update the most recent sensor readings and time collected
-        return jsonify({'success': True})
-    except Exception as e:
-        return jsonify({'error': str(e)})
