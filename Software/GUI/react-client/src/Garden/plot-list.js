@@ -3,7 +3,7 @@ import PlotItem from "./plot-item";
 import React, { useState, useEffect } from 'react';
 
 
-const PlotList = () => {
+const PlotList = ({ onCheckAll, isCheckedAll }) => {
   const [plotsArray, setPlotsArray] = useState([]);
 
   useEffect(() => {
@@ -19,10 +19,13 @@ const PlotList = () => {
  
   return (
     <div className="w-100">
+      <div>
+        <button className="m-2 col-3 btn button-primary-2 round-15" onClick={() => onCheckAll(!isCheckedAll)}>Select All</button>
+      </div>
       <ul className="list-group">
         {plotsArray.map((plot) => (
-          <PlotItem key={plot._id} plot={plot} />
-        ))}
+          <PlotItem key={plot._id} plot={plot} isCheckedAll={isCheckedAll} />
+          ))}
       </ul>
     </div>
   );

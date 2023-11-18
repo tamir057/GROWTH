@@ -1,10 +1,8 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-// import { useSelector } from "react-redux";
-// import "./Garden/index.css"
+import "./Garden/Garden.css"
 
 function NavBar() {
-  //   const { currentUser } = useSelector((state) => state.user);
   const { pathname } = useLocation();
   const [ignore, active] = pathname.split("/");
   return (
