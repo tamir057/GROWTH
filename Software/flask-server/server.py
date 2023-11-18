@@ -17,7 +17,7 @@ plots = db.plots
 def members():
     return {"members" : ["Rida", "Tracy", "Tas"]}
 
-plots_file_path = os.path.join(os.path.dirname(__file__), 'plots.json')
+plots_file_path = os.path.join(os.path.dirname(__file__), 'motor-status.json')
 
 @app.route('/update_steps', methods=['POST'])
 def update_steps():
@@ -61,8 +61,6 @@ def get_data():
         return jsonify(plot_array)
     except Exception as e:
         return jsonify({'error': str(e)})
-    
-
     
 
 @app.route('/api/addPlots', methods=['POST'])
@@ -154,10 +152,47 @@ def assign_plant():
 
     except Exception as e:
         return jsonify({'error': str(e)})
+    
+def read_status_from_file():
+    with open(plots_file_path, 'r') as file:
+        data = file.read()
+        return data
+    
+def write_status_to_file(data):
+    with open(plots_file_path, 'w') as file:
+        file.write(data)
+
+def get_status():
+    try:
+        # Read data from 'plots.json' file and parse it as JSON
+        status_data = json.loads(read_status_from_file())
+        return status_data
+    except Exception as e:
+        return jsonify({'error': str(e)})
+    
+def save_status(vertical_motor, horizontal_boundary):
+    try:
+        # Read existing status from the file
+        status_data = json.loads(read_status_from_file())
+
+        # Update the specific fields
+        status_data["vertical-motor"] = vertical_motor
+        status_data["horizontal-boundary"] = horizontal_boundary
+
+        # Convert the updated status back to JSON
+        updated_status_json = json.dumps(status_data, indent=2)
+
+        # Write the updated status back to the file
+        write_status_to_file(updated_status_json)
+
+        return status_data
+    except Exception as e:
+        return {'error': str(e)}
 
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 
 # @app.route('/api/addPlots', methods=['POST'])
 
@@ -182,16 +217,7 @@ if __name__ == "__main__":
 #     # You may want to exit the application or take other appropriate action here
 
 
-# # TODO: No need for this after redone
-# def read_plots_from_file():
-#     with open(plots_file_path, 'r') as file:
-#         data = file.read()
-#         return data
-    
-# # TODO: No need for this after redone
-# def write_plots_to_file(data):
-#     with open(plots_file_path, 'w') as file:
-#         file.write(data)
+
 
 # # TODO: replace with mongo connection
 # @app.route('/api/getPlots', methods=['GET'])
