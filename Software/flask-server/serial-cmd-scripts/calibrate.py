@@ -127,6 +127,7 @@ def calibrate():
     wait_for_ack("LIMIT_SWITCH_TRIGGERED") #ack mssg that at limit switch
     if received_message[0].split(":")[2] != 'UP':
         raise ValueError("wrong direction!!!!!!! should be up")
+    data["vertical-motor"] = 0
 
     send_serial(f"MOVE_MOTOR_STEPS:1,1,{2*boundary_offset}")
     wait_for_ack("MOVE_MOTOR_STEPS")
@@ -174,23 +175,25 @@ def calibrate():
     send_serial("RETURN_POS:0")
     wait_for_ack("RETURN_POS")
     current_position = received_message[0].split(":")[2]
+    data['horizontal-boundary'] = current_position
     print(current_position)
 
     return fiducials_detected
 
     
         
-# if __name__ == "__main__":
-fiducials_detected = calibrate() 
-if fiducials_detected < total_fiducials:
-    fiducials_detected = calibrate()
+if __name__ == "__main__":
+    print("in the calibrate file")
+    fiducials_detected = calibrate() 
+    if fiducials_detected < total_fiducials:
+        fiducials_detected = calibrate()
 
-if fiducials_detected == total_fiducials:
-    print(data)
-    print("All fiducials found!")
+    if fiducials_detected == total_fiducials:
+        print(data)
+        print("All fiducials found!")
 
-else:
-    raise ValueError("Failed to final all fiducials") 
+    else:
+        raise ValueError("Failed to final all fiducials") 
 
-# do a bit of cleanup
-cv2.destroyAllWindows()
+    # # do a bit of cleanup
+    # cv2.destroyAllWindows()

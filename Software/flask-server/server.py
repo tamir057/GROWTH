@@ -201,9 +201,17 @@ def calibrate():
         # TODO: get request number of plants in plot collection to pass in as arg for calibrate.py
         plot_count = plots.count_documents({})
         print(f"this is the plot count: {plot_count}")
-        data = subprocess.check_output(['python', './serial-cmd-scripts/calibrate.py'] + 3)
-        update_steps(data['steps_array'])
-        save_status(vertical_motor=data["vertical-motor"],  horizontal_boundary=data["horizontal-boundary"])
+        command = ["python", "./serial-cmd-scripts/calibrate.py", 3, "--flag"]
+        process = subprocess.run(command, capture_output=True, text=True)
+        print("Output:", process.stdout)
+        print("Error:", process.stderr)
+        print("Return code:", process.returncode)
+        # subprocess.run(['python', './serial-cmd-scripts/calibrate.py'] + 3)
+        # result = subprocess.run(['./serial-cmd-scripts/calibrate.py'], shell=True, capture_output=True, text=True)
+        # print(result.stdout)
+        # data = subprocess.check_output(['python', './serial-cmd-scripts/calibrate.py'] + 3)
+        # update_steps(data['steps_array'])
+        # save_status(vertical_motor=data["vertical-motor"],  horizontal_boundary=data["horizontal-boundary"])
         return jsonify({'success': True})
     except Exception as e:
         return jsonify({'error': str(e)})
