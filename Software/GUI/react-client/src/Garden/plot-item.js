@@ -8,8 +8,9 @@ import Select from './Select'; // Import the AddPlotModal component
 const PlotItem = (
  {
    plot = {
+    "_id": "654bd730d81fd3dadf6f304c",
      "plot_number": "1",
-     "plant": "Spinach"
+     "plant_id": "2345nhb65432vgf45"
    }
  }
 
@@ -24,8 +25,9 @@ const PlotItem = (
     setShowAddPopup(false);
   };
   
+
  return(
-  <li className="list-group-item bg-secondary-green mt-2 mb-2">
+  <li id="" className="list-group-item bg-secondary-green mt-2 mb-2">
    <div className="row">
      <div className="col-1">
      <input type="checkbox" id="checkbox"></input>
@@ -50,28 +52,28 @@ const PlotItem = (
      <img width={70} height={70} className="float-end" src="/images/hydroponic.png"/>
      <img width={70} height={70} className="float-end" src="/images/hydroponic.png"/>
      <img width={70} height={70} className="float-end" src="/images/hydroponic.png"/> */}
-     {(plot.plant !== "") && 
+     {(plot.plant_id !== "") && 
      <div>
-      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
-      <img width={70} height={70} className="float-end" src="/images/garden-plant2.jpg"/>
+      <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
+      {/* <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/> */}
+      {/* <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={140} height={70} className="float-end" src="/images/garden-plant.jpg"/> */}
+      {/* <img width={70} height={70} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant.jpg"/>
+      <img width={70} height={70} className="float-end" src="/images/garden-plant.jpg"/> */}
      </div>
 }
-{(plot.plant == "") && 
+{(plot.plant_id == "") && 
      <div>
      <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
      <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
@@ -89,13 +91,13 @@ const PlotItem = (
      <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
      <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
      <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
-     <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/>
+     {/* <img width={70} height={70} className="float-end" src="/images/empty2.jpeg"/> */}
     </div>
 }
 
 
      </div>
-     <Select showModal={showAddPopup} handleClose={closeAddPopup} />
+     <Select showModal={showAddPopup} handleClose={closeAddPopup} plotNumber={plot.plot_number} />
    </div>
   </li>
  );
