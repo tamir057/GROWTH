@@ -98,6 +98,28 @@ def add_data():
     except Exception as e:
         return jsonify({'error': str(e)})
     
+@app.route('/api/save-plant-profile', methods=['POST'])
+def save_plant_profile():
+    try:
+        data = request.json  # Assuming the request contains JSON data
+        plant_name = data.get('name')
+
+        # Check if the plant with the given name already exists
+        existing_plant = plants.find_one({"name": plant_name})
+        if existing_plant:
+            return jsonify({'error': f'A plant with the name {plant_name} already exists'}), 400
+
+        # Insert a new document into the plants collection
+        result = plants.insert_one(data)
+
+        if result.inserted_id:
+            return jsonify({'success': True, 'message': 'Plant profile created successfully'})
+        else:
+            return jsonify({'error': 'Failed to create plant profile'}), 500
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
 @app.route('/api/plants', methods=['GET'])
 def get_plants():
     try:
