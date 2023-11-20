@@ -13,6 +13,7 @@ const PlotItem = ({ plot, isCheckedAll, onPlotCheckboxChange }) => {
   useEffect(() => {
     setIsChecked(isCheckedAll);
   }, [isCheckedAll]);
+  
   const openAddPopup = () => {
     setShowAddPopup(true);
   };
