@@ -250,7 +250,8 @@ def run():
         print("Plots:", selected_plots)
 
         steps_array = get_steps_array(selected_plots)
-        readings = subprocess.check_output(['python', './serial-cmd-scripts/run.py'] + steps_array, text=True)
+        command = ['python', './serial-cmd-scripts/run.py', steps_array, get_status()]
+        readings = subprocess.check_output(command, capture_output=True, text=True)
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         # appending the time
         modified_readings = {

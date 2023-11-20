@@ -23,9 +23,10 @@ data = {
 }
 
 # total_fiducials = sys.argv[1:]
-total_fiducials = 3
+total_fiducials = 0
+fiducials_detected = 0
 
-total_fiducials = sys.argv[1:]
+# total_fiducials = sys.argv[1:]
 
 def receive_data(ser):
     #global received_message
@@ -184,6 +185,7 @@ def calibrate():
         
 if __name__ == "__main__":
     print("in the calibrate file")
+    total_fiducials = sys.argv[1:]
     fiducials_detected = calibrate() 
     if fiducials_detected < total_fiducials:
         fiducials_detected = calibrate()

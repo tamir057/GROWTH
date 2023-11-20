@@ -16,11 +16,18 @@ const PlotList = ({ onCheckAll, isCheckedAll, onPlotCheckboxChange }) => {
       })
       .catch(error => console.error('Error fetching data:', error));
   }, []); // The empty dependency array ensures the effect runs only once on mount
+
+  const handleSelectAllButtonClick = () => {
+    onCheckAll(!isCheckedAll)
+    for (let plot of plotsArray) {
+      onPlotCheckboxChange(plot.plot_number);
+    }
+  };
  
   return (
     <div className="w-100">
       <div>
-        <button className="m-2 col-3 btn button-primary-2 round-15" onClick={() => onCheckAll(!isCheckedAll)}>Select All</button>
+        <button className="m-2 col-3 btn button-primary-2 round-15" onClick={handleSelectAllButtonClick}>Select All</button>
       </div>
       <ul className="list-group">
         {plotsArray.map((plot) => (
