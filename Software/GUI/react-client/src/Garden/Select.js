@@ -6,6 +6,7 @@ import axios from 'axios';
 
 const Select = ({ showModal, handleClose, plotNumber }) => {
   const [emptyPlot, setEmptyPlot] = useState(true); // State for controlling the screen
+  
 
   useEffect(() => {
     // Fetch the plot document based on plotNumber
@@ -61,7 +62,10 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
       const response = await axios.post(`/api/assign-plant`, {
         plotNumber: plotNumber,
         selectedPlant: selectedPlant,
+        
       });
+
+
 
       // Handle the response as needed
       console.log('Plant assigned successfully:', response.data);
@@ -131,7 +135,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
             </div>
             <div className="modal-body" style={contentStyle}>
               <h5 className="runTimeContainer">Last Run Time:</h5>
-              <p>[Insert Time Here]</p>
+              <p>[Insert Run Time]</p>
               <table>
                 <tbody>
                   <tr>
