@@ -8,8 +8,8 @@ function NavBar() {
   return (
     <div className="w-100 pos-fixed bg-primary-green">
       <div className="row"> 
-      <div className="col-3 p-2 ml-10">
-        <h3>|        GROWTH robot</h3>
+      <div className="white-text col-3 p-2 ml-10">
+        <h3>|        GROWTH</h3>
       </div>
       <div className="col-9"> 
       <ul className="nav nav-pills mb-2 mt-2 float-end">

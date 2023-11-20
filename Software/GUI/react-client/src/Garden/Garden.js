@@ -62,7 +62,7 @@ function Garden() {
         <div className="col-11 bg-secondary-green container mt-4 wide round-10">
           <div className="row">
             <div className="col-6">
-              <h3 className="p-2">Farm Layout</h3>
+              <h3 className="white-text p-2">Farm Layout</h3>
             </div>
             <div className="col-6 float-end">
               <div className="float-end">
