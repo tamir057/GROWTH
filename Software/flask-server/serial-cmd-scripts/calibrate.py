@@ -26,18 +26,22 @@ import sys
 # total_fiducials = 3
 
 # total_fiducials = sys.argv[1:]
+total_fiducials = 0
+fiducials_detected = 0
 
-# def receive_data(ser):
-#     #global received_message
-#     while True:
-#         if ser.in_waiting > 0:
-#             line = ser.readline()
-#             received_message[0] = line.decode('utf-8').rstrip()
-#             print(f"full received message {received_message[0]}", "  from received")
-# ser = serial.Serial('/dev/ttyACM0', 115200)
-# receive_thread = threading.Thread(target=receive_data, args=(ser,))
-# receive_thread.daemon = True
-# receive_thread.start()
+# total_fiducials = sys.argv[1:]
+
+def receive_data(ser):
+    #global received_message
+    while True:
+        if ser.in_waiting > 0:
+            line = ser.readline()
+            received_message[0] = line.decode('utf-8').rstrip()
+            print(f"full received message {received_message[0]}", "  from received")
+ser = serial.Serial('/dev/ttyACM0', 115200)
+receive_thread = threading.Thread(target=receive_data, args=(ser,))
+receive_thread.daemon = True
+receive_thread.start()
     
 
 
