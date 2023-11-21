@@ -22,7 +22,6 @@ function Garden() {
           "Content-Type": "application/json",
         },
       });
-      console.log("ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
       // Wait for the calibration to finish before fetching the updated time
       fetchLastCalibrationTime();
     } catch (error) {
@@ -65,9 +64,9 @@ function Garden() {
   //   console.log('Time of Calibration:', currentTime);
   // }, [currentTime]);
 
-  // useEffect(() => {
-  //   fetchLastCalibrationTime();
-  // });
+  useEffect(() => {
+    fetchLastCalibrationTime();
+  });
 
   return (
     <div>
