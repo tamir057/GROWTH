@@ -203,7 +203,7 @@ def save_status(vertical_motor, horizontal_boundary, current_time):
     try:
         # Read existing status from the file
         status_data = json.loads(read_status_from_file())
-        print("Existing status:", status_data)  # Add this line for debugging
+        # print("Existing status:", status_data)  # Add this line for debugging
 
         # Update the specific fields
         status_data["vertical-motor"] = vertical_motor
@@ -238,18 +238,20 @@ def save_status(vertical_motor, horizontal_boundary, current_time):
 
 @app.route('/api/calibrate', methods=['POST'])
 def calibrate():
-    print("hit calibrate endpoint")
+    print("CHECK: Hit calibrate endpoint")
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     save_status(0, 0, current_time)
     try:
         # TODO: get request number of plants in plot collection to pass in as arg for calibrate.py
         plot_count = plots.count_documents({})
-        print(f"this is the plot count: {plot_count}")
+        # print(f"CHECK: this is the plot count: {plot_count}")
+        print("CHECK: Before the calibrate script")
         command = ["python", "./serial-cmd-scripts/calibrate.py", str(3), "--flag"]
         process = subprocess.run(command, capture_output=True, text=True)
         print("Output:", process.stdout)
-        print("Error:", process.stderr)
+        print("CHECK: Error:", process.stderr)
         print("Return code:", process.returncode)
+        print("CHECK: Exited the Calibrate script")
         # subprocess.run(['python', './serial-cmd-scripts/calibrate.py'] + 3)
         # result = subprocess.run(['./serial-cmd-scripts/calibrate.py'], shell=True, capture_output=True, text=True)
         # print(result.stdout)
@@ -266,14 +268,14 @@ def calibrate():
     
 @app.route('/api/get-last-calibration-time', methods=['GET'])
 def get_last_calibration_time():
-    print("calibration time endpoint")
+    # print("calibration time endpoint")
     try:
         calibration_complete = True
         if calibration_complete:
             # Fetch the updated calibration time
             response = get_status()
             time = response["last-calibration-time"]
-            print(time)
+            # print(time)
             return jsonify({"time" : time})
         else:
             # Calibration process is not complete, send a response indicating that
