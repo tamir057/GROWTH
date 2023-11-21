@@ -25,7 +25,6 @@ function Garden() {
           "Content-Type": "application/json",
         },
       });
-      console.log("ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
       // Wait for the calibration to finish before fetching the updated time
       fetchLastCalibrationTime();
     } catch (error) {
@@ -92,6 +91,10 @@ function Garden() {
     }
   };
 
+  useEffect(() => {
+    fetchLastCalibrationTime();
+  });
+  
   return (
     <div>
       <div className="nav-padding bg-grey-c wide row fullHeightDiv">
