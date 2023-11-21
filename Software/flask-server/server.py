@@ -5,7 +5,6 @@ from bson.json_util import dumps
 from flask_cors import CORS
 from datetime import datetime
 import subprocess 
-from datetime import datetime
 app = Flask(__name__)
 
 CORS(app)
@@ -271,14 +270,13 @@ def calibrate():
     
 @app.route('/api/get-last-calibration-time', methods=['GET'])
 def get_last_calibration_time():
-    # print("calibration time endpoint")
     try:
         calibration_complete = True
         if calibration_complete:
             # Fetch the updated calibration time
             response = get_status()
             time = response["last-calibration-time"]
-            # print(time)
+            print(time)
             return jsonify({"time" : time})
         else:
             # Calibration process is not complete, send a response indicating that
@@ -307,7 +305,7 @@ def run():
         save_sensor_readings(modified_readings)
         return jsonify({'success': True})
     except Exception as e:
-        return jsonify({'error': str(e)})
+        return jsonify({'error': str(e)}), 500
     
 def get_steps_array(plot_numbers):
     try:
@@ -439,4 +437,5 @@ if __name__ == "__main__":
  
 #         # Write the updated array back to the file
 #         write_plots_to_file(json.dumps(plot_array)) 
+
 
