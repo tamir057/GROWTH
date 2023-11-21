@@ -245,7 +245,7 @@ def calibrate():
         # TODO: get request number of plants in plot collection to pass in as arg for calibrate.py
         plot_count = plots.count_documents({})
         print(f"this is the plot count: {plot_count}")
-        command = ["python", "./serial-cmd-scripts/calibrate.py", 3, "--flag"]
+        command = ["python", "./serial-cmd-scripts/calibrate.py", str(3), "--flag"]
         process = subprocess.run(command, capture_output=True, text=True)
         print("Output:", process.stdout)
         print("Error:", process.stderr)
@@ -259,10 +259,14 @@ def calibrate():
         return jsonify({'success': True})
     except Exception as e:
         return jsonify({'error': str(e)})
+    except subprocess.CalledProcessError as e:
+        return jsonify({'error': f'Subprocess error: {e}'})
+    except Exception as e:
+        return jsonify({'error': f'An unexpected error occurred: {str(e)}'})
     
 @app.route('/api/get-last-calibration-time', methods=['GET'])
 def get_last_calibration_time():
-    print("hereeeeeeeeeeeeeeeeeeeeeee")
+    print("calibration time endpoint")
     try:
         calibration_complete = True
         if calibration_complete:
