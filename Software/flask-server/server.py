@@ -3,6 +3,7 @@ import os, json
 from pymongo import MongoClient
 from bson.json_util import dumps
 from flask_cors import CORS
+from datetime import datetime
 import subprocess 
 from datetime import datetime
 app = Flask(__name__)
@@ -22,8 +23,9 @@ def members():
     return {"members" : ["Rida", "Tracy", "Tas"]}
 
 plots_file_path = os.path.join(os.path.dirname(__file__), 'motor-status.json')
+print("File Path:", plots_file_path)
 
-@app.route('/update_steps', methods=['POST'])
+#@app.route('/update_steps', methods=['POST'])
 def update_steps(steps_array):
     try:
         # data = request.get_json()
@@ -197,14 +199,16 @@ def get_status():
     except Exception as e:
         return jsonify({'error': str(e)})
     
-def save_status(vertical_motor, horizontal_boundary):
+def save_status(vertical_motor, horizontal_boundary, current_time):
     try:
         # Read existing status from the file
         status_data = json.loads(read_status_from_file())
+        print("Existing status:", status_data)  # Add this line for debugging
 
         # Update the specific fields
         status_data["vertical-motor"] = vertical_motor
         status_data["horizontal-boundary"] = horizontal_boundary
+        status_data["last-calibration-time"] = current_time
 
         # Convert the updated status back to JSON
         updated_status_json = json.dumps(status_data, indent=2)
@@ -214,12 +218,29 @@ def save_status(vertical_motor, horizontal_boundary):
 
         return status_data
     except Exception as e:
+        print("Error in save_status:", str(e))  # Add this line for debugging
         return {'error': str(e)}
 
+
+# @app.route('/api/calibrate', methods=['POST'])
+# def calibrate():
+#     print("hit calibrate endpoint")
+#     try:
+#         # TODO: get request number of plants in plot collection to pass in as arg for calibrate.py
+#         data = subprocess.check_output(['python', './serial-cmd-scripts/calibrate.py'] + 3)
+#         # data = subprocess.check_output(['python'])
+#         update_steps(data['steps_array'])
+#         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+#         save_status(data["vertical-motor"], data["horizontal-boundary"], current_time)
+#         return jsonify({'success': True})
+#     except Exception as e:
+#         return jsonify({'error': str(e)})
 
 @app.route('/api/calibrate', methods=['POST'])
 def calibrate():
     print("hit calibrate endpoint")
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    save_status(0, 0, current_time)
     try:
         # TODO: get request number of plants in plot collection to pass in as arg for calibrate.py
         plot_count = plots.count_documents({})
@@ -239,7 +260,23 @@ def calibrate():
     except Exception as e:
         return jsonify({'error': str(e)})
     
-
+@app.route('/api/get-last-calibration-time', methods=['GET'])
+def get_last_calibration_time():
+    print("hereeeeeeeeeeeeeeeeeeeeeee")
+    try:
+        calibration_complete = True
+        if calibration_complete:
+            # Fetch the updated calibration time
+            response = get_status()
+            time = response["last-calibration-time"]
+            print(time)
+            return jsonify({"time" : time})
+        else:
+            # Calibration process is not complete, send a response indicating that
+            return jsonify({'message': 'Calibration in progress'})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
 @app.route('/api/run', methods=['POST'])
 def run():
     print("hit run endpoint")

@@ -25,33 +25,34 @@ function Garden() {
           "Content-Type": "application/json",
         },
       });
-
+      console.log("ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+      // Wait for the calibration to finish before fetching the updated time
       fetchLastCalibrationTime();
     } catch (error) {
       console.error("Error calibrating:", error.message);
     }
   };
 
+
   const fetchLastCalibrationTime = async () => {
     try {
+      console.log("im in here")
       const response = await fetch("http://localhost:5000/api/get-last-calibration-time");
       const data = await response.json();
-
-      // Parse the datetime string
-      const dateTime = new Date(data.time);
-
-      // Format the date
-      const formattedDate = new Intl.DateTimeFormat('en-US', {
+      const lastCalibrationTime = new Date(data.time);
+      const options = {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
         hour: 'numeric',
         minute: 'numeric',
+        // second: 'numeric',
         timeZoneName: 'short',
-      }).format(dateTime);
+      };
 
-      // Set the formatted date to state
-      setCurrentTime(formattedDate);
+      // Format the date using the specified options
+      const formattedTime = lastCalibrationTime.toLocaleString('en-US', options);
+      setCurrentTime(formattedTime);
     } catch (error) {
       console.error("Error fetching last calibration time:", error.message);
     }
@@ -73,6 +74,7 @@ function Garden() {
       body: JSON.stringify({ checkedPlots }), // Pass checked plots to the server
     });
   };
+
 
   const closeAddPopup = () => {
     setIsAddPopupOpen(false);
