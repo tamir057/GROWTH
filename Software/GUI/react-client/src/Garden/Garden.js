@@ -5,6 +5,7 @@ import axios from 'axios';
 import PlotList from "./plot-list";
 import AddPlots from "./AddPlots";
 import WarningPopUp from "./WarningPopUp";
+import LoadingPopup from './Loading';
 
 function Garden() {
   const [isAddPopupOpen, setIsAddPopupOpen] = useState();
@@ -12,6 +13,9 @@ function Garden() {
   const [isCheckedAll, setIsCheckedAll] = useState(false);
   const [checkedPlots, setCheckedPlots] = useState([]);
   const [currentTime, setCurrentTime] = useState('No calibration yet');
+  const [isLoading, setIsLoading] = useState(false);
+  const [runType, setRunType] = useState("");
+
 
   const handleAddButtonClick = () => {
     setIsAddPopupOpen(true);
@@ -19,12 +23,15 @@ function Garden() {
 
   const handleCalibrateButtonClick = async () => {
     try {
+      setRunType("Calibrating...")
+      setIsLoading(true);
       await fetch("http://localhost:5000/api/calibrate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
       });
+      setIsLoading(false);
       // Wait for the calibration to finish before fetching the updated time
       fetchLastCalibrationTime();
     } catch (error) {
@@ -65,6 +72,8 @@ function Garden() {
       setIsWarningPopupOpen(true); // You need to implement showWarningPopUp function
       return; // Return early if the array is empty
     }
+    setRunType("Reading Sensor Data...")
+    setIsLoading(true);
     fetch("http://localhost:5000/api/run", {
       method: "POST",
       headers: {
@@ -72,6 +81,7 @@ function Garden() {
       },
       body: JSON.stringify({ checkedPlots }), // Pass checked plots to the server
     });
+    setIsLoading(false);
   };
 
 
@@ -126,6 +136,7 @@ function Garden() {
                 </button>
                 {isAddPopupOpen && <AddPlots onClose={closeAddPopup} />}
                 {isWarningPopupOpen && <WarningPopUp onClose={closeWarningPopup} />}
+                {isLoading && <LoadingPopup runType={runType}/>}
               </div>
             </div>  
           </div>

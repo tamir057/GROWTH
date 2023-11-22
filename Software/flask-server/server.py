@@ -239,8 +239,8 @@ def save_status(vertical_motor, horizontal_boundary, current_time):
 @app.route('/api/calibrate', methods=['POST'])
 def calibrate():
     print("CHECK: Hit calibrate endpoint")
-    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    save_status(0, 0, current_time)
+    # current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # save_status(0, 0, current_time)
     try:
         # TODO: get request number of plants in plot collection to pass in as arg for calibrate.py
         plot_count = plots.count_documents({})
@@ -252,6 +252,9 @@ def calibrate():
         print("CHECK: Error:", process.stderr)
         print("Return code:", process.returncode)
         print("CHECK: Exited the Calibrate script")
+        # TODO: save the steps array and horizontal and vertical motor status
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        save_status(0, 0, current_time)
         # subprocess.run(['python', './serial-cmd-scripts/calibrate.py'] + 3)
         # result = subprocess.run(['./serial-cmd-scripts/calibrate.py'], shell=True, capture_output=True, text=True)
         # print(result.stdout)
@@ -291,9 +294,10 @@ def run():
         selected_plots = data.get('checkedPlots')  # Access the checkedPlots key
         # selected_plant = data.get('selectedPlant')
         print("Plots:", selected_plots)
-
         steps_array = get_steps_array(selected_plots)
-        readings = subprocess.check_output(['python', './serial-cmd-scripts/run.py'] + steps_array, text=True)
+        print(steps_array)
+        readings = {}
+        # readings = subprocess.check_output(['python', './serial-cmd-scripts/run.py'] + steps_array, text=True)
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         # appending the time
         modified_readings = {
