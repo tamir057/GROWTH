@@ -1,5 +1,5 @@
 [build]
-  command = "pip install -r requirements.txt && python server.py"
+  command = "pip install -r requirements.txt"
 
 [build.environment]
   # Optional: Set environment variables if needed
