@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import "./select_index.css";
 
-function PlantInfo({ showModal, handleClose,plantName, temperature, pH, conductivity }) {
+function PlantInfo({ showModal, handleClose, plantName, temperature, pH, conductivity }) {
   //   const modalStyle = {
   //   position: 'fixed',
   //   right: 0, // Adjust the right position as needed
