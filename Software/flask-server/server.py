@@ -16,6 +16,7 @@ client = MongoClient(connection_string)
 db = client['Capstone']
 plants = db.plants
 plots = db.plots
+users = db.users
 
 @app.route("/members")
 def members():
@@ -303,6 +304,61 @@ def save_sensor_readings(plot_readings):
 
     except Exception as e:
         print('Exception')
+
+@app.route('/api/register', methods=['POST'])
+def register_user():
+    try:
+        data = request.json 
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!") 
+        print(data)
+        username = data.get('username')
+        email = data.get('email')
+        password = data.get('password')
+        firstName = data.get('firstName')
+        lastName = data.get('lastName')
+
+        # Check if the username or email already exists
+        existing_user = users.find_one({"$or": [{"username": username}, {"email": email}]})
+
+        if existing_user:
+            return jsonify({'error': 'Username or email already exists'}), 400
+
+        # Insert a new document into the users collection
+        result = users.insert_one({
+            "username": username,
+            "email": email,
+            "password": password,
+            "firstName": firstName,
+            "lastName": lastName,
+            "isActive": True  # You can set the initial value for isActive as needed
+        })
+
+        if result.inserted_id:
+            return jsonify({'success': True, 'message': 'User registered successfully'})
+        else:
+            return jsonify({'error': 'Failed to register user'}), 500
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+    
+@app.route('/api/login', methods=['POST'])
+def login_user():
+    try:
+        data = request.json  # Assuming the request contains JSON data
+        username = data.get('username')
+        password = data.get('password')
+
+        # Find the user based on the provided username and password
+        user = users.find_one({"username": username, "password": password})
+
+        if user:
+            return jsonify({'success': True, 'message': 'Login successful'})
+        else:
+            return jsonify({'error': 'Invalid username or password'}), 401
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 # TODO: Update run endpoint to include 
 
