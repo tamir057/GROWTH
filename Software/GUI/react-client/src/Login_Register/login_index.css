@@ -1,11 +1,10 @@
-  
   .loginMainContainer {
     flex-direction: column;
     display: flex;
     align-items: left;
     justify-content: left;
-  
-  
+
+
   }
 
   .loginTitleContainer {
@@ -16,10 +15,10 @@
     align-items: left;
     justify-content: left;
     margin-left: 4%;
-    font-family: "Poppins"; 
-    
+    font-family: "Poppins";
+
   }
-  
+
   .loginSubtitleContainer {
     display: flex;
     flex-direction: column;
@@ -27,10 +26,10 @@
     align-items: left;
     justify-content: left;
     margin-left: 3%;
-    font-family: "Poppins"; 
-    
+    font-family: "Poppins";
+
   }
-  
+
   .loginSubtitle2Container {
     display: flex;
     flex-direction: column;
@@ -38,9 +37,9 @@
     align-items: left;
     justify-content: left;
     margin-left: 1%;
-    font-family: "Poppins"; 
+    font-family: "Poppins";
   }
-  
+
   .loginSubtitle3Container {
     display: flex;
     flex-direction: column;
@@ -48,18 +47,19 @@
     align-items: center;
     justify-content: center;
     margin-left: 1%;
-    font-family: "Poppins"; 
-    
+    font-family: "Poppins";
+
   }
-  
-  .loginResultContainer, .historyItem { 
+
+  .loginResultContainer,
+  .historyItem {
     flex-direction: row;
     display: flex;
     width: 400px;
     align-items: center;
     justify-content: space-between;
   }
-  
+
   .loginHistoryContainer {
     flex-direction: column;
     display: flex;
@@ -68,16 +68,16 @@
     flex-grow: 5;
     justify-content: flex-start;
   }
-  
+
   .loginButtonContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 260px;
-   
+
   }
-  
+
   .loginInputContainer {
     display: flex;
     flex-direction: column;
@@ -85,12 +85,17 @@
     justify-content: center;
     margin-left: 3%;
   }
-  
-  .loginInputContainer > .errorLabel {
+
+  .loginErrorContainer {
+    color: red;
+    margin-left: 10px;
+  }
+
+  .loginInputContainer>.errorLabel {
     color: red;
     font-size: 12px;
   }
-  
+
   .loginInputBox {
     height: 48px;
     width: 400px;
@@ -98,45 +103,45 @@
     border-radius: 5px;
     border: 1px solid grey;
     padding-left: 8px;
-    font-family: "Poppins"; 
+    font-family: "Poppins";
   }
-  
+
   div.login {
-    margin: 5%; 
+    margin: 5%;
     width: 450px;
-    height: 490px; 
+    height: 490px;
     background-color: white;
     border-radius: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
-  
+
   div.register {
-    margin: 5%; 
+    margin: 5%;
     width: 450px;
-    height: 650px; 
+    height: 650px;
     background-color: white;
     border-radius: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
-  
-  
-  
+
+
+
   html,
   body {
     padding: 0;
     margin: 0;
     background-color: #CFE1C9;
-    font-family: Helvetica; 
+    font-family: Helvetica;
   }
-  
+
   * {
     box-sizing: border-box;
   }
-  
+
   main {
     padding: 5rem 0;
     flex: 1;
@@ -145,33 +150,33 @@
     justify-content: center;
     align-items: center;
   }
-  
+
   code {
     background: #fafafa;
     border-radius: 5px;
     padding: 0.75rem;
     font-family: Menlo, Monaco, Lucida Console, Courier New, monospace;
   }
-  
+
   .buttonLogin {
-      border: none;
-      background: #CFE1C9;
-      color: black;
-      padding: 12px 24px;
-      margin: 8px;
-      font-size: 24px;
-      border-radius: 8px;
-      cursor: pointer;
-      width: 400px; 
-      font-family: "Poppins"; 
+    border: none;
+    background: #CFE1C9;
+    color: black;
+    padding: 12px 24px;
+    margin: 8px;
+    font-size: 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 400px;
+    font-family: "Poppins";
   }
-  
+
   @keyframes App-logo-spin {
     from {
       transform: rotate(0deg);
     }
+
     to {
       transform: rotate(360deg);
     }
   }
-  
