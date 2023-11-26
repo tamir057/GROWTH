@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from "react";
-import hydroponics from "./hydroponics_img.png";
+import React, { useState } from "react";
 import hydroponics2 from "./hydroponics_img2.png";
 import "./login_index.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
-
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
 
   const onButtonClick = async () => {
     try {
@@ -39,6 +36,7 @@ function Login() {
         // Login successful, navigate to the garden page
         navigate('/garden');
       } else {
+        // Login unsuccessful, set error message
         setError(data.error || "Invalid username or password");
       }
     } catch (error) {
@@ -46,12 +44,10 @@ function Login() {
     }
   };
 
-
   return (
     <div style={{ backgroundColor: '#CFE1C9' }}>
       <div className='navBar'> </div>
       <div className="login">
-
         <div className={"loginMainContainer"}>
           <div className={"loginTitleContainer"}>
             <div>Login To</div>
@@ -87,6 +83,11 @@ function Login() {
               value={"Log In"}
             />
           </div>
+          {error && (
+            <div className={"loginErrorContainer"}>
+              <p>{error}</p>
+            </div>
+          )}
           <div className={"loginSubtitle3Container"}>
             {" "}
             <p>
@@ -96,10 +97,11 @@ function Login() {
           </div>
         </div>
         <div>
-          <img src={hydroponics2} height={500} width={800} />
+          <img src={hydroponics2} height={500} width={800} alt="Hydroponics" />
         </div>
       </div>
     </div>
   );
 }
+
 export default Login;
