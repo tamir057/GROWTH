@@ -53,12 +53,12 @@ void execute_steps(uint32_t steps, uint8_t dir, stepper_config* cfg, bool* kill,
     if (dir > 0) {
         // left
         gpio_put(cfg->dir_pin, true);
-        pos_change = -1; // ** need to decide which end 0 will be, then correctly assign this
+        pos_change = 1; // ** need to decide which end 0 will be, then correctly assign this
         
     } else {
         // right
         gpio_put(cfg->dir_pin, false);
-        pos_change = 1;
+        pos_change = -1;
     }
 
     // START MOTOR MOTION
