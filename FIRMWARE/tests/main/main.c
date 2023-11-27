@@ -123,6 +123,14 @@ void command_handler(command_queue_entry* cmd) {
         uint8_t reg_val = TCA9534_ReadReg(i2c_port, TCA9534_OUTPUT_REG);
         TCA9534_WriteReg(i2c_port, TCA9534_OUTPUT_REG, CLR_BIT((uint8_t) (7 - cmd->args[0]), reg_val));
 
+    } else if (strcmp(cmd->command, LIGHT_ON_CMD) == 0) {
+        uint8_t reg_val = TCA9534_ReadReg(i2c_port, TCA9534_OUTPUT_REG);
+        TCA9534_WriteReg(i2c_port, TCA9534_OUTPUT_REG, SET_BIT((uint8_t) (3 - cmd->args[0]), reg_val));
+
+    } else if (strcmp(cmd->command, LIGHT_OFF_CMD) == 0) {
+        uint8_t reg_val = TCA9534_ReadReg(i2c_port, TCA9534_OUTPUT_REG);
+        TCA9534_WriteReg(i2c_port, TCA9534_OUTPUT_REG, CLR_BIT((uint8_t) (3 - cmd->args[0]), reg_val)); 
+    
     } else if (strcmp(cmd->command, MOVE_MOTOR_CMD) == 0 || strcmp(cmd->command, MOVE_CONT_CMD) == 0) {
 
         if (strcmp(cmd->command, MOVE_CONT_CMD) == 0) {
@@ -207,7 +215,7 @@ void command_handler(command_queue_entry* cmd) {
         double temp;
         double pH_voltage;
         double pH_value;
-        double offset = 0.0;
+        double offset = -0.637;
         double conductivity_voltage;
         double conductivity_value;
 

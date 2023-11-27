@@ -35,7 +35,7 @@ double ADC122S021_GetVoltage(spi_inst_t* spi, const uint cs, bool channel) {
 }
 
 double pH_reading(double sensor_voltage, double offset) {
-    double pH = 3.5 * sensor_voltage + offset;
+    double pH = 4.0322 * sensor_voltage + offset;
     return pH;
 }
 
