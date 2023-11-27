@@ -8,7 +8,7 @@ import subprocess
 from datetime import datetime
 app = Flask(__name__)
 
-CORS(app, origins="https://backend-staging--calm-dusk-ae2bb8.netlify.app/#/login")
+CORS(app)
 
 connection_string = "mongodb+srv://capstone:capstone123@capstone.m5fs3fi.mongodb.net/?retryWrites=true&w=majority"
 # Create a MongoClient instance

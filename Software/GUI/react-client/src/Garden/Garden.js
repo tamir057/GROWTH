@@ -25,7 +25,7 @@ function Garden() {
     try {
       setRunType("Calibrating...")
       setIsLoading(true);
-      await fetch("http://localhost:5000/api/calibrate", {
+      await fetch("http://129.10.158.17:5000/api/calibrate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -43,7 +43,7 @@ function Garden() {
   const fetchLastCalibrationTime = async () => {
     try {
       console.log("im in here")
-      const response = await fetch("http://localhost:5000/api/get-last-calibration-time");
+      const response = await fetch("http://129.10.158.17:5000/api/get-last-calibration-time");
       const data = await response.json();
       const lastCalibrationTime = new Date(data.time);
       const options = {
@@ -74,7 +74,7 @@ function Garden() {
     }
     setRunType("Reading Sensor Data...")
     setIsLoading(true);
-    fetch("http://localhost:5000/api/run", {
+    fetch("http://129.10.158.17:5000/api/run", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
