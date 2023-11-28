@@ -361,7 +361,7 @@ int main() {
 
     // configure SPI port
     spi_init(spi_port, SPI_BIT_RATE);
-    spi_set_format(spi_port, 8, 1, 1, SPI_MSB_FIRST);
+    spi_set_format(spi_port, 8, 0, 0, SPI_MSB_FIRST);
 
     gpio_set_function(SPI_SCLK, GPIO_FUNC_SPI);
     gpio_set_function(SPI_MOSI, GPIO_FUNC_SPI);
