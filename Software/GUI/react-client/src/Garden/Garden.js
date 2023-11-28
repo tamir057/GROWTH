@@ -86,6 +86,7 @@ function Garden() {
   };
 
 
+
   const closeAddPopup = () => {
     setIsAddPopupOpen(false);
   };
