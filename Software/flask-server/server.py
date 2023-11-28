@@ -289,20 +289,43 @@ def get_last_calibration_time():
 def run():
     print("hit run endpoint")
     try:
-        data = request.json
-        selected_plots = data.get('checkedPlots')  # Access the checkedPlots key
+        # data = request.json
+        # selected_plots = data.get('checkedPlots')  # Access the checkedPlots key
         # selected_plant = data.get('selectedPlant')
+        selected_plots = [1,2,3]
         print("Plots:", selected_plots)
-        steps_array = get_steps_array(selected_plots)
-        command = ['python', './serial-cmd-scripts/run.py', steps_array, get_status()]
-        readings = subprocess.check_output(command, capture_output=True, text=True)
+        # steps_array = get_steps_array(selected_plots)
+        # print(steps_array)
+        print(get_status())
+        steps_array = {
+            '1' : 42000,
+            '2' : 80000,
+            '3' : 119000
+        }
+        print(3)
+        print("HELLO")
+        # command = ['python', './serial-cmd-scripts/run2.py', str(steps_array), str(get_status()), "--flag"]
+        # process = subprocess.check_output(command, capture_output=True, text=True)
+        # print("Output:", process.stdout)
+        # print("CHECK: Error:", process.stderr)
+        # print("Return code:", process.returncode)
+        # print("CHECK: Exited the Calibrate script")
+        print("CHECK: Before the run script")
+        command = ["python", "./serial-cmd-scripts/run2.py", str(get_status()), "--flag"]
+        # command = ["python", "./serial-cmd-scripts/run2.py"]
+        process = subprocess.run(command, capture_output=True, text=True)
+        print("Output:", process.stdout)
+        print("CHECK: Error:", process.stderr)
+        print("Return code:", process.returncode)
+        print("CHECK: Exited the Run script")
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        print("Time " + current_time )
         # appending the time
-        modified_readings = {
-            plot_number: {'time': current_time, **readings}
-            for plot_number, readings in readings.items()
-        }       
-        save_sensor_readings(modified_readings)
+        # modified_readings = {
+        #     plot_number: {'time': current_time, **readings}
+        #     for plot_number, readings in readings.items()
+        # }       
+        # save_sensor_readings(modified_readings)
         return jsonify({'success': True})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -310,8 +333,6 @@ def run():
 def get_steps_array(plot_numbers):
     try:
         steps_dict = {}
-
-        # Iterate through each plot number and fetch the corresponding steps
         for plot_number in plot_numbers:
             # Find the plot based on plot_number
             plot = plots.find_one({'plot_number': plot_number})
@@ -321,9 +342,7 @@ def get_steps_array(plot_numbers):
                 steps_dict[plot_number] = plot.get('steps', 0)
             else:
                 raise ValueError(f'Plot with plot_number {plot_number} not found')
-
         return steps_dict
-
     except Exception as e:
         raise ValueError(str(e))
 
@@ -407,7 +426,9 @@ def login_user():
 # TODO: Update run endpoint to include 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
+    
 
 # @app.route('/api/addPlots', methods=['POST'])
 
