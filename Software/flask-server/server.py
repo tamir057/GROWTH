@@ -262,7 +262,6 @@ def calibrate():
     
 @app.route('/api/get-last-calibration-time', methods=['GET'])
 def get_last_calibration_time():
-    print("hereeeeeeeeeeeeeeeeeeeeeee")
     try:
         calibration_complete = True
         if calibration_complete:
@@ -297,7 +296,7 @@ def run():
         save_sensor_readings(modified_readings)
         return jsonify({'success': True})
     except Exception as e:
-        return jsonify({'error': str(e)})
+        return jsonify({'error': str(e)}), 500
     
 def get_steps_array(plot_numbers):
     try:
