@@ -381,7 +381,7 @@ def register_user():
         lastName = data.get('lastName')
 
         # Check if the username or email already exists
-        existing_user = users.find_one({"$or": [{"username": username}, {"email": email}]})
+        existing_user = users.find_one({"email": email})
 
         if existing_user:
             return jsonify({'error': 'Username or email already exists'}), 400
@@ -399,6 +399,7 @@ def register_user():
         if result.inserted_id:
             return jsonify({'success': True, 'message': 'User registered successfully'})
         else:
+            print("lol")
             return jsonify({'error': 'Failed to register user'}), 500
 
     except Exception as e:
