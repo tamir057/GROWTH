@@ -215,7 +215,7 @@ void command_handler(command_queue_entry* cmd) {
         double temp;
         double pH_voltage;
         double pH_value;
-        double offset = -0.637;
+        double offset = -0.837;
         double conductivity_voltage;
         double conductivity_value;
 
@@ -245,19 +245,22 @@ void command_handler(command_queue_entry* cmd) {
             pH_value = pH_reading(pH_voltage, offset);
 
             // print out the pH value
-            // printf("PH:%f\n", pH_value);
             sprintf(return_val, "%f", pH_value);
+
             break;
 
         case 2:
             // read from conductivity sensor
             temp = DS18B20_getTemperature(DS18B20_PIN);
+            gpio_put(GPIO5, true); // turn on the conductivity sensor via the relay controlled by GPIO5
+
             conductivity_voltage = ADC122S021_GetVoltage(spi_port, ADC_CS, 1); // channel 1 is conductivity sensor
-            conductivity_value = conductivity_reading(conductivity_voltage, temp);
+            conductivity_value = conductivity_reading(conductivity_voltage*1000.0, temp);
+            
+            gpio_put(GPIO5, false); // turn off the conductivity sensor via the relay controlled by GPIO5
             // maybe need to handle errors here a little bit
             
             // print out the conductivity value
-            // printf("CONDUCTIVITY:%f\n", conductivity_value);
             sprintf(return_val, "%f", conductivity_value);
             break;
 
@@ -398,6 +401,10 @@ int main() {
     gpio_init(GPIO4);
     gpio_set_dir(GPIO4, GPIO_IN);
     gpio_set_pulls(GPIO4, false, false);
+
+    gpio_init(GPIO5);
+    gpio_set_dir(GPIO5, GPIO_IN);
+    gpio_set_pulls(GPIO5, false, false);
 
     // initialize peripheral devices (if necessary)
     TCA9534_WriteReg(i2c_port, TCA9534_CONFIG_REG, 0x00); // configure pins as outputs

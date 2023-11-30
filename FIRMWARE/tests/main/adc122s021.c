@@ -29,8 +29,14 @@ uint16_t ADC122S021_ReadADC(spi_inst_t* spi, const uint cs, bool channel) {
 */
 double ADC122S021_GetVoltage(spi_inst_t* spi, const uint cs, bool channel) {
 
+    double voltage_sum = 0.0;
     ADC122S021_ReadADC(spi, cs, channel);
-    double volts = 3.300 * ((double) ADC122S021_ReadADC(spi, cs, channel)) / (double) 4095;
+    for (int i = 0; i < 10; i++) {
+        voltage_sum +=  3.300 * ((double) ADC122S021_ReadADC(spi, cs, channel)) / (double) 4095;
+        sleep_ms(5);
+    }
+    double volts = voltage_sum / 10.0;
+    //double volts = 3.300 * ((double) ADC122S021_ReadADC(spi, cs, channel)) / (double) 4095;
 
     return volts;
 }
