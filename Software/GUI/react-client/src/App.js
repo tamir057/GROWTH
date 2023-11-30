@@ -13,29 +13,29 @@ function App() {
   useEffect(() => {
     fetch("/members").then(
       res => res.json()
-      
-  ).then(
-    data => {
-      setData(data)
-      console.log(data)
-    }
-  )
-}, [])
-return (
-  <div>
-  <HashRouter>
+
+    ).then(
+      data => {
+        setData(data)
+        console.log(data)
+      }
+    )
+  }, [])
+  return (
+    <div>
+      <HashRouter>
         <div>
-        <NavBar />
+          <NavBar />
           <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
+            <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register/>} />
-            <Route path="/garden" element={<Garden/>} />
-            <Route path="/plantprofile" element={<PlantProfile/>} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/garden" element={<Garden />} />
+            <Route path="/plantprofile" element={<PlantProfile />} />
           </Routes>
-        </div> 
+        </div>
       </HashRouter>
-  </div>
-);
+    </div>
+  );
 }
 export default App;

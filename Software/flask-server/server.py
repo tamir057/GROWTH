@@ -1,4 +1,6 @@
 from flask import Flask, jsonify, request, render_template, request, url_for, redirect
+
+from flask_cors import CORS
 import os, json
 from pymongo import MongoClient
 from bson.json_util import dumps
@@ -8,6 +10,10 @@ import subprocess
 app = Flask(__name__)
 
 CORS(app)
+
+
+
+
 
 connection_string = "mongodb+srv://capstone:capstone123@capstone.m5fs3fi.mongodb.net/?retryWrites=true&w=majority"
 # Create a MongoClient instance
@@ -90,7 +96,8 @@ def add_data():
                     "ph": 0,
                     "ec": 0
                 },  
-                "steps": 0              
+                "steps": 0,
+                "email": data["email"]            
             })
 
         # Insert the new data into the MongoDB collection
@@ -372,9 +379,7 @@ def save_sensor_readings(plot_readings):
 def register_user():
     try:
         data = request.json 
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!") 
         print(data)
-        username = data.get('username')
         email = data.get('email')
         password = data.get('password')
         firstName = data.get('firstName')
@@ -384,11 +389,10 @@ def register_user():
         existing_user = users.find_one({"email": email})
 
         if existing_user:
-            return jsonify({'error': 'Username or email already exists'}), 400
+            return jsonify({'error': 'Email already exists'}), 400
 
         # Insert a new document into the users collection
         result = users.insert_one({
-            "username": username,
             "email": email,
             "password": password,
             "firstName": firstName,
@@ -399,30 +403,36 @@ def register_user():
         if result.inserted_id:
             return jsonify({'success': True, 'message': 'User registered successfully'})
         else:
-            print("lol")
             return jsonify({'error': 'Failed to register user'}), 500
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/logout', methods=['POST'])
+def logout_user():
+    try:
+  
+        return jsonify({'success': True, 'message': 'Logout successful'})
+    except Exception as e:
+        print("HEREEEEEEEEEEEEEE")
+        return jsonify({'error': str(e)}), 500
     
 @app.route('/api/login', methods=['POST'])
 def login_user():
-    try:
-        data = request.json  # Assuming the request contains JSON data
-        username = data.get('username')
-        password = data.get('password')
+    # Get user credentials from the request
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
 
-        # Find the user based on the provided username and password
-        user = users.find_one({"username": username, "password": password})
+    # Find the user in the database
+    user = users.find_one({"email": email, "password": password})
 
-        if user:
-            return jsonify({'success': True, 'message': 'Login successful'})
-        else:
-            return jsonify({'error': 'Invalid username or password'}), 401
-
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+    if user:
+        # Include user information in the response
+        response_data = {'success': True, 'user_info': user}
+        return jsonify(response_data)
+    else:
+        return jsonify({'error': 'Invalid username or password'}), 401
 
 # TODO: Update run endpoint to include 
 

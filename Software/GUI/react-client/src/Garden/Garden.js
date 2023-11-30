@@ -6,6 +6,7 @@ import PlotList from "./plot-list";
 import AddPlots from "./AddPlots";
 import WarningPopUp from "./WarningPopUp";
 import LoadingPopup from './Loading';
+import { useLocation } from 'react-router-dom';
 
 function Garden() {
   const [isAddPopupOpen, setIsAddPopupOpen] = useState();
@@ -15,6 +16,9 @@ function Garden() {
   const [currentTime, setCurrentTime] = useState('No calibration yet');
   const [isLoading, setIsLoading] = useState(false);
   const [runType, setRunType] = useState("");
+  const location = useLocation();
+  const { email } = location.state || {};
+  console.log("email: " + email);
 
 
   const handleAddButtonClick = () => {
@@ -106,7 +110,7 @@ function Garden() {
   useEffect(() => {
     fetchLastCalibrationTime();
   });
-  
+
   return (
     <div>
       <div className="nav-padding bg-grey-c wide row fullHeightDiv">
@@ -118,9 +122,9 @@ function Garden() {
             </div>
             <div className="col-6 float-end">
               <div className="float-end">
-                <button 
-                className="m-2 btn button-primary-2 round-15 float-end"
-                onClick={handleRunButtonClick}
+                <button
+                  className="m-2 btn button-primary-2 round-15 float-end"
+                  onClick={handleRunButtonClick}
                 >
                   Run
                 </button>
@@ -136,14 +140,14 @@ function Garden() {
                 >
                   Add
                 </button>
-                {isAddPopupOpen && <AddPlots onClose={closeAddPopup} />}
+                {isAddPopupOpen && <AddPlots onClose={closeAddPopup} email={email} />}
                 {isWarningPopupOpen && <WarningPopUp onClose={closeWarningPopup} />}
-                {isLoading && <LoadingPopup runType={runType}/>}
+                {isLoading && <LoadingPopup runType={runType} />}
               </div>
-            </div>  
+            </div>
           </div>
           <PlotList onCheckAll={setIsCheckedAll} isCheckedAll={isCheckedAll} onPlotCheckboxChange={handlePlotCheckboxChange}
-      />        </div>
+          />        </div>
       </div>
     </div>
   );

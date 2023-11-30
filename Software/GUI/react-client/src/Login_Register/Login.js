@@ -34,7 +34,8 @@ function Login() {
 
       if (response.ok) {
         // Login successful, navigate to the garden page
-        navigate('/garden');
+        navigate('/garden', { state: { email } });
+        console.log("email2:" + email);
       } else {
         // Login unsuccessful, set error message
         setError(data.error || "Invalid username or password");
@@ -42,6 +43,7 @@ function Login() {
     } catch (error) {
       setError("An unexpected error occurred");
     }
+
   };
 
   return (
