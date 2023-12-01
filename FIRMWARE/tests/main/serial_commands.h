@@ -18,6 +18,8 @@
 #define LED_OFF_CMD             ("LED_IND_OFF")
 #define RETURN_CURRENT_POS_CMD  ("RETURN_POS")
 #define ZERO_POS_CMD            ("SET_ZERO_POS")
+#define ENABLE_EC_CMD           ("ENABLE_EC_SENSOR")
+#define DISABLE_EC_CMD          ("DISABLE_EC_SENSOR")
 
 // command_attributes lists info used by parse_command()
 typedef struct {

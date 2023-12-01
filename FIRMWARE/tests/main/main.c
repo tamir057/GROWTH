@@ -34,7 +34,10 @@ command_attributes valid_commands[] = {{MOVE_MOTOR_CMD, 3, false},
                                        {LED_ON_CMD, 0, false},
                                        {LED_OFF_CMD, 0, false},
                                        {RETURN_CURRENT_POS_CMD, 1, false},
-                                       {ZERO_POS_CMD, 1, false}};
+                                       {ZERO_POS_CMD, 1, false},
+                                       {ENABLE_EC_CMD, 0, false},
+                                       {DISABLE_EC_CMD, 0, false}};
+
 #define NUM_COMMANDS (sizeof(valid_commands) / sizeof(valid_commands[0])) // number of commands in valid_commands
 
 command_queue_entry normal_priority_cmd[1];     // buffer stores one command that executes when the current has finished
@@ -223,12 +226,10 @@ void command_handler(command_queue_entry* cmd) {
         case 0:
             // read from temp sensor
             temp = DS18B20_getTemperature(DS18B20_PIN);
-            if (temp > -1000)
-            {
+            if (temp > -1000) {
                 // if no error, take the value
-                break;
             }
-            else{
+            else {
                 // if there was an error, try again
                 temp = DS18B20_getTemperature(DS18B20_PIN);
                 // determine what to do if there is still an error
@@ -252,15 +253,12 @@ void command_handler(command_queue_entry* cmd) {
         case 2:
             // read from conductivity sensor
             temp = DS18B20_getTemperature(DS18B20_PIN);
-            gpio_put(GPIO5, true); // turn on the conductivity sensor via the relay controlled by GPIO5
 
             conductivity_voltage = ADC122S021_GetVoltage(spi_port, ADC_CS, 1); // channel 1 is conductivity sensor
             conductivity_value = conductivity_reading(conductivity_voltage*1000.0, temp);
             
-            gpio_put(GPIO5, false); // turn off the conductivity sensor via the relay controlled by GPIO5
-            // maybe need to handle errors here a little bit
-            
             // print out the conductivity value
+            printf("EC value: %f\n", conductivity_voltage);
             sprintf(return_val, "%f", conductivity_value);
             break;
 
@@ -268,7 +266,7 @@ void command_handler(command_queue_entry* cmd) {
             error_handler(0);
         }
 
-    } else if (strcmp(cmd->command, ZERO_POS_CMD) == 0){
+    } else if (strcmp(cmd->command, ZERO_POS_CMD) == 0) {
         stepper_config* mtr;
         switch(cmd->args[0]){
         case 0:
@@ -282,9 +280,15 @@ void command_handler(command_queue_entry* cmd) {
         }
         mtr->current_pos = 0;
         // printf("CURRENT_POS_ZEROED:\n");
+
+    } else if (strcmp(cmd->command, ENABLE_EC_CMD) == 0) {
+        gpio_put(GPIO5, true);
+
+    } else if (strcmp(cmd->command, DISABLE_EC_CMD) == 0) {
+        gpio_put(GPIO5, false);
     }
 
-    if (strcmp(cmd->command, MOVE_CONT_CMD) != 0){
+    if (strcmp(cmd->command, MOVE_CONT_CMD) != 0) {
         printf("ACK:%s:%s\n", cmd->command, return_val);
     }
     flags.command_running = false;
@@ -388,22 +392,23 @@ int main() {
 
     gpio_init(GPIO1);
     gpio_set_dir(GPIO1, GPIO_IN);
-    gpio_set_pulls(GPIO1, false, false);
+    gpio_set_pulls(GPIO1, false, true);
 
     gpio_init(GPIO2);
     gpio_set_dir(GPIO2, GPIO_IN);
-    gpio_set_pulls(GPIO2, false, false);
+    gpio_set_pulls(GPIO2, false, true);
 
     gpio_init(GPIO3);
     gpio_set_dir(GPIO3, GPIO_IN);
-    gpio_set_pulls(GPIO3, false, false);
+    gpio_set_pulls(GPIO3, false, true);
 
     gpio_init(GPIO4);
     gpio_set_dir(GPIO4, GPIO_IN);
-    gpio_set_pulls(GPIO4, false, false);
+    gpio_set_pulls(GPIO4, false, true);
 
+    // controls EC sensor power thru relay
     gpio_init(GPIO5);
-    gpio_set_dir(GPIO5, GPIO_IN);
+    gpio_set_dir(GPIO5, GPIO_OUT);
     gpio_set_pulls(GPIO5, false, false);
 
     // initialize peripheral devices (if necessary)
