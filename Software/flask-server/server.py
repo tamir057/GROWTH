@@ -5,8 +5,8 @@ from bson.json_util import dumps
 from flask_cors import CORS
 from datetime import datetime
 import subprocess 
-# from serial_cmd_scripts.calibrate import endpoint_comm
-# from serial_cmd_scripts.run2 import endpoint_comm_run
+from serial_cmd_scripts.calibrate import endpoint_comm
+from serial_cmd_scripts.run2 import endpoint_comm_run
 
 
 app = Flask(__name__)
@@ -227,7 +227,7 @@ def calibrate_endpoint():
         print("CHECK: Before the calibrate script")
         data = {'vertical-motor': 0, 'horizontal-boundary': '116403', 'steps_array': {'1': '41981', '2': '78288', '3': '113360'}}
         # NOTE: DO NOT uncomment unless robot is connected
-        # data = endpoint_comm(3)
+        data = endpoint_comm(3)
         print("CHECK: Exited the Calibrate file")
         print(data['steps_array'])
         update_steps(data['steps_array'])
@@ -288,7 +288,8 @@ def run():
         print("HELLO")
         print("CHECK: Before the run script")
         # NOTE: DO NOT uncomment unless robot is connected
-        data = endpoint_comm_run2(status['vertical-motor'], steps_array)
+        data = {}
+        data = endpoint_comm_run(status['vertical-motor'], steps_array)
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         print("Time " + current_time )
         # appending the time
@@ -313,9 +314,20 @@ def get_steps_array(plot_numbers):
 
             # Check if the plot exists
             if plot:
+                # plant = plants.find_one({"_id": plot.plant_id})
+                # plot_data = {}
+                # print("CHECK: plant gotten")
+                # plot_data["steps"] = plot.get('steps', 0)
+                # plot_data["min_pH"] = plant.get('min_pH', 0)
+                # plot_data["min_pH"] = plant.get('max_pH', 0)
+                # plot_data["min_ec"] = plant.get('min_ec', 0)
+                # plot_data["min_ec"] = plant.get('max_ec', 0)
+                # steps_dict[plot_number] = plot_data
+                # print(steps_dict[plot_number])
                 steps_dict[plot_number] = plot.get('steps', 0)
             else:
                 raise ValueError(f'Plot with plot_number {plot_number} not found')
+            print(steps_dict)
         return steps_dict
     except Exception as e:
         raise ValueError(str(e))

@@ -205,7 +205,7 @@ def endpoint_comm(fiducial_count):
     # test()
     # return data
     total_fiducials = fiducial_count
-    # fiducials_detected = calibrate() 
+    fiducials_detected = calibrate() 
     print("Back from calibrate")
     # if fiducials_detected < total_fiducials:
     #     fiducials_detected = calibrate()

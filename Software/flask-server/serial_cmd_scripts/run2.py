@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 # pi side 
 
-# import cv2
-# from picamera2 import Picamera2
+import cv2
+from picamera2 import Picamera2
 
 import time
 import serial
@@ -31,7 +31,7 @@ def receive_data(ser):
             received_message[0] = line.decode('utf-8').rstrip()
             print(received_message[0])
 # ser = serial.Serial('/dev/mydevice', 115200)
-ser = serial.Serial('/dev/ttyACM1', 115200)
+ser = serial.Serial('/dev/ttyACM0', 115200)
 receive_thread = threading.Thread(target=receive_data, args=(ser,))
 receive_thread.daemon = True
 receive_thread.start()
@@ -160,31 +160,40 @@ def check_fiducial():
             
 
 def run(vertical_status, steps_array):
+    # TODO check if steps array has all zeros
     print("in run")
     # send_serial("SET_ZERO_POS:0")
     # time.sleep(0.5)
     # print("after send ser")
     # wait_for_ack("SET_ZERO_POS")
     # send_serial(f"MOVE_MOTOR_STEPS:0,0,{boundary_offset}")
+
     plot_readings= {key: {} for key in steps_array}
     if vertical_status != 0 :
         # send_serial("SET_ZERO_POS:1")
         # wait_for_ack("SET_ZERO_POS")
         send_serial(f"MOVE_MOTOR_STEPS:1,0,{vertical_steps}") 
         wait_for_ack("MOVE_MOTOR_STEPS")
+
     current_position = get_current_position()
     send_serial(f"MOVE_MOTOR_STEPS:0,0,{current_position}")  
-    wait_for_ack("MOVE_MOTOR_STEPS") 
+    wait_for_ack("MOVE_MOTOR_STEPS")
+    print(steps_array)
+
     sensor_values = {
     'pH' : 0.0,
     'temperature' : 0.0,
-    'ec' : 0.0
+    'ec' : 0.0,
+    'nutrients_pumped': False
     }
     for key in steps_array:
+    # for i, (key,step_value) in enumerate(steps_array):
+
         current_position = get_current_position()
         send_serial(f"MOVE_MOTOR_STEPS:0,1,{(steps_array[key] - current_position)}")
         wait_for_ack("MOVE_MOTOR_STEPS")
 
+        # TODO: make optional
         error_direction, fiducial_key = check_fiducial()
         if (error_direction >= 0): 
             # accounts for both directions since left is 0 and right is 1
@@ -194,8 +203,12 @@ def run(vertical_status, steps_array):
 
         send_serial(f"MOVE_MOTOR_STEPS:1,1,{vertical_steps}")
         wait_for_ack("MOVE_MOTOR_STEPS") 
-        # TODO: add delay for demo
         time.sleep(0.5)
+        # TODO: add delay for demo
+
+        # send_serial(f"LIGHT_ON:{i}")
+        # wait_for_ack("LIGHT_ON")
+
         send_serial("READ_SENSOR:0")
         wait_for_ack("READ_SENSOR")
         sensor_values['pH'] = float(received_message[0].split(":")[2])
@@ -204,19 +217,71 @@ def run(vertical_status, steps_array):
         wait_for_ack("READ_SENSOR")
         sensor_values['temperature'] = float(received_message[0].split(":")[2])
 
+        send_serial("ENABLE_EC_SENSOR")
+        wait_for_ack("ENABLE_EC_SENSOR")
+        time.sleep(2)
+
         send_serial("READ_SENSOR:2")
         wait_for_ack("READ_SENSOR")
         sensor_values['ec'] = float(received_message[0].split(":")[2])
 
+        send_serial("DISABLE_EC_SENSOR")
+        wait_for_ack("DISABLE_EC_SENSOR")
+
+        # {'1': {
+        #     'steps' : 41981,
+        #     'pH': 6,
+        #     'ec' : 7
+        #  },
+        # }
+
+        # Compare values
+        # send_serial("PUMP_ON:[]")
+        # wait for ack
+        # time.sleep(5)
+        # send_serial("PUMP_OFF:[]")
+        # wait for ack
+        # Change 'nutrients pumped' to true
+
+        # EC is only done when its too low
+        for pump in range(3):
+            send_serial(f"PUMP_ON:{pump}")
+            wait_for_ack("PUMP_ON")
+
+        time.sleep(5)
+
+        for pump in range(3):
+            send_serial(f"PUMP_OFF:{pump}")
+            wait_for_ack("PUMP_OFF")
+
+        # TODO: If ph is too low or too high, pump nutrients and change sensor_values['nutrients_pumped'] to True
+        # TODO: If ec is too low or too high, pump nutrients and change sensor_values['nutrients_pumped'] to True
+
         send_serial(f"MOVE_MOTOR_STEPS:1,0,{vertical_steps}")
         wait_for_ack("MOVE_MOTOR_STEPS")
 
+        # send_serial(f"LIGHT_OFF:{i}")
+        # wait_for_ack("LIGHT_OFF")
+
         plot_readings[key] = sensor_values
+
+    send_serial(f"MOVE_MOTOR_STEPS:0,0,{get_current_position()-9000}")
+    wait_for_ack("MOVE_MOTOR_STEPS")
+
+    # send_serial(f"MOVE_MOTOR_STEPS:1,1,{vertical_steps}")
+    # wait_for_ack("MOVE_MOTOR_STEPS")
+
+    # send_serial(f"MOVE_MOTOR_STEPS:1,0,{vertical_steps}")
+    # wait_for_ack("MOVE_MOTOR_STEPS")
+
+    send_serial(f"MOVE_MOTOR_STEPS:0,0,9000")
+    wait_for_ack("MOVE_MOTOR_STEPS")
+
     return plot_readings 
 
 def endpoint_comm_run(vertical_status, steps_array):
     print("CHECK: in the run file")
-    # data = run(vertical_status, steps_array)
+    data = run(vertical_status, steps_array)
     sensor_values = {
     'pH' : 5.0,
     'temperature' : 6.0,
