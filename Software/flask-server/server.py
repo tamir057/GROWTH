@@ -411,7 +411,6 @@ def register_user():
 @app.route('/api/logout', methods=['POST'])
 def logout_user():
     try:
-  
         return jsonify({'success': True, 'message': 'Logout successful'})
     except Exception as e:
         print("HEREEEEEEEEEEEEEE")
