@@ -5,6 +5,10 @@ from bson.json_util import dumps
 from flask_cors import CORS
 from datetime import datetime
 import subprocess 
+# from serial_cmd_scripts.calibrate import endpoint_comm
+# from serial_cmd_scripts.run2 import endpoint_comm_run
+
+
 app = Flask(__name__)
 
 CORS(app)
@@ -17,6 +21,7 @@ db = client['Capstone']
 plants = db.plants
 plots = db.plots
 users = db.users
+sensor_readings = db.sensor_readings
 
 @app.route("/members")
 def members():
@@ -26,28 +31,18 @@ plots_file_path = os.path.join(os.path.dirname(__file__), 'motor-status.json')
 print("File Path:", plots_file_path)
 
 #@app.route('/update_steps', methods=['POST'])
-def update_steps(steps_array):
+def update_steps(steps_dict):
     try:
-        # data = request.get_json()
+        # Ensure the received data is a dictionary
+        if not isinstance(steps_dict, dict):
+            print("ERROR: Steps dictionary is not a dictionary")
+            return jsonify({'error': 'Invalid data format. Expected a dictionary.'}), 400
 
-        # Ensure the received data is an array
-        if not isinstance(steps_array, list):
-            print("Steps array is not an array")
-            # return jsonify({'error': 'Invalid data format. Expected an array.'}), 400
-
-        # Iterate through each plot in the array and update the steps
-        for plot_data in steps_array:
-            # Ensure required fields are present in the plot_data
-            if 'plot_number' not in plot_data or 'steps' not in plot_data:
-                return jsonify({'error': 'Missing required fields in plot data'}), 400
-
-            # Extract plot_number and steps from the plot_data
-            plot_number = plot_data['plot_number']
-            steps = plot_data['steps']
-
+        # Iterate through each plot in the dictionary and update the steps
+        for plot_number, steps in steps_dict.items():
             # Update steps for the specified plot_number
-            result = plots.update_one({'plot_number': plot_number}, {'$set': {'steps': steps}})
-
+            result = plots.update_one({'plot_number': int(plot_number)}, {'$set': {'steps': int(steps)}})
+            print("CHECK: Saved stps for plot")
             if result.modified_count == 0:
                 return jsonify({'error': f'Plot with plot_number {plot_number} not found'}), 404
 
@@ -202,14 +197,15 @@ def get_status():
 def save_status(vertical_motor, horizontal_boundary, current_time):
     try:
         # Read existing status from the file
+        print("CHECK: in Save status")
         status_data = json.loads(read_status_from_file())
-        # print("Existing status:", status_data)  # Add this line for debugging
+        print("Existing status:", status_data)  # Add this line for debugging
 
         # Update the specific fields
         status_data["vertical-motor"] = vertical_motor
         status_data["horizontal-boundary"] = horizontal_boundary
         status_data["last-calibration-time"] = current_time
-
+        print("New status", status_data)
         # Convert the updated status back to JSON
         updated_status_json = json.dumps(status_data, indent=2)
 
@@ -221,46 +217,23 @@ def save_status(vertical_motor, horizontal_boundary, current_time):
         print("Error in save_status:", str(e))  # Add this line for debugging
         return {'error': str(e)}
 
-
-# @app.route('/api/calibrate', methods=['POST'])
-# def calibrate():
-#     print("hit calibrate endpoint")
-#     try:
-#         # TODO: get request number of plants in plot collection to pass in as arg for calibrate.py
-#         data = subprocess.check_output(['python', './serial-cmd-scripts/calibrate.py'] + 3)
-#         # data = subprocess.check_output(['python'])
-#         update_steps(data['steps_array'])
-#         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-#         save_status(data["vertical-motor"], data["horizontal-boundary"], current_time)
-#         return jsonify({'success': True})
-#     except Exception as e:
-#         return jsonify({'error': str(e)})
-
 @app.route('/api/calibrate', methods=['POST'])
-def calibrate():
+def calibrate_endpoint():
     print("CHECK: Hit calibrate endpoint")
-    # current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    # save_status(0, 0, current_time)
     try:
         # TODO: get request number of plants in plot collection to pass in as arg for calibrate.py
         plot_count = plots.count_documents({})
         # print(f"CHECK: this is the plot count: {plot_count}")
         print("CHECK: Before the calibrate script")
-        command = ["python", "./serial-cmd-scripts/calibrate.py", str(3), "--flag"]
-        process = subprocess.run(command, capture_output=True, text=True)
-        print("Output:", process.stdout)
-        print("CHECK: Error:", process.stderr)
-        print("Return code:", process.returncode)
-        print("CHECK: Exited the Calibrate script")
-        # TODO: save the steps array and horizontal and vertical motor status
+        data = {'vertical-motor': 0, 'horizontal-boundary': '116403', 'steps_array': {'1': '41981', '2': '78288', '3': '113360'}}
+        # NOTE: DO NOT uncomment unless robot is connected
+        # data = endpoint_comm(3)
+        print("CHECK: Exited the Calibrate file")
+        print(data['steps_array'])
+        update_steps(data['steps_array'])
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        save_status(0, 0, current_time)
-        # subprocess.run(['python', './serial-cmd-scripts/calibrate.py'] + 3)
-        # result = subprocess.run(['./serial-cmd-scripts/calibrate.py'], shell=True, capture_output=True, text=True)
-        # print(result.stdout)
-        # data = subprocess.check_output(['python', './serial-cmd-scripts/calibrate.py'] + 3)
-        # update_steps(data['steps_array'])
-        # save_status(vertical_motor=data["vertical-motor"],  horizontal_boundary=data["horizontal-boundary"])
+        print(f"TIME", current_time)
+        save_status(data['vertical-motor'], data['horizontal-boundary'], current_time)
         return jsonify({'success': True})
     except Exception as e:
         return jsonify({'error': str(e)})
@@ -285,6 +258,19 @@ def get_last_calibration_time():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
+def endpoint_comm_run2(vertical_status, steps_array):
+    print("CHECK: in the run file")
+    # data = run(vertical_status, steps_array)
+    sensor_values = {
+    'pH' : 9.0,
+    'temperature' : 25.0,
+    'ec' : 9.0
+    }
+    data = {key: {} for key in steps_array}
+    for key in steps_array:
+        data[key] = sensor_values
+    return data
+
 @app.route('/api/run', methods=['POST'])
 def run():
     print("hit run endpoint")
@@ -293,39 +279,27 @@ def run():
         # selected_plots = data.get('checkedPlots')  # Access the checkedPlots key
         # selected_plant = data.get('selectedPlant')
         selected_plots = [1,2,3]
-        print("Plots:", selected_plots)
-        # steps_array = get_steps_array(selected_plots)
-        # print(steps_array)
+        # print("Plots:", selected_plots)
+        steps_array = get_steps_array(selected_plots)
+        print(steps_array)
         print(get_status())
-        steps_array = {
-            '1' : 42000,
-            '2' : 80000,
-            '3' : 119000
-        }
+        status = get_status()
         print(3)
         print("HELLO")
-        # command = ['python', './serial-cmd-scripts/run2.py', str(steps_array), str(get_status()), "--flag"]
-        # process = subprocess.check_output(command, capture_output=True, text=True)
-        # print("Output:", process.stdout)
-        # print("CHECK: Error:", process.stderr)
-        # print("Return code:", process.returncode)
-        # print("CHECK: Exited the Calibrate script")
         print("CHECK: Before the run script")
-        command = ["python", "./serial-cmd-scripts/run2.py", str(get_status()), "--flag"]
-        # command = ["python", "./serial-cmd-scripts/run2.py"]
-        process = subprocess.run(command, capture_output=True, text=True)
-        print("Output:", process.stdout)
-        print("CHECK: Error:", process.stderr)
-        print("Return code:", process.returncode)
-        print("CHECK: Exited the Run script")
+        # NOTE: DO NOT uncomment unless robot is connected
+        data = endpoint_comm_run2(status['vertical-motor'], steps_array)
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         print("Time " + current_time )
         # appending the time
-        # modified_readings = {
-        #     plot_number: {'time': current_time, **readings}
-        #     for plot_number, readings in readings.items()
-        # }       
-        # save_sensor_readings(modified_readings)
+        modified_readings = {
+            plot_number: {'time': current_time, **readings}
+            for plot_number, readings in data.items()
+        }       
+        print("Appended time")
+        print(modified_readings)
+        save_sensor_readings(modified_readings)
+        print("saved reading")
         return jsonify({'success': True})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -347,22 +321,30 @@ def get_steps_array(plot_numbers):
         raise ValueError(str(e))
 
 def save_sensor_readings(plot_readings):
+    print("in save")
+    new_data = []
     try:
         for plot_number, readings in plot_readings.items():
             # Find the plot based on plot_number
-            plot = plots.find_one({'plot_number': plot_number})
-            print(plot_number)
+            plot = plots.find_one({'plot_number': int(plot_number)})
+            plot_id = plot["_id"]
+            print(readings["time"])
 
             # Check if the plot exists
             if plot:
-                # Update the "last_reading" field of the specified plot
+                # # Update the "last_reading" field of the specified plot
                 plots.update_one(
-                    {'plot_number': plot_number},
+                    {'plot_number': int(plot_number)},
                     {'$set': {'last_reading': readings}}
                 )
+                new_data.append({
+                    "plot_id": plot_id,
+                    **readings          
+                })
+                print(new_data)
             else:
                 print('Plot with plot_number {plot_number} not found')
-
+        sensor_readings.insert_many(new_data)
         print('success')
 
     except Exception as e:
@@ -516,3 +498,26 @@ if __name__ == "__main__":
 #         write_plots_to_file(json.dumps(plot_array)) 
 
 
+# Calibrate
+        # command = ["python", "./serial-cmd-scripts/calibrate.py", str(3), "--flag"]
+        # process = subprocess.run(command, capture_output=True, text=True)
+        # print("Output:", process.stdout)
+        # print("CHECK: Error:", process.stderr)
+        # print("Return code:", process.returncode)
+        # print("CHECK: Exited the Calibrate script")
+
+#Run
+        # command = ["python", "./serial-cmd-scripts/run2.py", str(get_status()), "--flag"]
+        # # command = ["python", "./serial-cmd-scripts/run2.py"]
+        # process = subprocess.run(command, capture_output=True, text=True)
+        # print("Output:", process.stdout)
+        # print("CHECK: Error:", process.stderr)
+        # print("Return code:", process.returncode)
+        # print("CHECK: Exited the Run script")
+
+                # command = ['python', './serial-cmd-scripts/run2.py', str(steps_array), str(get_status()), "--flag"]
+        # process = subprocess.check_output(command, capture_output=True, text=True)
+        # print("Output:", process.stdout)
+        # print("CHECK: Error:", process.stderr)
+        # print("Return code:", process.returncode)
+        # print("CHECK: Exited the Calibrate script")
