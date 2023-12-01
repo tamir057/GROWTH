@@ -79,6 +79,9 @@ void error_handler(uint32_t error_code) {
 // interrupt handler for limit switches
 void limit_switch_triggered(uint gpio, uint32_t events) {
 
+    if (!gpio_get(gpio)) {
+        return;
+    }
     if (gpio == GPIO1) {
         disable_motor(&x_axis_motor);
         flags.kill_x_motor = true;
@@ -258,7 +261,7 @@ void command_handler(command_queue_entry* cmd) {
             conductivity_value = conductivity_reading(conductivity_voltage*1000.0, temp);
             
             // print out the conductivity value
-            printf("EC value: %f\n", conductivity_voltage);
+            // printf("EC value: %f\n", conductivity_voltage);
             sprintf(return_val, "%f", conductivity_value);
             break;
 
