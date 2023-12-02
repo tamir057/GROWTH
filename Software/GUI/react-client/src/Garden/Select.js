@@ -45,7 +45,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
     // Fetch plant options from your endpoint
     const fetchPlants = async () => {
       try {
-        const response = await axios.get('/api/plants'); // Replace with your actual endpoint
+        const response = await axios.get('http://10.110.203.52:5000/api/plants'); // Replace with your actual endpoint
         setPlantOptions(response.data);
       } catch (error) {
         console.error('Error fetching plant options:', error);
@@ -59,7 +59,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
   const handleSave = async () => {
     try {
       // Make a POST request to your backend endpoint with plot number and selected plant
-      const response = await axios.post(`/api/assign-plant`, {
+      const response = await axios.post(`http://10.110.203.52:5000/api/assign-plant`, {
         plotNumber: plotNumber,
         selectedPlant: selectedPlant,
         
