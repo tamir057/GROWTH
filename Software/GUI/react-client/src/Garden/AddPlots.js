@@ -46,7 +46,7 @@ const AddPlots = ({ onClose }) => {
       .then((result) => {
         if (result.success) {
           // If the addition was successful, fetch updated data
-          fetch("/api/getPlots")
+          fetch("http://10.110.203.52:5000/api/getPlots")
             .then((response) => response.json())
             .then((data) => setPlotArray(data))
             .catch((error) =>
