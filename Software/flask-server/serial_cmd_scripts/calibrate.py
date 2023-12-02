@@ -2,10 +2,10 @@
 # # pi side 
 
 import cv2
-from picamera2 import Picamera2
+# from picamera2 import Picamera2
 
 import time
-import serial
+# import serial
 import threading
 import sys
 
@@ -23,8 +23,7 @@ data = {
 }
 
 # total_fiducials = sys.argv[1:]
-total_fiducials = 3
-
+# total_fiducials = 3
 total_fiducials = sys.argv[1:]
 total_fiducials = 0
 fiducials_detected = 0
@@ -38,12 +37,6 @@ def receive_data(ser):
             line = ser.readline()
             received_message[0] = line.decode('utf-8').rstrip()
             print(f"full received message {received_message[0]}", "  from received")
-ser = serial.Serial('/dev/ttyACM0', 115200)
-receive_thread = threading.Thread(target=receive_data, args=(ser,))
-receive_thread.daemon = True
-receive_thread.start()
-    
-
 
 # # Grab images as numpy arrays and leave everything else to OpenCV.
 
@@ -53,10 +46,6 @@ cv2.startWindowThread()
 arucoDict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
 arucoParams = cv2.aruco.DetectorParameters()
 arucoDetector = cv2.aruco.ArucoDetector(arucoDict, arucoParams)
-
-picam2 = Picamera2()
-picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888', "size": (320, 240)}, controls={"FrameDurationLimits": (50000, 50000)}))
-picam2.start()
 
 def fiducial_detection():
     while received_message[0].split(":")[1] != "LIMIT_SWITCH_TRIGGERED":
@@ -193,17 +182,23 @@ def calibrate():
 
     return fiducials_detected
 
-def test():
-    print("in test")
-    data["steps_array"]["1"] = 5
-    data["steps_array"]["2"] = 5
-    data["steps_array"]["3"] = 5
-    return data
+def endpoint_comm(fiducial_count, picam2, ser):
 
-def endpoint_comm(fiducial_count):
-    print("in comm")
-    # test()
-    # return data
+    # global picam2
+    # picam2 = Picamera2()
+    # picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888', "size": (320, 240)}, controls={"FrameDurationLimits": (50000, 50000)}))
+    # picam2.start()
+
+    # global ser
+    # global receive_thread
+    
+    # ser = serial.Serial('/dev/ttyACM1', 115200)
+    
+    receive_thread = threading.Thread(target=receive_data, args=(ser,))
+    receive_thread.daemon = True
+    receive_thread.start()
+
+    print("in comm")    
     total_fiducials = fiducial_count
     fiducials_detected = calibrate() 
     print("Back from calibrate")
@@ -217,28 +212,4 @@ def endpoint_comm(fiducial_count):
     # else:
     #     raise ValueError("Failed to final all fiducials") 
 
-
-if __name__ == "__main__":
-
-    # print("CHECK: In the calibrate script")
-    total_fiducials = sys.argv[1:]
-    # print("CHECK: Total fiducials: " + total_fiducials[0])
-
-    # print("CHECK: Exiting the calibrate script")
-    test()
-    print(data)
-    
-    # NOTE: Don't uncomment this
-    # fiducials_detected = calibrate() 
-    # if fiducials_detected < int(total_fiducials[0]):
-    #     fiducials_detected = calibrate()
-
-    # if fiducials_detected == int(total_fiducials[0]):
-    #     print(data)
-    #     print("All fiducials found!")
-
-    # else:
-    #     raise ValueError("Failed to final all fiducials") 
-
-    # do a bit of cleanup
-    cv2.destroyAllWindows()
+cv2.destroyAllWindows()

@@ -5,8 +5,12 @@ from bson.json_util import dumps
 from flask_cors import CORS
 from datetime import datetime
 import subprocess 
-from serial_cmd_scripts.calibrate import endpoint_comm
-from serial_cmd_scripts.run2 import endpoint_comm_run
+# from serial_cmd_scripts.calibrate import endpoint_comm
+# from serial_cmd_scripts.run2 import endpoint_comm_run
+from serial_cmd_scripts.scripts import endpoint_comm
+from serial_cmd_scripts.scripts import endpoint_comm_run
+# from picamera2 import Picamera2
+# import serial
 
 
 app = Flask(__name__)
@@ -225,7 +229,7 @@ def calibrate_endpoint():
         plot_count = plots.count_documents({})
         # print(f"CHECK: this is the plot count: {plot_count}")
         print("CHECK: Before the calibrate script")
-        data = {'vertical-motor': 0, 'horizontal-boundary': '116403', 'steps_array': {'1': '41981', '2': '78288', '3': '113360'}}
+        # data = {'vertical-motor': 0, 'horizontal-boundary': '116403', 'steps_array': {'1': '41981', '2': '78288', '3': '113360'}}
         # NOTE: DO NOT uncomment unless robot is connected
         data = endpoint_comm(3)
         print("CHECK: Exited the Calibrate file")
@@ -241,6 +245,16 @@ def calibrate_endpoint():
         return jsonify({'error': f'Subprocess error: {e}'})
     except Exception as e:
         return jsonify({'error': f'An unexpected error occurred: {str(e)}'})
+
+# def serial_setup():
+#     picam2 = Picamera2()
+#     picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888', "size": (320, 240)}, controls={"FrameDurationLimits": (50000, 50000)}))
+#     picam2.start()
+#     print("CHECK: Camera setup")
+#     ser = serial.Serial('/dev/ttyACM1', 115200)
+#     print("CHECK: Serial setup")
+#     return picam2, ser
+
     
 @app.route('/api/get-last-calibration-time', methods=['GET'])
 def get_last_calibration_time():
@@ -278,7 +292,7 @@ def run():
         # data = request.json
         # selected_plots = data.get('checkedPlots')  # Access the checkedPlots key
         # selected_plant = data.get('selectedPlant')
-        selected_plots = [1,2,3]
+        selected_plots = [1]
         # print("Plots:", selected_plots)
         steps_array = get_steps_array(selected_plots)
         print(steps_array)
