@@ -5,13 +5,9 @@ from bson.json_util import dumps
 from flask_cors import CORS
 from datetime import datetime
 import subprocess 
-# from serial_cmd_scripts.calibrate import endpoint_comm
-# from serial_cmd_scripts.run2 import endpoint_comm_run
-from serial_cmd_scripts.scripts import endpoint_comm
-from serial_cmd_scripts.scripts import endpoint_comm_run
-# from picamera2 import Picamera2
-# import serial
-
+from bson import ObjectId
+# from serial_cmd_scripts.scripts import endpoint_comm_calibrate
+# from serial_cmd_scripts.scripts import endpoint_comm_run
 
 app = Flask(__name__)
 
@@ -20,7 +16,6 @@ CORS(app)
 connection_string = "mongodb+srv://capstone:capstone123@capstone.m5fs3fi.mongodb.net/?retryWrites=true&w=majority"
 # Create a MongoClient instance
 client = MongoClient(connection_string)
-# client = MongoClient('localhost', 27017, username='', password='')
 db = client['Capstone']
 plants = db.plants
 plots = db.plots
@@ -34,7 +29,6 @@ def members():
 plots_file_path = os.path.join(os.path.dirname(__file__), 'motor-status.json')
 print("File Path:", plots_file_path)
 
-#@app.route('/update_steps', methods=['POST'])
 def update_steps(steps_dict):
     try:
         # Ensure the received data is a dictionary
@@ -46,7 +40,7 @@ def update_steps(steps_dict):
         for plot_number, steps in steps_dict.items():
             # Update steps for the specified plot_number
             result = plots.update_one({'plot_number': int(plot_number)}, {'$set': {'steps': int(steps)}})
-            print("CHECK: Saved stps for plot")
+            print("CHECK: Saved stes for plot")
             if result.modified_count == 0:
                 return jsonify({'error': f'Plot with plot_number {plot_number} not found'}), 404
 
@@ -60,10 +54,8 @@ def get_data():
     try:
         # Read data from MongoDB 'plots' collection and convert it to a list of dictionaries
         plot_cursor = plots.find({}, {'_id': False})
-        # plot_array = json.loads(read_plots_from_file())
         plot_array = list(plot_cursor)
 
-        
         return jsonify(plot_array)
     except Exception as e:
         return jsonify({'error': str(e)})
@@ -225,18 +217,15 @@ def save_status(vertical_motor, horizontal_boundary, current_time):
 def calibrate_endpoint():
     print("CHECK: Hit calibrate endpoint")
     try:
-        # TODO: get request number of plants in plot collection to pass in as arg for calibrate.py
         plot_count = plots.count_documents({})
-        # print(f"CHECK: this is the plot count: {plot_count}")
+        print(f"CHECK: this is the plot count: {plot_count}")
         print("CHECK: Before the calibrate script")
         # data = {'vertical-motor': 0, 'horizontal-boundary': '116403', 'steps_array': {'1': '41981', '2': '78288', '3': '113360'}}
         # NOTE: DO NOT uncomment unless robot is connected
-        data = endpoint_comm(3)
+        # data = endpoint_comm_calibrate(3)
         print("CHECK: Exited the Calibrate file")
-        print(data['steps_array'])
         update_steps(data['steps_array'])
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(f"TIME", current_time)
         save_status(data['vertical-motor'], data['horizontal-boundary'], current_time)
         return jsonify({'success': True})
     except Exception as e:
@@ -245,16 +234,6 @@ def calibrate_endpoint():
         return jsonify({'error': f'Subprocess error: {e}'})
     except Exception as e:
         return jsonify({'error': f'An unexpected error occurred: {str(e)}'})
-
-# def serial_setup():
-#     picam2 = Picamera2()
-#     picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888', "size": (320, 240)}, controls={"FrameDurationLimits": (50000, 50000)}))
-#     picam2.start()
-#     print("CHECK: Camera setup")
-#     ser = serial.Serial('/dev/ttyACM1', 115200)
-#     print("CHECK: Serial setup")
-#     return picam2, ser
-
     
 @app.route('/api/get-last-calibration-time', methods=['GET'])
 def get_last_calibration_time():
@@ -272,13 +251,12 @@ def get_last_calibration_time():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
-def endpoint_comm_run2(vertical_status, steps_array):
+def endpoint_comm_run_mock(vertical_status, steps_array):
     print("CHECK: in the run file")
-    # data = run(vertical_status, steps_array)
     sensor_values = {
-    'pH' : 9.0,
-    'temperature' : 25.0,
-    'ec' : 9.0
+    'pH' : 2.0,
+    'temperature' : 30.0,
+    'ec' : 2.0
     }
     data = {key: {} for key in steps_array}
     for key in steps_array:
@@ -287,23 +265,19 @@ def endpoint_comm_run2(vertical_status, steps_array):
 
 @app.route('/api/run', methods=['POST'])
 def run():
-    print("hit run endpoint")
+    print("CHECK: Hit run endpoint")
     try:
-        # data = request.json
-        # selected_plots = data.get('checkedPlots')  # Access the checkedPlots key
-        # selected_plant = data.get('selectedPlant')
-        selected_plots = [1]
-        # print("Plots:", selected_plots)
+        data = request.json
+        print("CHECK: Data received")
+        selected_plots = data.get('checkedPlots')  # Access the checkedPlots key
+        print("CHECK: checked plots", selected_plots)
+        # selected_plots = [1,2,3]
+        print("CHECK: Going into get steps array")
         steps_array = get_steps_array(selected_plots)
-        print(steps_array)
-        print(get_status())
         status = get_status()
-        print(3)
-        print("HELLO")
-        print("CHECK: Before the run script")
-        # NOTE: DO NOT uncomment unless robot is connected
         data = {}
-        data = endpoint_comm_run(status['vertical-motor'], steps_array)
+        # NOTE: DO NOT uncomment unless robot is connected
+        # data = endpoint_comm_run(status['vertical-motor'], steps_array)
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         print("Time " + current_time )
         # appending the time
@@ -311,34 +285,38 @@ def run():
             plot_number: {'time': current_time, **readings}
             for plot_number, readings in data.items()
         }       
-        print("Appended time")
-        print(modified_readings)
+        print("CHECK: Appended time")
         save_sensor_readings(modified_readings)
-        print("saved reading")
+        print("CHECK: Reading saved to database")
         return jsonify({'success': True})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
 def get_steps_array(plot_numbers):
+    print("CHECK: In Get steps array")
     try:
         steps_dict = {}
         for plot_number in plot_numbers:
             # Find the plot based on plot_number
             plot = plots.find_one({'plot_number': plot_number})
+            print("Plot found", plot)
+            plant_id = object_id = ObjectId(plot.get('plant_id', 0))
 
             # Check if the plot exists
             if plot:
-                # plant = plants.find_one({"_id": plot.plant_id})
-                # plot_data = {}
-                # print("CHECK: plant gotten")
-                # plot_data["steps"] = plot.get('steps', 0)
-                # plot_data["min_pH"] = plant.get('min_pH', 0)
-                # plot_data["min_pH"] = plant.get('max_pH', 0)
-                # plot_data["min_ec"] = plant.get('min_ec', 0)
-                # plot_data["min_ec"] = plant.get('max_ec', 0)
-                # steps_dict[plot_number] = plot_data
-                # print(steps_dict[plot_number])
-                steps_dict[plot_number] = plot.get('steps', 0)
+                print("CHECK: In If")
+                print("Plant id", plant_id)
+                plant = plants.find_one({"_id": plant_id})
+                plot_data = {}
+                print("CHECK: Plot's Plant identified", plant)
+                plot_data["steps"] = plot.get('steps', 0)
+                plot_data["min_pH"] = plant.get('min_pH', 0)
+                plot_data["max_pH"] = plant.get('max_pH', 0)
+                plot_data["min_ec"] = plant.get('min_ec', 0)
+                plot_data["max_ec"] = plant.get('max_ec', 0)
+                steps_dict[plot_number] = plot_data
+                print(steps_dict[plot_number])
+                # steps_dict[plot_number] = plot.get('steps', 0)
             else:
                 raise ValueError(f'Plot with plot_number {plot_number} not found')
             print(steps_dict)
@@ -432,8 +410,6 @@ def login_user():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-# TODO: Update run endpoint to include 
-
 if __name__ == "__main__":
     # app.run(debug=True)
     app.run(host='0.0.0.0', port=5000)
@@ -488,7 +464,6 @@ if __name__ == "__main__":
 
 
 
-# # TODO: replace with mongo connection
 # @app.route('/api/getPlots', methods=['GET'])
 # def get_data():
 #     try:
@@ -498,7 +473,6 @@ if __name__ == "__main__":
 #     except Exception as e:
 #         return jsonify({'error': str(e)})
 
-# TODO: Redo with Mongo
 # @app.route('/api/addPlots', methods=['POST'])
 # def add_data():
 #     try:
@@ -507,7 +481,6 @@ if __name__ == "__main__":
 #         plot_array = json.loads(read_plots_from_file())
 #         size = len(plot_array)
 #         # plots_number = 5
-#         # TODO: get the number of plots 
 #         new_data = []
 #         for i in range(plots_number):
 #             # You can add any value or object to the list here
