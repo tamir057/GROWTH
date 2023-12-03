@@ -32,9 +32,8 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
 
         if (!isEmptyPlot) {
           try {
-            const sensorResponse = await axios.get(`http://localhost:5000/api/last-sensor-readings/${plotNumber}`);
+            const sensorResponse = await axios.get(`http://localhost:5000/api/plants/last-sensor-readings/${plotNumber}`);
             setSensorReadings(sensorResponse.data);
-            console.log("sensor: " + sensorResponse.data);
           } catch (sensorError) {
             console.error('Error fetching sensor readings:', sensorError);
           }
@@ -50,7 +49,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
       try {
         const response = await axios.get(`http://localhost:5000/api/plants/min-max-values/${plotNumber}`);
         setMinMaxValues(response.data);
-        console.log("min max: " + response.data);
+        console.log("min max: ", response.data);
       } catch (error) {
         console.error('Error fetching min-max values:', error);
       }
@@ -176,11 +175,12 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
               <h5 className="runTimeContainer">pH Level:</h5>
               <ReactSpeedometer
                 value={sensorReadings.pH}
-                minValue={0}
-                maxValue={14}
+                minValue={Number(minMaxValues.minPH)}
+                maxValue={Number(minMaxValues.maxPH)}
                 startColor={sensorReadings.pH >= minMaxValues.minPH && sensorReadings.pH <= minMaxValues.maxPH ? '#00FF00' : '#FF0000'}
                 endColor={sensorReadings.pH >= minMaxValues.minPH && sensorReadings.pH <= minMaxValues.maxPH ? '#00FF00' : '#FF0000'}
               />
+
               <p>Min: {minMaxValues.minPH}</p>
               <p>Max: {minMaxValues.maxPH}</p>
 
