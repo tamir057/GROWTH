@@ -27,7 +27,7 @@ const AddPlots = ({ onClose }) => {
 
   useEffect(() => {
     // Fetch initial data when the component mounts
-    fetch("http://10.110.203.52:5000/api/getPlots")
+    fetch("http://localhost:5000/api/getPlots")
       .then((response) => response.json())
       .then((data) => setPlotArray(data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -35,7 +35,7 @@ const AddPlots = ({ onClose }) => {
 
   const handleAddClick = () => {
     // Make a POST request to add the number of plots
-    fetch("http://10.110.203.52:5000/api/addPlots", {
+    fetch("http://localhost:5000/api/addPlots", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

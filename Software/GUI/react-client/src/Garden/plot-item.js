@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Garden-index.css";
-import Select from './Select'; // Import the AddPlotModal component
-
+import Select from './Select';
 
 const PlotItem = ({ plot, isCheckedAll, onPlotCheckboxChange }) => {
-  
+
   const [showAddPopup, setShowAddPopup] = useState(false);
   const [isChecked, setIsChecked] = useState(isCheckedAll);
   const [imagePath, setImagePath] = useState(`/images/${plot.plant}.jpg`);
@@ -13,7 +12,7 @@ const PlotItem = ({ plot, isCheckedAll, onPlotCheckboxChange }) => {
   useEffect(() => {
     setIsChecked(isCheckedAll);
   }, [isCheckedAll]);
-  
+
   const openAddPopup = () => {
     setShowAddPopup(true);
   };
@@ -23,14 +22,13 @@ const PlotItem = ({ plot, isCheckedAll, onPlotCheckboxChange }) => {
   };
 
   const handleImageError = () => {
-    // Use the default image based on plot.plant and plot.plant_id
     setImagePath(getImagePath(true));
   };
 
-  // Function to determine the image path based on plot.plant and whether it's an error case
   function getImagePath(isError = false) {
     return "/images/Plant.jpg";
   }
+
   return (
     <li id="" className="list-group-item bg-secondary-green mt-2 mb-2">
       <div className="row">
@@ -44,9 +42,16 @@ const PlotItem = ({ plot, isCheckedAll, onPlotCheckboxChange }) => {
               onPlotCheckboxChange(plot.plot_number);
             }}
           />
-        <button class="m-2 col-3  button-square round-15" onClick={openAddPopup}>Plot {plot.plot_number} {plot.plant} </button>
-        {showAddPopup && <Select/>}     
-     </div>
+          <button
+            className="m-2 col-3 button-square round-15"
+            onClick={openAddPopup}
+          >
+            Plot {plot.plot_number} {plot.plant}
+          </button>
+          {showAddPopup && (
+            <Select showModal={showAddPopup} handleClose={closeAddPopup} plotNumber={plot.plot_number} />
+          )}
+        </div>
 
         <div className="col-10 mt-2">
           <div>
@@ -58,9 +63,9 @@ const PlotItem = ({ plot, isCheckedAll, onPlotCheckboxChange }) => {
             />
           </div>
         </div>
-        <Select showModal={showAddPopup} handleClose={closeAddPopup} plotNumber={plot.plot_number} />
       </div>
     </li>
   );
 };
+
 export default PlotItem;
