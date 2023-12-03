@@ -1,6 +1,10 @@
+body {
+  font-family: 'Poppins', sans-serif !important;
+}
+
 .mainContainer {
   background-color: #c2bebe;
-
+  font-family: 'Poppins', sans-serif !important;
   /* display: grid;
   grid-template-columns: 50% 50%;
   background-color: #d0dfdf;
@@ -10,6 +14,7 @@
 }
 
 .bodyContainer {
+  font-family: 'Poppins', sans-serif !important;
   display: grid;
   grid-template-columns: 50% 50%;
   background-color: #d0dfdf;
@@ -19,6 +24,7 @@
 }
 
 .profileContainer {
+  font-family: 'Poppins', sans-serif !important;
   margin: 5%;
   /* width: 100%;
   height: 100%; */
@@ -30,13 +36,13 @@
 }
 
 .header {
+  font-family: 'Poppins', sans-serif !important;
   display: flex;
   flex-direction: column;
   font-size: 28px;
   align-items: left;
   justify-content: left;
   /* margin-left: 3%; */
-  font-family: "Inter";
 }
 
 .leftPanel {
@@ -51,11 +57,10 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
-  font-family: "Inter";
   font-size: 20px;
 }
+
 .plantFieldTitle {
-  font-family: "Inter";
   font-size: 20px;
 }
 
@@ -84,7 +89,6 @@
 .navBar {
   background-color: #acba99;
   height: 54px;
-  font-family: "Inter";
   font-size: 25px;
   color: #f7fcfc;
   text-align: right;
@@ -99,7 +103,6 @@
 }
 
 .longPlantDescription {
-  font-family: "Inter";
   font-size: 18px;
 }
 

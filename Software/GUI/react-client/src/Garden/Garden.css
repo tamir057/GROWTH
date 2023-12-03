@@ -1,3 +1,7 @@
+body {
+  font-family: 'Poppins', sans-serif !important;
+}
+
 .popup-content {
   margin: auto;
   background: rgb(255, 255, 255);
@@ -182,11 +186,11 @@
   color: #ffffff !important;
 }
 
-.white-text{
-    color:  #F7FCFC !important;
+.white-text {
+  color: #F7FCFC !important;
 }
 
-  
+
 .italic-time {
   color: gray;
   font-style: italic;
@@ -200,11 +204,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+  background: rgba(255, 255, 255, 0.8);
+  /* Semi-transparent white background */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Ensure the loading popup is on top of other elements */
+  z-index: 1000;
+  /* Ensure the loading popup is on top of other elements */
 }
 
 .loading-content {
@@ -212,21 +218,30 @@
 }
 
 .loading-spinner {
-  border: 10px solid #c0b6b6; /* Light gray border */
-  border-top: 10px solid #3498db; /* Blue border for the loading spinner */
+  border: 10px solid #c0b6b6;
+  /* Light gray border */
+  border-top: 10px solid #3498db;
+  /* Blue border for the loading spinner */
   border-radius: 50%;
   width: 100px;
   height: 100px;
-  animation: spin 1s linear infinite; /* Animation for the spinner rotation */
+  animation: spin 1s linear infinite;
+  /* Animation for the spinner rotation */
   margin-bottom: 10px;
 }
 
 .loading-text {
   font-size: 18px;
-  color: #333; /* Dark gray text color */
+  color: #333;
+  /* Dark gray text color */
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
