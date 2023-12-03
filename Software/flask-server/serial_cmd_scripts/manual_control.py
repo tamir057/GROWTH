@@ -6,7 +6,10 @@ def receive_data(ser):
         if ser.in_waiting > 0:
             line = ser.readline()
             print(line.decode('utf-8').rstrip())
-ser = serial.Serial('/dev/ttyACM1', 115200)
+try:
+    ser = serial.Serial('/dev/ttyACM1', 115200)
+except:
+    ser = serial.Serial('/dev/ttyACM0', 115200)
 receive_thread = threading.Thread(target=receive_data, args=(ser,))
 receive_thread.daemon = True
 receive_thread.start()

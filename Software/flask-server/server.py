@@ -6,8 +6,8 @@ from flask_cors import CORS
 from datetime import datetime
 import subprocess 
 from bson import ObjectId
-# from serial_cmd_scripts.scripts import endpoint_comm_calibrate
-# from serial_cmd_scripts.scripts import endpoint_comm_run
+from serial_cmd_scripts.scripts import endpoint_comm_calibrate
+from serial_cmd_scripts.scripts import endpoint_comm_run
 
 app = Flask(__name__)
 
@@ -222,7 +222,7 @@ def calibrate_endpoint():
         print("CHECK: Before the calibrate script")
         # data = {'vertical-motor': 0, 'horizontal-boundary': '116403', 'steps_array': {'1': '41981', '2': '78288', '3': '113360'}}
         # NOTE: DO NOT uncomment unless robot is connected
-        # data = endpoint_comm_calibrate(3)
+        data = endpoint_comm_calibrate(3)
         print("CHECK: Exited the Calibrate file")
         update_steps(data['steps_array'])
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -277,7 +277,7 @@ def run():
         status = get_status()
         data = {}
         # NOTE: DO NOT uncomment unless robot is connected
-        # data = endpoint_comm_run(status['vertical-motor'], steps_array)
+        data = endpoint_comm_run(status['vertical-motor'], steps_array)
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         print("Time " + current_time )
         # appending the time
@@ -342,7 +342,7 @@ def save_sensor_readings(plot_readings):
                     {'$set': {'last_reading': readings}}
                 )
                 new_data.append({
-                    "plot_id": plot_id,
+                    "plot_number": plot_number,
                     **readings          
                 })
                 print(new_data)
@@ -410,6 +410,8 @@ def login_user():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+
+
 if __name__ == "__main__":
     # app.run(debug=True)
     app.run(host='0.0.0.0', port=5000)
@@ -423,7 +425,7 @@ if __name__ == "__main__":
     # print(plots.count_documents({}))
     # plot_reading = {
     #     1: {
-    #         'time': '12:00',
+    #         'time': '12:00',save_sens
     #         'pH': 6.5,
     #         'temperature': 25.0,
     #         'ec': 1.8
