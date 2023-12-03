@@ -73,7 +73,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
     const fetchSensorReadings = async () => {
       try {
         if (!emptyPlot) {
-          const sensorResponse = await axios.get(`http://localhost:5000/api/last-sensor-readings/${plotNumber}`);
+          const sensorResponse = await axios.get(`http://localhost:5000/api/plants/last-sensor-readings/${plotNumber}`);
           setSensorReadings(sensorResponse.data);
           console.log("sensor: " + sensorResponse.data);
         }
@@ -140,6 +140,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
     marginTop: 'auto',
   };
 
+
   return (
     <div>
       {emptyPlot &&
@@ -157,9 +158,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
                 onChange={(e) => setSelectedPlant(e.target.value)}
                 className="custom-dropdown"
               >
-                {/* Map through the fetched plant options and create options dynamically */}
                 {plantOptions.map((plant) => (
-
                   <option key={plant._id} value={plant.name}>
                     {plant.name}
                   </option>
@@ -193,26 +192,37 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
             <div className="modal-body" style={contentStyle}>
               <h5 className="runTimeContainer">pH Level:</h5>
               <ReactSpeedometer
+                style={{ marginBottom: '-10px', width: '150px', height: '100px' }} // Adjust width and height here
                 value={sensorReadings.pH}
                 minValue={Number(minMaxValues.minPH)}
                 maxValue={Number(minMaxValues.maxPH)}
-                startColor={sensorReadings.pH >= minMaxValues.minPH && sensorReadings.pH <= minMaxValues.maxPH ? '#00FF00' : '#FF0000'}
-                endColor={sensorReadings.pH >= minMaxValues.minPH && sensorReadings.pH <= minMaxValues.maxPH ? '#00FF00' : '#FF0000'}
+                startColor={sensorReadings.pH < minMaxValues.minPH || sensorReadings.pH > minMaxValues.maxPH ? '#FF6FF8' : '#B4D3B2'}
+                endColor={sensorReadings.pH < minMaxValues.minPH || sensorReadings.pH > minMaxValues.maxPH ? '#FF6FF8' : '#B4D3B2'}
               />
-
-              <p>Min: {minMaxValues.minPH}</p>
-              <p>Max: {minMaxValues.maxPH}</p>
+              <div style={{ marginBottom: '10px' }}>
+                <p>Min: {minMaxValues.minPH}</p>
+                <p>Max: {minMaxValues.maxPH}</p>
+              </div>
 
               <h5 className="runTimeContainer">EC Level:</h5>
               <ReactSpeedometer
+                style={{ marginTop: '-15px', marginBottom: '10px', width: '150px', height: '100px' }} // Adjust width and height here
                 value={sensorReadings.ec}
                 minValue={minMaxValues.minEC}
                 maxValue={minMaxValues.maxEC}
-                startColor={sensorReadings.ec >= minMaxValues.minEC && sensorReadings.ec <= minMaxValues.maxEC ? '#00FF00' : '#FF0000'}
-                endColor={sensorReadings.ec >= minMaxValues.minEC && sensorReadings.ec <= minMaxValues.maxEC ? '#00FF00' : '#FF0000'}
+                startColor={sensorReadings.ec < minMaxValues.minEC || sensorReadings.ec > minMaxValues.maxEC ? '#FF6FF8' : '#B4D3B2'}
+                endColor={sensorReadings.ec < minMaxValues.minEC || sensorReadings.ec > minMaxValues.maxEC ? '#FF6FF8' : '#B4D3B2'}
               />
-              <p>Min: {minMaxValues.minEC}</p>
-              <p>Max: {minMaxValues.maxEC}</p>
+              <div style={{ marginBottom: '10px' }}>
+                <p>Min: {minMaxValues.minEC}</p>
+                <p>Max: {minMaxValues.maxEC}</p>
+              </div>
+
+              {/* Display temperature */}
+              <h5 className="runTimeContainer">Temperature:</h5>
+              <div>
+                <p>{sensorReadings.temperature} °C</p>
+              </div>
             </div>
             <div className="modal-footer" style={footerStyle}>
               <div className="topPadding">
