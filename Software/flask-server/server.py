@@ -481,114 +481,15 @@ def login_user():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-
-
+@app.route('/api/generatePlantInfo/<int:pid>', methods=['POST'])
+def generate_plant_info(pid):
+    try:
+        plant_info = subprocess.check_output(['python', './openai.py'] + pid, text=True)
+        return jsonify({'success': True})
+    except Exception as e:
+        return jsonify({'error': str(e)})
+    
 if __name__ == "__main__":
     # app.run(debug=True)
     app.run(host='0.0.0.0', port=5000)
     
-
-# @app.route('/api/addPlots', methods=['POST'])
-
-# result = subprocess.check_output(['python', 'script2.py', arg1, arg2], text=True).strip()
-
-
-    # print(plots.count_documents({}))
-    # plot_reading = {
-    #     1: {
-    #         'time': '12:00',save_sens
-    #         'pH': 6.5,
-    #         'temperature': 25.0,
-    #         'ec': 1.8
-    #     },
-    #     2: {
-    #         'time': '12:00',
-    #         'pH': 7.2,
-    #         'temperature': 24.5,
-    #         'ec': 2.0
-    #     },
-    #     3: {
-    #         'time': '12:00',
-    #         'pH': 6.8,
-    #         'temperature': 26.0,
-    #         'ec': 1.5
-    #     }
-    # }
-    # save_sensor_readings(plot_reading)
-    # print(get_steps_array([1,2,3,4]))
-
-# try:
-#     # Attempt to create a MongoDB client instance
-#     db = client['Capstone']
-#     plants = db.plants 
-#     plots = db.plots
-
-#     # Check the connection by accessing a database
-#     client.admin.command('ismaster')
-#     print(f'MongoDB connection all set')
-#     print(list(plots.find({}, {})))
-
-# except Exception as e:
-#     # Log or handle the connection error
-#     print(f'MongoDB connection error: {str(e)}')
-#     # You may want to exit the application or take other appropriate action here
-
-
-
-
-# @app.route('/api/getPlots', methods=['GET'])
-# def get_data():
-#     try:
-#         # Read data from 'plots.json' file and parse it as JSON
-#         plot_array = json.loads(read_plots_from_file())
-#         return jsonify(plot_array)
-#     except Exception as e:
-#         return jsonify({'error': str(e)})
-
-# @app.route('/api/addPlots', methods=['POST'])
-# def add_data():
-#     try:
-#         data = request.json  # Assuming the request contains JSON data
-#         plots_number = data.get('plots_number', 0)  # Extract the number of plots from the JSON data
-#         plot_array = json.loads(read_plots_from_file())
-#         size = len(plot_array)
-#         # plots_number = 5
-#         new_data = []
-#         for i in range(plots_number):
-#             # You can add any value or object to the list here
-#             new_data.append({
-#                 "_id": f"{i + 1 + size}",
-#                 "plot_number": f"{i + 1 + size}",  # Adjust the plot_number as needed
-#                 "plant": ""
-#             })
-
-#         # Extend the existing array with the new data
-#         plot_array.extend(new_data)
- 
-#         # Write the updated array back to the file
-#         write_plots_to_file(json.dumps(plot_array)) 
-
-
-# Calibrate
-        # command = ["python", "./serial-cmd-scripts/calibrate.py", str(3), "--flag"]
-        # process = subprocess.run(command, capture_output=True, text=True)
-        # print("Output:", process.stdout)
-        # print("CHECK: Error:", process.stderr)
-        # print("Return code:", process.returncode)
-        # print("CHECK: Exited the Calibrate script")
-
-#Run
-        # command = ["python", "./serial-cmd-scripts/run2.py", str(get_status()), "--flag"]
-        # # command = ["python", "./serial-cmd-scripts/run2.py"]
-        # process = subprocess.run(command, capture_output=True, text=True)
-        # print("Output:", process.stdout)
-        # print("CHECK: Error:", process.stderr)
-        # print("Return code:", process.returncode)
-        # print("CHECK: Exited the Run script")
-
-                # command = ['python', './serial-cmd-scripts/run2.py', str(steps_array), str(get_status()), "--flag"]
-        # process = subprocess.check_output(command, capture_output=True, text=True)
-        # print("Output:", process.stdout)
-        # print("CHECK: Error:", process.stderr)
-        # print("Return code:", process.returncode)
-        # print("CHECK: Exited the Calibrate script")

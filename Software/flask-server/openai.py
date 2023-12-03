@@ -12,7 +12,7 @@ plant = sys.arg[1]
 question = f'''what is the ideal ph, ideal electrical conductivity, and ideal temperature 
 of water and ideal hours of light for {plant} to grow in hydroponically. 
 please give the answer as a json object with min ph, max ph, min electrical conductivity,
-max electrical conductivity, min hours of light, max hours of light, min temperature, max temperature'''
+max electrical conductivity  (where the is max difference between min and max ec is 0.5), min hours of light, max hours of light, min temperature, max temperature'''
 
 # Make the API call
 response = openai.Completion.create(
