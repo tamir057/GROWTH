@@ -24,7 +24,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
   useEffect(() => {
     const fetchPlot = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/plots/${plotNumber}`);
+        const response = await axios.get(`http://10.110.203.52:5000/api/plots/${plotNumber}`);
         const plot = response.data;
 
         const isEmptyPlot = plot.plant_id === '';
@@ -32,7 +32,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
 
         if (!isEmptyPlot) {
           try {
-            const sensorResponse = await axios.get(`http://localhost:5000/api/plants/last-sensor-readings/${plotNumber}`);
+            const sensorResponse = await axios.get(`http://10.110.203.52:5000/api/plants/last-sensor-readings/${plotNumber}`);
             setSensorReadings(sensorResponse.data);
           } catch (sensorError) {
             console.error('Error fetching sensor readings:', sensorError);
@@ -47,7 +47,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
     const fetchMinMaxValues = async () => {
       console.log("plot number: " + plotNumber);
       try {
-        const response = await axios.get(`http://localhost:5000/api/plants/min-max-values/${plotNumber}`);
+        const response = await axios.get(`http://10.110.203.52:5000/api/plants/min-max-values/${plotNumber}`);
         setMinMaxValues(response.data);
         console.log("min max: ", response.data);
       } catch (error) {
@@ -57,7 +57,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
 
     const fetchPlants = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/plants');
+        const response = await axios.get('http://10.110.203.52:5000/api/plants');
         setPlantOptions(response.data);
       } catch (error) {
         console.error('Error fetching plant options:', error);
@@ -73,7 +73,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
     const fetchSensorReadings = async () => {
       try {
         if (!emptyPlot) {
-          const sensorResponse = await axios.get(`http://localhost:5000/api/plants/last-sensor-readings/${plotNumber}`);
+          const sensorResponse = await axios.get(`http://10.110.203.52:5000/api/plants/last-sensor-readings/${plotNumber}`);
           setSensorReadings(sensorResponse.data);
           console.log("sensor: " + sensorResponse.data);
         }

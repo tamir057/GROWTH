@@ -500,7 +500,7 @@ if __name__ == "__main__":
 
 # try:
 #     # Attempt to create a MongoDB client instance
-#     client = MongoClient('localhost', 27017, username='', password='')
+#     client = MongoClient('10.110.203.52', 27017, username='', password='')
 #     db = client['Capstone']
 #     plants = db.plants 
 #     plots = db.plots
