@@ -1,12 +1,14 @@
 .popup-content {
-    margin: auto;
-    background: #E4F6F8;
-    width: 50%;
-    padding: 5px;
+  margin: auto;
+  background: #E4F6F8;
+  width: 50%;
+  padding: 5px;
 }
+
 .popup-arrow {
-  color: #E4F6F8; 
+  color: #E4F6F8;
 }
+
 [role='tooltip'].popup-content {
   width: 200px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
@@ -35,25 +37,34 @@
 
 /* Styling for the search bar */
 .modal-body input[type="text"] {
-width: 100%; /* Make the search input full width */
-padding: 8px;
-margin-bottom: 10px;
-border: 1px solid #ccc;
-border-radius: 5px;
-font-size: 16px;
-margin-top: 10%;
+  width: 100%;
+  /* Make the search input full width */
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10%;
 }
+
 /* Additional styling for the search bar when focused */
 .modal-body input[type="text"]:focus {
-outline: none; /* Change border color on focus */
+  outline: none;
+  /* Change border color on focus */
 }
+
 .modal-footer {
   display: flex;
-  flex-direction: column; /* Adjust the direction to place the button below other content */
-  align-items: center; /* Center the content horizontally */
-  justify-content: center; /* Center the content vertically */
-  padding: 15px; /* Add padding to the footer */
-  text-align: center; /* Center the content text */
+  flex-direction: column;
+  /* Adjust the direction to place the button below other content */
+  align-items: center;
+  /* Center the content horizontally */
+  justify-content: center;
+  /* Center the content vertically */
+  padding: 15px;
+  /* Add padding to the footer */
+  text-align: center;
+  /* Center the content text */
   color: black;
   padding: 12px 24px;
   margin: 8px;
@@ -62,23 +73,31 @@ outline: none; /* Change border color on focus */
 
 /* Remove the width and line-height from the button styling */
 .saveButton {
-  background: #CFE1C9; /* Background color for the button */
-  color: black; /* Text color for the button */
-  border: none; /* Remove button border */
-  border-radius: 8px; /* Add a border radius for rounded corners */
-  padding: 5px; /* Add padding to the button */
-  cursor: pointer; /* Display a pointer cursor on hover */
+  background: #CFE1C9;
+  /* Background color for the button */
+  color: black;
+  /* Text color for the button */
+  border: none;
+  /* Remove button border */
+  border-radius: 8px;
+  /* Add a border radius for rounded corners */
+  padding: 5px;
+  /* Add padding to the button */
+  cursor: pointer;
+  /* Display a pointer cursor on hover */
   font-family: "Poppins";
   font-size: 20px;
 }
 
 .saveButton:hover {
-  background: #6CB136; /* Background color for the button */
+  background: #6CB136;
+  /* Background color for the button */
 }
 
 /* Styling for the "Save" button on hover (adjust as needed) */
 .modal-footer button:hover {
-  background-color: #0056b3; /* Background color on hover */
+  background-color: #0056b3;
+  /* Background color on hover */
 }
 
 .subtitle2Container {
@@ -88,9 +107,10 @@ outline: none; /* Change border color on focus */
   align-items: center;
   justify-content: center;
   margin-top: 10%;
-  font-family: "Poppins"; 
+  font-family: "Poppins";
   margin-bottom: 10%;
 }
+
 .subtitle3Container {
   display: flex;
   flex-direction: column;
@@ -98,7 +118,7 @@ outline: none; /* Change border color on focus */
   align-items: center;
   justify-content: center;
   margin-top: 10%;
-  font-family: "Poppins"; 
+  font-family: "Poppins";
 }
 
 .runTimeContainer {
@@ -108,11 +128,13 @@ outline: none; /* Change border color on focus */
   align-items: left;
   justify-content: left;
   margin-top: 10%;
-  font-family: "Poppins"; 
+  font-family: "Poppins";
+  margin-bottom: 1px;
 }
 
 .topPadding {
-  padding-top: 20px; /* Add space inside the div at the bottom */
+  padding-top: 20px;
+  /* Add space inside the div at the bottom */
 }
 
 .custom-dropdown {
@@ -124,16 +146,22 @@ outline: none; /* Change border color on focus */
 
 /* Style the dropdown options */
 .custom-dropdown option {
-  padding: 12px; /* Increase padding for thicker tab height */
-  font-size: 14px; /* Increase font size */
-  background-color: #D0DFDF; /* Light green background color */
-  line-height: 1.5; /* Adjust the line-height to match the select box */
+  padding: 12px;
+  /* Increase padding for thicker tab height */
+  font-size: 14px;
+  /* Increase font size */
+  background-color: #D0DFDF;
+  /* Light green background color */
+  line-height: 1.5;
+  /* Adjust the line-height to match the select box */
   cursor: pointer;
 
 }
-  
-  /* Style the dropdown options on hover */
+
+/* Style the dropdown options on hover */
 .custom-dropdown option:hover {
-  background-color: #6CB136; /* Dark green background color on hover */
-  color: #fff; /* White text color on hover */
+  background-color: #6CB136;
+  /* Dark green background color on hover */
+  color: #fff;
+  /* White text color on hover */
 }
