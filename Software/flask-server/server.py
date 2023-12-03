@@ -354,6 +354,46 @@ def save_sensor_readings(plot_readings):
     except Exception as e:
         print('Exception')
 
+# min max values for gauge chart
+@app.route('/api/plants/min-max-values/<int:plot_number>', methods=['GET'])
+def get_min_max_values(plot_number):
+  #  plant = plants.find_one({"name": plant_name})
+    print("IN THE MINN MAX ENDPOINT!!!!!!!!!!")
+
+     # Check if the plot exists
+    plot = plots.find_one({"plot_number": plot_number})
+    plant_name = plot.get("plant") 
+    plant = plants.find_one({'name' : plant_name})
+
+    if plant:
+        min_max_values = {
+            "minPH": plant.get("min_pH", 0),
+            "maxPH": plant.get("max_pH", 14),
+            "minEC": plant.get("min_ec", 0),
+            "maxEC": plant.get("max_ec", 10),
+        }
+        return jsonify(min_max_values)
+    else:
+        return jsonify({"error": "Plant not found"}), 404
+    
+# Define a route to get the current sensor reading for a specific plot
+@app.route('/api/last-sensor-reading/<int:plot_number>', methods=['GET'])
+def get_current_sensor_reading(plot_number):
+    # Assuming you have a "plots" collection in your MongoDB
+    print("IN THE CURRENT READING ENDPOINT!!!!!!!!!!")
+    # Query the database for the plot with the specified plot_number
+    plot = plots.find_one({"plot_number": plot_number})
+
+    if plot:
+        # Extract the last_reading information
+        last_reading = plot.get("last_reading", {})
+        
+        # Return the plot document with the last_reading information
+        return jsonify(last_reading)
+    else:
+        # Return a 404 Not Found response if the plot is not found
+        return jsonify({"error": "Plot not found"}), 404
+    
 @app.route('/api/register', methods=['POST'])
 def register_user():
     try:
