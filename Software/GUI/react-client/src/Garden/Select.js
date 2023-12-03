@@ -191,37 +191,38 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
             </div>
             <div className="modal-body" style={contentStyle}>
               <h5 className="runTimeContainer">pH Level:</h5>
-              <ReactSpeedometer
-                style={{ marginBottom: '-10px', width: '150px', height: '100px' }} // Adjust width and height here
-                value={sensorReadings.pH}
-                minValue={Number(minMaxValues.minPH)}
-                maxValue={Number(minMaxValues.maxPH)}
-                startColor={sensorReadings.pH < minMaxValues.minPH || sensorReadings.pH > minMaxValues.maxPH ? '#FF6FF8' : '#B4D3B2'}
-                endColor={sensorReadings.pH < minMaxValues.minPH || sensorReadings.pH > minMaxValues.maxPH ? '#FF6FF8' : '#B4D3B2'}
-              />
+              <div className='m-0 p-0 no-margin'>
+                <ReactSpeedometer
+                  style={{ marginBottom: '0px', width: '150px', height: '50px' }}
+                  value={sensorReadings.pH}
+                  minValue={Number(minMaxValues.minPH)}
+                  maxValue={Number(minMaxValues.maxPH)}
+                  startColor={sensorReadings.pH < minMaxValues.minPH || sensorReadings.pH > minMaxValues.maxPH ? '#FF6FF8' : '#B4D3B2'}
+                  endColor={sensorReadings.pH < minMaxValues.minPH || sensorReadings.pH > minMaxValues.maxPH ? '#FF6FF8' : '#B4D3B2'}
+                />
+              </div>
               <div style={{ marginBottom: '10px' }}>
-                <p>Min: {minMaxValues.minPH}</p>
-                <p>Max: {minMaxValues.maxPH}</p>
+                <p>Ideal Min: {minMaxValues.minPH} — Ideal Max: {minMaxValues.maxPH}</p>
               </div>
 
-              <h5 className="runTimeContainer">EC Level:</h5>
-              <ReactSpeedometer
-                style={{ marginTop: '-15px', marginBottom: '10px', width: '150px', height: '100px' }} // Adjust width and height here
-                value={sensorReadings.ec}
-                minValue={minMaxValues.minEC}
-                maxValue={minMaxValues.maxEC}
-                startColor={sensorReadings.ec < minMaxValues.minEC || sensorReadings.ec > minMaxValues.maxEC ? '#FF6FF8' : '#B4D3B2'}
-                endColor={sensorReadings.ec < minMaxValues.minEC || sensorReadings.ec > minMaxValues.maxEC ? '#FF6FF8' : '#B4D3B2'}
-              />
+              <h5 className="runTimeContainer">Conductivity Level:</h5>
+              <div className='m-0 p-0 no-margin'>
+                <ReactSpeedometer
+                  style={{ marginBottom: '0px', width: '150px', height: '50px' }}
+                  value={sensorReadings.ec}
+                  minValue={Number(minMaxValues.minEC)}
+                  maxValue={Number(minMaxValues.maxEC)}
+                  startColor='#B4D3B2'
+                  endColor='#B4D3B2'
+                />
+              </div>
               <div style={{ marginBottom: '10px' }}>
-                <p>Min: {minMaxValues.minEC}</p>
-                <p>Max: {minMaxValues.maxEC}</p>
+                <p>Ideal Min: {minMaxValues.minEC} — Ideal Max: {minMaxValues.maxEC}</p>
               </div>
 
               {/* Display temperature */}
-              <h5 className="runTimeContainer">Temperature:</h5>
               <div>
-                <p>{sensorReadings.temperature} °C</p>
+                <p>Temperature: {sensorReadings.temperature} °C</p>
               </div>
             </div>
             <div className="modal-footer" style={footerStyle}>
