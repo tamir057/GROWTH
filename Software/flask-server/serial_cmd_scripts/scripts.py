@@ -187,13 +187,13 @@ def run(vertical_status, plots_data_dict):
         send_serial(f"LIGHT_ON:{key - 1}")
         wait_for_ack("LIGHT_ON")
 
-        # TODO: make optional
-        error_direction, fiducial_key = check_fiducial()
-        if (error_direction >= 0): 
-            # accounts for both directions since left is 0 and right is 1
-            send_serial(f"MOVE_MOTOR_CONT:0,{error_direction}")
-            fiducial_detection()
-            # NOTE: will fiducial have enough time to detect is again
+        # # TODO: make optional
+        # error_direction, fiducial_key = check_fiducial()
+        # if (error_direction >= 0): 
+        #     # accounts for both directions since left is 0 and right is 1
+        #     send_serial(f"MOVE_MOTOR_CONT:0,{error_direction}")
+        #     fiducial_detection()
+        #     # NOTE: will fiducial have enough time to detect is again
 
         send_serial(f"MOVE_MOTOR_STEPS:1,1,{vertical_steps}")
         wait_for_ack("MOVE_MOTOR_STEPS") 
@@ -201,11 +201,11 @@ def run(vertical_status, plots_data_dict):
 
         send_serial("READ_SENSOR:0")
         wait_for_ack("READ_SENSOR")
-        sensor_values['pH'] = float(received_message[0].split(":")[2])
+        sensor_values['temperature'] = float(received_message[0].split(":")[2])
 
         send_serial("READ_SENSOR:1" )
         wait_for_ack("READ_SENSOR")
-        sensor_values['temperature'] = float(received_message[0].split(":")[2])
+        sensor_values['pH'] = float(received_message[0].split(":")[2])
 
         send_serial("ENABLE_EC_SENSOR")
         wait_for_ack("ENABLE_EC_SENSOR")
@@ -272,6 +272,9 @@ def run(vertical_status, plots_data_dict):
 
     send_serial(f"MOVE_MOTOR_STEPS:1,1,{vertical_steps}")
     wait_for_ack("MOVE_MOTOR_STEPS")
+
+    print("PLOT READINGS")
+    print(plot_readings)
 
     return plot_readings 
 

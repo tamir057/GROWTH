@@ -8,6 +8,8 @@ import subprocess
 from bson import ObjectId
 from serial_cmd_scripts.scripts import endpoint_comm_calibrate
 from serial_cmd_scripts.scripts import endpoint_comm_run
+import pytz
+
 
 app = Flask(__name__)
 
@@ -225,7 +227,7 @@ def calibrate_endpoint():
         data = endpoint_comm_calibrate(3)
         print("CHECK: Exited the Calibrate file")
         update_steps(data['steps_array'])
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        current_time = datetime.now(pytz.timezone('US/Eastern')).strftime("%Y-%m-%d %H:%M:%S")
         save_status(data['vertical-motor'], data['horizontal-boundary'], current_time)
         return jsonify({'success': True})
     except Exception as e:
@@ -289,6 +291,7 @@ def run():
         save_sensor_readings(modified_readings)
         print("CHECK: Reading saved to database")
         return jsonify({'success': True})
+        # TODO: save status
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
@@ -300,7 +303,7 @@ def get_steps_array(plot_numbers):
             # Find the plot based on plot_number
             plot = plots.find_one({'plot_number': plot_number})
             print("Plot found", plot)
-            plant_id = object_id = ObjectId(plot.get('plant_id', 0))
+            plant_id  = ObjectId(plot.get('plant_id', 0))
 
             # Check if the plot exists
             if plot:
@@ -332,9 +335,9 @@ def save_sensor_readings(plot_readings):
             # Find the plot based on plot_number
             plot = plots.find_one({'plot_number': int(plot_number)})
             plot_id = plot["_id"]
-            print(readings["time"])
+            print(f"CHECK: Readings: {readings}")
 
-            # Check if the plot exists
+            # Check if the plot exists  
             if plot:
                 # # Update the "last_reading" field of the specified plot
                 plots.update_one(
