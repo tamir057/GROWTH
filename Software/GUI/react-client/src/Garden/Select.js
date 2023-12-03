@@ -18,7 +18,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
     minPH: 0,
     maxPH: 14,
     minEC: 0,
-    maxEC: 10,
+    maxEC: 3,
   });
 
   useEffect(() => {
@@ -96,9 +96,6 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
     display: showModal ? 'block' : 'none',
     paddingLeft: '20px',
   };
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedPlant, setSelectedPlant] = useState('');
-  const [plantOptions, setPlantOptions] = useState([]);
 
   useEffect(() => {
     // Fetch plant options from your endpoint
