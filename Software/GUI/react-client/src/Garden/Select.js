@@ -194,8 +194,8 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
                   value={sensorReadings.pH}
                   minValue={Number(minMaxValues.minPH)}
                   maxValue={Number(minMaxValues.maxPH)}
-                  startColor={sensorReadings.pH < minMaxValues.minPH || sensorReadings.pH > minMaxValues.maxPH ? '#FF6FF8' : '#B4D3B2'}
-                  endColor={sensorReadings.pH < minMaxValues.minPH || sensorReadings.pH > minMaxValues.maxPH ? '#FF6FF8' : '#B4D3B2'}
+                  startColor='#B4D3B2'
+                  endColor='#B4D3B2'
                 />
               </div>
               <div style={{ marginBottom: '10px' }}>
