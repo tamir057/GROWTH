@@ -56,6 +56,7 @@ const PlotItem = ({ plot, isCheckedAll, onPlotCheckboxChange }) => {
         <div className="col-10 mt-2">
           <div>
             <img
+              style={{ width: '100%' }}
               className="float-end"
               src={imagePath}
               alt="Plant"
