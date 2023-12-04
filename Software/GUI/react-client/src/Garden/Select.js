@@ -212,7 +212,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
                   maxValue={3}
                   customSegmentStops={[0, 1.2, 2.1, 3]}
                   segmentColors={['#FF6961', '#B4D3B2', '#FF6961']}
-                  currentValueText={`pH: ${sensorReadings.ec}`}
+                  currentValueText={`EC: ${sensorReadings.ec}`}
                 />
               </div>
               <div style={{ marginBottom: '10px' }}>
