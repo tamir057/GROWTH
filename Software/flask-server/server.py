@@ -8,7 +8,6 @@ import subprocess
 from bson import ObjectId
 from serial_cmd_scripts.scripts import endpoint_comm_calibrate
 from serial_cmd_scripts.scripts import endpoint_comm_run
-import pytz
 
 
 app = Flask(__name__)
@@ -255,15 +254,31 @@ def get_last_calibration_time():
     
 def endpoint_comm_run_mock(vertical_status, steps_array):
     print("CHECK: in the run file")
-    sensor_values = {
-    'pH' : 2.0,
-    'temperature' : 30.0,
-    'ec' : 2.0
-    }
+
+    ph = [5,6,7]
+    ec = [1,2,3]
+    temp = [20, 22, 24]
     data = {key: {} for key in steps_array}
+    print(f"Before any assignment: {data}")
     for key in steps_array:
+        sensor_values = {
+        'pH' : 0.0,
+        'temperature' : 0.0,
+        'ec' : 0.0,
+        'nutrients_pumped': False
+        }
+        print(f'CHECK: plot number {key}')
+        sensor_values['temperature'] = temp[key - 1]
+        sensor_values['pH'] = ph[key - 1]
+        sensor_values['ec'] = ec[key -1]
+        print (f'Key: {key} Values: {sensor_values}')
         data[key] = sensor_values
-    return data
+        print(f"CHECK: after assigning {data[key]}")
+        print(" ")
+    print("Complete Data")
+    print(data)
+
+    return data, 0
 
 @app.route('/api/run', methods=['POST'])
 def run():
@@ -279,8 +294,9 @@ def run():
         status = get_status()
         data = {}
         # NOTE: DO NOT uncomment unless robot is connected
-        data = endpoint_comm_run(status['vertical-motor'], steps_array)
+        data, vertical_status = endpoint_comm_run(status['vertical-motor'], steps_array)
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        save_status(vertical_motor=vertical_status, horizontal_boundary=status["horizontal-boundary"], current_time=status["last-calibration-time"])
         print("Time " + current_time )
         # appending the time
         modified_readings = {
@@ -302,27 +318,26 @@ def get_steps_array(plot_numbers):
         for plot_number in plot_numbers:
             # Find the plot based on plot_number
             plot = plots.find_one({'plot_number': plot_number})
-            print("Plot found", plot)
+            # print("Plot found", plot)
             plant_id  = ObjectId(plot.get('plant_id', 0))
 
             # Check if the plot exists
             if plot:
-                print("CHECK: In If")
-                print("Plant id", plant_id)
+                # print("CHECK: In If")
+                # print("Plant id", plant_id)
                 plant = plants.find_one({"_id": plant_id})
                 plot_data = {}
-                print("CHECK: Plot's Plant identified", plant)
+                # print("CHECK: Plot's Plant identified", plant)
                 plot_data["steps"] = plot.get('steps', 0)
                 plot_data["min_pH"] = plant.get('min_pH', 0)
                 plot_data["max_pH"] = plant.get('max_pH', 0)
                 plot_data["min_ec"] = plant.get('min_ec', 0)
                 plot_data["max_ec"] = plant.get('max_ec', 0)
                 steps_dict[plot_number] = plot_data
-                print(steps_dict[plot_number])
-                # steps_dict[plot_number] = plot.get('steps', 0)
+                # print(steps_dict[plot_number])
             else:
                 raise ValueError(f'Plot with plot_number {plot_number} not found')
-            print(steps_dict)
+            # print(steps_dict)
         return steps_dict
     except Exception as e:
         raise ValueError(str(e))
@@ -335,7 +350,7 @@ def save_sensor_readings(plot_readings):
             # Find the plot based on plot_number
             plot = plots.find_one({'plot_number': int(plot_number)})
             plot_id = plot["_id"]
-            print(f"CHECK: Readings: {readings}")
+            # print(f"CHECK: Readings: {readings}")
 
             # Check if the plot exists  
             if plot:
@@ -503,7 +518,6 @@ if __name__ == "__main__":
 
 # try:
 #     # Attempt to create a MongoDB client instance
-#     client = MongoClient('10.110.203.52', 27017, username='', password='')
 #     db = client['Capstone']
 #     plants = db.plants 
 #     plots = db.plots

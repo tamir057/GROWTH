@@ -169,14 +169,13 @@ def run(vertical_status, plots_data_dict):
     send_serial(f"MOVE_MOTOR_STEPS:0,0,{current_position}")  
     wait_for_ack("MOVE_MOTOR_STEPS")
 
-    sensor_values = {
-    'pH' : 0.0,
-    'temperature' : 0.0,
-    'ec' : 0.0,
-    'nutrients_pumped': False
-    }
-
     for key in plots_data_dict: 
+        sensor_values = {
+        'pH' : 0.0,
+        'temperature' : 0.0,
+        'ec' : 0.0,
+        'nutrients_pumped': False
+        }
         current_position = get_current_position()
         steps = plots_data_dict[key]["steps"]
         if steps == 0:
@@ -227,7 +226,7 @@ def run(vertical_status, plots_data_dict):
         pumps = []
 
         # Add pumps to pump based on conditions
-        if current_pH < ideal_min_ec:
+        if current_pH < ideal_min_pH:
             pumps.append(0) 
         elif current_pH > ideal_max_pH:
             pumps.append(1) 
@@ -272,11 +271,13 @@ def run(vertical_status, plots_data_dict):
 
     send_serial(f"MOVE_MOTOR_STEPS:1,1,{vertical_steps}")
     wait_for_ack("MOVE_MOTOR_STEPS")
+    vertical_status = 1
+
 
     print("PLOT READINGS")
     print(plot_readings)
 
-    return plot_readings 
+    return plot_readings, vertical_status
 
 def endpoint_comm_run(vertical_status, steps_array):
     data = run(vertical_status, steps_array)
