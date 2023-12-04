@@ -7,7 +7,7 @@ const PlotList = ({ onCheckAll, isCheckedAll, onPlotCheckboxChange }) => {
 
   useEffect(() => {
     // Fetch data from the Flask server when the component mounts
-    fetch("http://localhost:5000/api/getPlots")
+    fetch("http://10.110.203.52:5000/api/getPlots")
       .then((response) => response.json())
       .then((data) => {
         console.log("Received Data:", data);

@@ -24,7 +24,7 @@ function Garden() {
     try {
       setRunType("Calibrating...");
       setIsLoading(true);
-      await fetch("http://localhost:5000/api/calibrate", {
+      await fetch("http://10.110.203.52:5000/api/calibrate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +42,7 @@ function Garden() {
     try {
       console.log("im in here");
       const response = await fetch(
-        "http://localhost:5000/api/get-last-calibration-time"
+        "http://10.110.203.52:5000/api/get-last-calibration-time"
       );
       const data = await response.json();
       const lastCalibrationTime = new Date(data.time);
@@ -76,7 +76,7 @@ function Garden() {
     }
     setRunType("Reading Sensor Data...");
     setIsLoading(true);
-    fetch("http://localhost:5000/api/run", {
+    fetch("http://10.110.203.52:5000/api/run", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -84,6 +84,7 @@ function Garden() {
       body: JSON.stringify({ checkedPlots }), // Pass checked plots to the server
     });
     setIsLoading(false);
+    window.location.reload()
   };
 
   const closeAddPopup = () => {

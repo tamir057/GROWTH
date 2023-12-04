@@ -6,8 +6,10 @@ from flask_cors import CORS
 from datetime import datetime
 import subprocess 
 from bson import ObjectId
-# from serial_cmd_scripts.scripts import endpoint_comm_calibrate
-# from serial_cmd_scripts.scripts import endpoint_comm_run
+from serial_cmd_scripts.scripts import endpoint_comm_calibrate
+from serial_cmd_scripts.scripts import endpoint_comm_run
+import pytz
+
 
 app = Flask(__name__)
 
@@ -222,10 +224,10 @@ def calibrate_endpoint():
         print("CHECK: Before the calibrate script")
         # data = {'vertical-motor': 0, 'horizontal-boundary': '116403', 'steps_array': {'1': '41981', '2': '78288', '3': '113360'}}
         # NOTE: DO NOT uncomment unless robot is connected
-        # data = endpoint_comm_calibrate(3)
+        data = endpoint_comm_calibrate(3)
         print("CHECK: Exited the Calibrate file")
         update_steps(data['steps_array'])
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        current_time = datetime.now(pytz.timezone('US/Eastern')).strftime("%Y-%m-%d %H:%M:%S")
         save_status(data['vertical-motor'], data['horizontal-boundary'], current_time)
         return jsonify({'success': True})
     except Exception as e:
@@ -277,7 +279,7 @@ def run():
         status = get_status()
         data = {}
         # NOTE: DO NOT uncomment unless robot is connected
-        # data = endpoint_comm_run(status['vertical-motor'], steps_array)
+        data = endpoint_comm_run(status['vertical-motor'], steps_array)
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         print("Time " + current_time )
         # appending the time
@@ -289,6 +291,7 @@ def run():
         save_sensor_readings(modified_readings)
         print("CHECK: Reading saved to database")
         return jsonify({'success': True})
+        # TODO: save status
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
@@ -300,7 +303,7 @@ def get_steps_array(plot_numbers):
             # Find the plot based on plot_number
             plot = plots.find_one({'plot_number': plot_number})
             print("Plot found", plot)
-            plant_id = object_id = ObjectId(plot.get('plant_id', 0))
+            plant_id  = ObjectId(plot.get('plant_id', 0))
 
             # Check if the plot exists
             if plot:
@@ -332,9 +335,9 @@ def save_sensor_readings(plot_readings):
             # Find the plot based on plot_number
             plot = plots.find_one({'plot_number': int(plot_number)})
             plot_id = plot["_id"]
-            print(readings["time"])
+            print(f"CHECK: Readings: {readings}")
 
-            # Check if the plot exists
+            # Check if the plot exists  
             if plot:
                 # # Update the "last_reading" field of the specified plot
                 plots.update_one(
@@ -342,7 +345,7 @@ def save_sensor_readings(plot_readings):
                     {'$set': {'last_reading': readings}}
                 )
                 new_data.append({
-                    "plot_id": plot_id,
+                    "plot_number": plot_number,
                     **readings          
                 })
                 print(new_data)
@@ -462,6 +465,8 @@ def login_user():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+
+
 if __name__ == "__main__":
     # app.run(debug=True)
     app.run(host='0.0.0.0', port=5000)
@@ -475,7 +480,7 @@ if __name__ == "__main__":
     # print(plots.count_documents({}))
     # plot_reading = {
     #     1: {
-    #         'time': '12:00',
+    #         'time': '12:00',save_sens
     #         'pH': 6.5,
     #         'temperature': 25.0,
     #         'ec': 1.8
@@ -498,7 +503,7 @@ if __name__ == "__main__":
 
 # try:
 #     # Attempt to create a MongoDB client instance
-#     client = MongoClient('localhost', 27017, username='', password='')
+#     client = MongoClient('10.110.203.52', 27017, username='', password='')
 #     db = client['Capstone']
 #     plants = db.plants 
 #     plots = db.plots

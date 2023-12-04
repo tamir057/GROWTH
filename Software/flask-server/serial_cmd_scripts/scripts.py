@@ -8,7 +8,7 @@ import threading
 import sys
 
 received_message = ["::"]
-vertical_steps = 159133
+vertical_steps = 155000
 boundary_offset = 4000
 current_position = 0
 data = {
@@ -29,11 +29,6 @@ picam2 = Picamera2()
 picam2.configure(picam2.create_preview_configuration(main={"format": 'XRGB8888', "size": (320, 240)}, controls={"FrameDurationLimits": (50000, 50000)}))
 picam2.start()
 
-ser = serial.Serial('/dev/ttyACM0', 115200)
-receive_thread = threading.Thread(target=receive_data, args=(ser,))
-receive_thread.daemon = True
-receive_thread.start()
-
 ###########################################################################################################################
 # Communication functions
 
@@ -42,7 +37,16 @@ def receive_data(ser):
         if ser.in_waiting > 0:
             line = ser.readline()
             received_message[0] = line.decode('utf-8').rstrip()
-            print(f"Received message: {received_message[0]})
+            print(f"Received message: {received_message[0]}")
+
+try:
+    ser = serial.Serial('/dev/ttyACM1', 115200)
+except:
+    ser = serial.Serial('/dev/ttyACM0', 115200)
+receive_thread = threading.Thread(target=receive_data, args=(ser,))
+receive_thread.daemon = True
+receive_thread.start()
+
 
 def get_current_position():
     send_serial("RETURN_POS:0")
@@ -154,10 +158,9 @@ def check_fiducial():
 
 def run(vertical_status, plots_data_dict):
     # NOTE: Form for plots_data_dict = {1: {'steps': 42043, 'min_pH': 6, 'max_pH': 6.8, 'min_ec': 1.2, 'max_ec': 2}}
-    # steps_dict[1]["min_ec"]
     # TODO check if steps array has all zeros
     print("CHECK: beginning run")
-    plot_readings= {key: {} for key in steps_array}
+    plot_readings= {key: {} for key in plots_data_dict}
     if vertical_status != 0 :
         send_serial(f"MOVE_MOTOR_STEPS:1,0,{vertical_steps}") 
         wait_for_ack("MOVE_MOTOR_STEPS")
@@ -173,39 +176,41 @@ def run(vertical_status, plots_data_dict):
     'nutrients_pumped': False
     }
 
-    for key in steps_array:
-    # for i, (key,step_value) in enumerate(steps_array):
-
+    for key in plots_data_dict: 
         current_position = get_current_position()
-        send_serial(f"MOVE_MOTOR_STEPS:0,1,{(steps_dict[1]["steps"] - current_position)}")
+        steps = plots_data_dict[key]["steps"]
+        if steps == 0:
+            continue
+        send_serial(f"MOVE_MOTOR_STEPS:0,1,{(steps - current_position)}")
         wait_for_ack("MOVE_MOTOR_STEPS")
-
-        # TODO: make optional
-        error_direction, fiducial_key = check_fiducial()
-        if (error_direction >= 0): 
-            # accounts for both directions since left is 0 and right is 1
-            send_serial(f"MOVE_MOTOR_CONT:0,{error_direction}")
-            fiducial_detection()
-            # NOTE: will fiducial have enough time to detect is again
-
-        send_serial(f"MOVE_MOTOR_STEPS:1,1,{vertical_steps}")
-        wait_for_ack("MOVE_MOTOR_STEPS") 
-        time.sleep(0.5)
 
         send_serial(f"LIGHT_ON:{key - 1}")
         wait_for_ack("LIGHT_ON")
 
-        send_serial("READ_SENSOR:0")
-        wait_for_ack("READ_SENSOR")
-        sensor_values['pH'] = float(received_message[0].split(":")[2])
+        # # TODO: make optional
+        # error_direction, fiducial_key = check_fiducial()
+        # if (error_direction >= 0): 
+        #     # accounts for both directions since left is 0 and right is 1
+        #     send_serial(f"MOVE_MOTOR_CONT:0,{error_direction}")
+        #     fiducial_detection()
+        #     # NOTE: will fiducial have enough time to detect is again
 
-        send_serial("READ_SENSOR:1" )
+        send_serial(f"MOVE_MOTOR_STEPS:1,1,{vertical_steps}")
+        wait_for_ack("MOVE_MOTOR_STEPS") 
+        time.sleep(30)
+
+        send_serial("READ_SENSOR:0")
         wait_for_ack("READ_SENSOR")
         sensor_values['temperature'] = float(received_message[0].split(":")[2])
 
+        send_serial("READ_SENSOR:1" )
+        wait_for_ack("READ_SENSOR")
+        sensor_values['pH'] = float(received_message[0].split(":")[2])
+
         send_serial("ENABLE_EC_SENSOR")
         wait_for_ack("ENABLE_EC_SENSOR")
-        time.sleep(2)
+
+        time.sleep(30)
 
         send_serial("READ_SENSOR:2")
         wait_for_ack("READ_SENSOR")
@@ -216,18 +221,19 @@ def run(vertical_status, plots_data_dict):
 
         current_pH = sensor_values['pH']
         current_ec = sensor_values['ec']
-        ideal_min_pH = steps_dict[1]["min_pH"]
-        ideal_max_pH = steps_dict[1]["max_pH"]
-        ideal_min_ec = steps_dict[1]["min_ec"]
+        ideal_min_pH = plots_data_dict[key]["min_pH"]
+        ideal_max_pH = plots_data_dict[key]["max_pH"]
+        ideal_min_ec = plots_data_dict[key]["min_ec"]
         pumps = []
 
         # Add pumps to pump based on conditions
         if current_pH < ideal_min_ec:
+            pumps.append(0) 
+        elif current_pH > ideal_max_pH:
             pumps.append(1) 
-        else if current_pH > ideal_max_pH
-            pumps.append(2) 
 
         if current_ec < ideal_min_ec:
+            pumps.append(2) 
             pumps.append(3) 
 
         # Turn the pumps on
@@ -267,6 +273,9 @@ def run(vertical_status, plots_data_dict):
     send_serial(f"MOVE_MOTOR_STEPS:1,1,{vertical_steps}")
     wait_for_ack("MOVE_MOTOR_STEPS")
 
+    print("PLOT READINGS")
+    print(plot_readings)
+
     return plot_readings 
 
 def endpoint_comm_run(vertical_status, steps_array):
@@ -288,6 +297,8 @@ def calibrate():
     data["vertical-motor"] = 0
     send_serial(f"MOVE_MOTOR_STEPS:1,1,{8000}")
     wait_for_ack("MOVE_MOTOR_STEPS")
+
+    time.sleep(0.5)
 
     send_serial("MOVE_MOTOR_CONT:0,0") # send to left  
     wait_for_ack("LIMIT_SWITCH_TRIGGERED")
@@ -338,7 +349,12 @@ def calibrate():
     send_serial(f"MOVE_MOTOR_STEPS:0,0,{current_position}")
     wait_for_ack("MOVE_MOTOR_STEPS")
 
+    send_serial(f"MOVE_MOTOR_STEPS:1,1,{vertical_steps}")
+    wait_for_ack("MOVE_MOTOR_STEPS")
+    data["vertical-motor"] = 1
+
     print("CHECK: Calibration completed")
+
     return fiducials_detected
 
 def endpoint_comm_calibrate(fiducial_count):
