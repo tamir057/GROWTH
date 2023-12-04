@@ -207,12 +207,12 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
               <div className='m-0 p-0 no-margin'>
                 <ReactSpeedometer
                   style={{ marginBottom: '0px', width: '150px', height: '50px' }}
-                  value={sensorReadings.pH}
+                  value={sensorReadings.ec}
                   minValue={0}
                   maxValue={14}
                   customSegmentStops={[0, 1.2, 2.1, 14]}
                   segmentColors={['#FF6961', '#B4D3B2', '#FF6961']}
-                  currentValueText={`pH: ${sensorReadings.pH}`}
+                  currentValueText={`pH: ${sensorReadings.ec}`}
                 />
               </div>
               <div style={{ marginBottom: '10px' }}>
