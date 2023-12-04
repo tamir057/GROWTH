@@ -18,22 +18,26 @@ function NavBar() {
         </div>
         <div className="col-9">
           <ul className="nav nav-pills mb-2 mt-2 float-end">
-            <li className="nav-item">
-              <Link
-                to="/garden"
-                className={`white-text nav-link ${active === "about" ? "active" : ""}`}
-              >
-                Garden
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="/plantprofile"
-                className={`white-text nav-link ${active === "home" ? "active" : ""}`}
-              >
-                Profile
-              </Link>
-            </li>
+            {!isLoginPage && !isRegisterPage && (
+              <li className="nav-item">
+                <Link
+                  to="/garden"
+                  className={`white-text nav-link ${active === "about" ? "active" : ""}`}
+                >
+                  Garden
+                </Link>
+              </li>
+            )}
+            {!isLoginPage && !isRegisterPage && (
+              <li className="nav-item">
+                <Link
+                  to="/plantprofile"
+                  className={`white-text nav-link ${active === "home" ? "active" : ""}`}
+                >
+                  Profile
+                </Link>
+              </li>
+            )}
             {!isLoginPage && !isRegisterPage && ( // Conditionally render "Log Out" button
               <li className="nav-item">
                 <Link
