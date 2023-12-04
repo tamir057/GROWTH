@@ -226,14 +226,14 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
             </div>
             <div className="modal-footer" style={footerStyle}>
               <div className="topPadding">
-                <div className="saveButton">
+                {/* <div className="saveButton">
                   <input
                     className="saveButton"
                     type="button"
                     value="Save"
                     onClick={handleSave}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
