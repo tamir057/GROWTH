@@ -192,10 +192,11 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
                 <ReactSpeedometer
                   style={{ marginBottom: '0px', width: '150px', height: '50px' }}
                   value={sensorReadings.pH}
-                  minValue={Number(minMaxValues.minPH)}
-                  maxValue={Number(minMaxValues.maxPH)}
-                  startColor='#B4D3B2'
-                  endColor='#B4D3B2'
+                  minValue={0}
+                  maxValue={14}
+                  customSegmentStops={[0, 5.6, 6.4, 14]}
+                  segmentColors={['#FF6961', '#B4D3B2', '#FF6961']}
+                  currentValueText={`pH: ${sensorReadings.pH}`}
                 />
               </div>
               <div style={{ marginBottom: '10px' }}>
@@ -206,11 +207,12 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
               <div className='m-0 p-0 no-margin'>
                 <ReactSpeedometer
                   style={{ marginBottom: '0px', width: '150px', height: '50px' }}
-                  value={sensorReadings.ec}
-                  minValue={Number(minMaxValues.minEC)}
-                  maxValue={Number(minMaxValues.maxEC)}
-                  startColor='#B4D3B2'
-                  endColor='#B4D3B2'
+                  value={sensorReadings.pH}
+                  minValue={0}
+                  maxValue={14}
+                  customSegmentStops={[0, 1.2, 2.1, 14]}
+                  segmentColors={['#FF6961', '#B4D3B2', '#FF6961']}
+                  currentValueText={`pH: ${sensorReadings.pH}`}
                 />
               </div>
               <div style={{ marginBottom: '10px' }}>
