@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import hydroponics2 from "./hydroponics_img2.png";
 import "./login_index.css";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -34,7 +34,7 @@ function Login() {
 
       if (response.ok) {
         // Login successful, navigate to the garden page
-        navigate('/garden');
+        navigate("/garden");
       } else {
         // Login unsuccessful, set error message
         setError(data.error || "Invalid username or password");
@@ -45,8 +45,8 @@ function Login() {
   };
 
   return (
-    <div style={{ backgroundColor: '#CFE1C9' }}>
-      <div className='navBar'> </div>
+    <div style={{ backgroundColor: "#CFE1C9" }}>
+      <div className="navBar"> </div>
       <div className="login">
         <div className={"loginMainContainer"}>
           <div className={"loginTitleContainer"}>

@@ -139,7 +139,10 @@ function Register() {
               placeholder="Enter a password"
             />
 
-            <label className="loginSubtitle2Container" htmlFor="confirmPassword">
+            <label
+              className="loginSubtitle2Container"
+              htmlFor="confirmPassword"
+            >
               Confirm Password{" "}
             </label>
             <input

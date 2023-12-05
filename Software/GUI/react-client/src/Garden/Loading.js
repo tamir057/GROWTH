@@ -1,16 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './Garden.css'
+import React from "react";
+import PropTypes from "prop-types";
+import "./Garden.css";
 
-const LoadingPopup = ({runType}) => {
+const LoadingPopup = ({ runType }) => {
   return (
     <>
-    <div className="loading-popup">
+      <div className="loading-popup">
         <div className="loading-content">
-        <div className="loading-spinner"></div>
-        <div className="loading-text">{runType}</div>
+          <div className="loading-spinner"></div>
+          <div className="loading-text">{runType}</div>
         </div>
-    </div>
+      </div>
     </>
   );
 };

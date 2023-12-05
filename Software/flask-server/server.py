@@ -62,6 +62,17 @@ def get_data():
     except Exception as e:
         return jsonify({'error': str(e)})
     
+app.get('/api/get-plant-names', methods=['GET'])
+def get_plant_names():
+    try:
+        print("TRYING TO GET PLANT NAMES")
+        # Modify the MongoDB query to project only the 'name' field
+        plant_cursor = plants.find({}, {'_id': False, 'name': True})
+        plant_names_array = list(plant_cursor)
+
+        return jsonify(plant_names_array)
+    except Exception as e:
+        return jsonify({'error': str(e)})
 
 @app.route('/api/addPlots', methods=['POST'])
 def add_data():
@@ -481,10 +492,11 @@ def login_user():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/api/generatePlantInfo/<int:pid>', methods=['POST'])
-def generate_plant_info(pid):
+@app.route('/api/generate-plant-info')
+def generate_plant_info():
     try:
-        plant_info = subprocess.check_output(['python', './openai.py'] + pid, text=True)
+        plantName = request.json
+        generatePlantInfo(plantName)
         return jsonify({'success': True})
     except Exception as e:
         return jsonify({'error': str(e)})

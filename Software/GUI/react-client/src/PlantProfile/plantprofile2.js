@@ -5,6 +5,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./PlantProfile.css";
 import img from "./lettuce.png";
 import axios from "axios";
+import PlantRecItem from "./PlantRecItem";
+// import LoadingPopup from "../Garden/Loading";
 
 function PlantProfile() {
   const initPlantRecs = {
@@ -35,6 +37,7 @@ function PlantProfile() {
   const [plantDesc, setPlantDesc] = useState("");
   const [plantRecs, setPlantRecs] = useState(initPlantRecs);
   const [showRecs, setShowRecs] = useState(true);
+  // const [isLoading, setIsLoading] = useState(false);
 
   const openaiApiKey = "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";
 
@@ -101,6 +104,9 @@ function PlantProfile() {
       );
       console.log("OpenAI plant recommendations response:", response.data);
       const generatedPlantRecs = response.data.choices[0]?.message?.content;
+      // const jsonPlantRecs = JSON.parse(generatedPlantRecs);
+      // setPlantRecs(jsonPlantRecs);
+      // console.log(`PLANT RECS: ${jsonPlantRecs}`);
       return generatedPlantRecs;
     } catch (error) {
       console.error(
@@ -155,8 +161,12 @@ function PlantProfile() {
   const generatePlantInfo = async (newPlantName) => {
     setShowRecs(false);
     try {
-      const response = await callOpenAIForPlantInfo(newPlantName);
+      // setIsLoading(true);
+      const response = await callOpenAIForPlantInfo(plantName);
+      // setIsLoading(false);
+      // console.log("This is the generated plant info");
       const plantInfo = JSON.parse(response);
+      // console.log(plantInfo);
       const capitalizedPlantName =
         newPlantName.charAt(0).toUpperCase() + newPlantName.slice(1);
       setPlantName(capitalizedPlantName);
@@ -301,7 +311,23 @@ function PlantProfile() {
             <div className={"rightPanel"}>
               <div className="header">Plant Recommendations</div>
               <div></div>
-
+              {/* {Object.keys(plantRecs).map((plantKey) => (
+                <PlantRecItem
+                  className="plantRecButton"
+                  key={plantKey}
+                  onClick={async () => {
+                    const newPlantName = plantRecs[plantKey].plantName;
+                    console.log(newPlantName);
+                    const capitalizedPlantName =
+                      newPlantName.charAt(0).toUpperCase() +
+                      newPlantName.slice(1);
+                    setPlantName(capitalizedPlantName);
+                    await generatePlantInfo(capitalizedPlantName);
+                  }}
+                  plantName={plantRecs[plantKey].plantName}
+                  plantDesc={plantRecs[plantKey].plantDesc}
+                />
+              ))} */}
               {Object.keys(plantRecs).map((plantKey) => (
                 <div
                   className="plantRecContainer"
@@ -335,7 +361,9 @@ function PlantProfile() {
               </div>
             </div>
           )}
+          {/* {isLoading && <LoadingPopup runType={"Generating Plant Info"} />} */}
         </div>
+        s
       </div>
     </div>
   );

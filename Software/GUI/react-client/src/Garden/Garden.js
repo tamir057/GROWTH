@@ -84,7 +84,7 @@ function Garden() {
       body: JSON.stringify({ checkedPlots }), // Pass checked plots to the server
     });
     setIsLoading(false);
-    window.location.reload()
+    window.location.reload();
   };
 
   const closeAddPopup = () => {
