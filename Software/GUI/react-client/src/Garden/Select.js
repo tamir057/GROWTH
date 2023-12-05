@@ -84,7 +84,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
     try {
       // Make a POST request to your backend endpoint with plot number and selected plant
       const response = await axios.post(
-        `http://localhost:5000/api/assign-plant`,
+        `http://10.110.203.52:5000/api/assign-plant`,
         {
           plotNumber: plotNumber,
           selectedPlant: selectedPlant,
