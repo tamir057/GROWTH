@@ -30,7 +30,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
         const isEmptyPlot = plot.plant_id === "";
         setEmptyPlot(isEmptyPlot);
 
-        if (!isEmptyPlot) {
+        if (!emptyPlot) {
           // Fetch sensor readings
           const sensorResponse = await axios.get(
             `http://10.110.203.52:5000/api/plants/last-sensor-readings/${plotNumber}`
@@ -39,15 +39,16 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
         }
 
         // Fetch min-max values
-        const minMaxResponse = await axios.get(
-          `http://10.110.203.52:5000/api/plants/min-max-values/${plotNumber}`
-        );
-        const minMaxValues = minMaxResponse.data;
-        setIdealMinPH(minMaxValues["minPH"]);
-        setIdealMaxPH(minMaxValues["maxPH"]);
-        setIdealMinEC(minMaxValues["minEC"]);
-        setIdealMaxEC(minMaxValues["maxEC"]);
-
+        if (!emptyPlot) {
+          const minMaxResponse = await axios.get(
+            `http://10.110.203.52:5000/api/plants/min-max-values/${plotNumber}`
+          );
+          const minMaxValues = minMaxResponse.data;
+          setIdealMinPH(minMaxValues["minPH"]);
+          setIdealMaxPH(minMaxValues["maxPH"]);
+          setIdealMinEC(minMaxValues["minEC"]);
+          setIdealMaxEC(minMaxValues["maxEC"]);
+        }
         // Fetch plant options
         const plantsResponse = await axios.get(
           "http://10.110.203.52:5000/api/plants"
