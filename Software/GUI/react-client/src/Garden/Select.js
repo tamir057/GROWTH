@@ -27,13 +27,13 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
         const plot = plotResponse.data;
         const isEmptyPlot = plot.plant_id === '';
         setEmptyPlot(isEmptyPlot);
-  
+
         if (!isEmptyPlot) {
           // Fetch sensor readings
           const sensorResponse = await axios.get(`http://10.110.203.52:5000/api/plants/last-sensor-readings/${plotNumber}`);
           setSensorReadings(sensorResponse.data);
         }
-  
+
         // Fetch min-max values
         const minMaxResponse = await axios.get(`http://10.110.203.52:5000/api/plants/min-max-values/${plotNumber}`);
         const minMaxValues = minMaxResponse.data;
@@ -41,7 +41,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
         setIdealMaxPH(minMaxValues['maxPH']);
         setIdealMinEC(minMaxValues['minEC']);
         setIdealMaxEC(minMaxValues['maxEC']);
-  
+
         // Fetch plant options
         const plantsResponse = await axios.get('http://10.110.203.52:5000/api/plants');
         setPlantOptions(plantsResponse.data);
@@ -49,16 +49,16 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
         console.error('Error fetching data:', error);
       }
     };
-  
+
     // Call the combined fetch function
     fetchData();
-  
+
     // Log min-max values
     console.log("Min PH: ", idealMinPH);
     console.log("Max PH: ", idealMaxPH);
     console.log("Min EC: ", idealMinEC);
     console.log("Max EC: ", idealMaxEC);
-  
+
   }, [plotNumber, emptyPlot, idealMinPH, idealMaxPH, idealMinEC, idealMaxEC]);
 
   const modalStyle = {
@@ -76,7 +76,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
   const handleSave = async () => {
     try {
       // Make a POST request to your backend endpoint with plot number and selected plant
-      const response = await axios.post(`http://10.110.203.52:5000/api/assign-plant`, {
+      const response = await axios.post(`http://localhost:5000/api/assign-plant`, {
         plotNumber: plotNumber,
         selectedPlant: selectedPlant,
       });
@@ -177,8 +177,8 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
                     customSegmentStops={[0, idealMinEC, idealMaxEC, 3]}
                     // minMaxValues.minEC
                     segmentColors={['#FF6961', '#B4D3B2', '#FF6961']}
-                    currentValueText={`EC: ${sensorReadings.ec.toFixed(3)} mS/cm`}                  />
-                  )}
+                    currentValueText={`EC: ${sensorReadings.ec.toFixed(3)} mS/cm`} />
+                )}
               </div>
               <div style={{ marginBottom: '10px' }}>
                 <p>Ideal Min: {idealMinEC} mS/cm — Ideal Max: {idealMaxEC} mS/cm</p>
@@ -187,6 +187,14 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
               {/* Display temperature */}
               <div>
                 <p>Temperature: {sensorReadings.temperature.toFixed(3)} °C</p>
+              </div>
+              <div>
+                {sensorReadings.nutrients_pumped && (
+                  <p><strong>Nutrients pumped.</strong></p>
+                )}
+                {!sensorReadings.nutrients_pumped && (
+                  <p><strong>Ideal ranges met. No nutrients necessary.</strong></p>
+                )}
               </div>
             </div>
             <div className="modal-footer" style={footerStyle}>
@@ -202,102 +210,102 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
 
 export default Select;
 
-  // useEffect(() => {
-  //   const fetchPlot = async () => {
-  //     try {
-  //       const response = await axios.get(`http://10.110.203.52:5000/api/plots/${plotNumber}`);
-  //       const plot = response.data;
+// useEffect(() => {
+//   const fetchPlot = async () => {
+//     try {
+//       const response = await axios.get(`http://localhost:5000/api/plots/${plotNumber}`);
+//       const plot = response.data;
 
-  //       const isEmptyPlot = plot.plant_id === '';
-  //       setEmptyPlot(isEmptyPlot);
+//       const isEmptyPlot = plot.plant_id === '';
+//       setEmptyPlot(isEmptyPlot);
 
-  //       if (!isEmptyPlot) {
-  //         try {
-  //           const sensorResponse = await axios.get(`http://10.110.203.52:5000/api/plants/last-sensor-readings/${plotNumber}`);
-  //           setSensorReadings(sensorResponse.data);
-  //         } catch (sensorError) {
-  //           console.error('Error fetching sensor readings:', sensorError);
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching plot:', error);
-  //     }
-  //   };
-
-
-  //   const fetchMinMaxValues = async () => {
-  //     console.log("plot number: " + plotNumber);
-  //     try {
-  //       const response = await axios.get(`http://10.110.203.52:5000/api/plants/min-max-values/${plotNumber}`);
-  //       console.log("DATA:", response.data);
-  //       setIdealMinPH(response.data['minPH']);
-  //       console.log("MIN ph from data", response.data['minPH'])
-  //       setIdealMaxPH(response.data['maxPH']);
-  //       setIdealMinEC(response.data['minEC']);
-  //       setIdealMaxEC(response.data['maxEC']);
-  //       // console.log("Min PH: ", idealMinPH)
-  //       // console.log("Max PH: ", idealMaxPH)
-  //       // console.log("Min EC: ", idealMinEC)
-  //       // console.log("Max EC: ", idealMaxEC)
-
-  //       // setMinMaxValues(response.data);
-  //       // console.log("min max: ", response.data);
-  //     } catch (error) {
-  //       console.error('Error fetching min-max values:', error);
-  //     }
-  //   };
+//       if (!isEmptyPlot) {
+//         try {
+//           const sensorResponse = await axios.get(`http://localhost:5000/api/plants/last-sensor-readings/${plotNumber}`);
+//           setSensorReadings(sensorResponse.data);
+//         } catch (sensorError) {
+//           console.error('Error fetching sensor readings:', sensorError);
+//         }
+//       }
+//     } catch (error) {
+//       console.error('Error fetching plot:', error);
+//     }
+//   };
 
 
-  //   const fetchPlants = async () => {
-  //     try {
-  //       const response = await axios.get('http://10.110.203.52:5000/api/plants');
-  //       setPlantOptions(response.data);
-  //     } catch (error) {
-  //       console.error('Error fetching plant options:', error);
-  //     }
-  //   };
+//   const fetchMinMaxValues = async () => {
+//     console.log("plot number: " + plotNumber);
+//     try {
+//       const response = await axios.get(`http://localhost:5000/api/plants/min-max-values/${plotNumber}`);
+//       console.log("DATA:", response.data);
+//       setIdealMinPH(response.data['minPH']);
+//       console.log("MIN ph from data", response.data['minPH'])
+//       setIdealMaxPH(response.data['maxPH']);
+//       setIdealMinEC(response.data['minEC']);
+//       setIdealMaxEC(response.data['maxEC']);
+//       // console.log("Min PH: ", idealMinPH)
+//       // console.log("Max PH: ", idealMaxPH)
+//       // console.log("Min EC: ", idealMinEC)
+//       // console.log("Max EC: ", idealMaxEC)
 
-  //   fetchPlot();
-  //   fetchMinMaxValues();
-  //   fetchPlants();
-  // }, [plotNumber, emptyPlot]);
+//       // setMinMaxValues(response.data);
+//       // console.log("min max: ", response.data);
+//     } catch (error) {
+//       console.error('Error fetching min-max values:', error);
+//     }
+//   };
+
+
+//   const fetchPlants = async () => {
+//     try {
+//       const response = await axios.get('http://localhost:5000/api/plants');
+//       setPlantOptions(response.data);
+//     } catch (error) {
+//       console.error('Error fetching plant options:', error);
+//     }
+//   };
+
+//   fetchPlot();
+//   fetchMinMaxValues();
+//   fetchPlants();
+// }, [plotNumber, emptyPlot]);
 
 
 
-  // useEffect(() => {
-  //   const fetchSensorReadings = async () => {
-  //     try {
-  //       if (!emptyPlot) {
-  //         const sensorResponse = await axios.get(`http://10.110.203.52:5000/api/plants/last-sensor-readings/${plotNumber}`);
-  //         setSensorReadings(sensorResponse.data);
-  //         console.log("sensor: " + sensorResponse.data);
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching sensor readings:', error);
-  //     }
-  //   };
+// useEffect(() => {
+//   const fetchSensorReadings = async () => {
+//     try {
+//       if (!emptyPlot) {
+//         const sensorResponse = await axios.get(`http://localhost:5000/api/plants/last-sensor-readings/${plotNumber}`);
+//         setSensorReadings(sensorResponse.data);
+//         console.log("sensor: " + sensorResponse.data);
+//       }
+//     } catch (error) {
+//       console.error('Error fetching sensor readings:', error);
+//     }
+//   };
 
-  //   fetchSensorReadings();
-  // }, [plotNumber, emptyPlot]);
+//   fetchSensorReadings();
+// }, [plotNumber, emptyPlot]);
 
-  // useEffect(() => {
-  //   console.log("Min PH: ", idealMinPH);
-  //   console.log("Max PH: ", idealMaxPH);
-  //   console.log("Min EC: ", idealMinEC);
-  //   console.log("Max EC: ", idealMaxEC);
-  // }, [idealMinPH, idealMaxPH, idealMinEC, idealMaxEC]);
+// useEffect(() => {
+//   console.log("Min PH: ", idealMinPH);
+//   console.log("Max PH: ", idealMaxPH);
+//   console.log("Min EC: ", idealMinEC);
+//   console.log("Max EC: ", idealMaxEC);
+// }, [idealMinPH, idealMaxPH, idealMinEC, idealMaxEC]);
 
-  // useEffect(() => {
-  //   // Fetch plant options from your endpoint
-  //   const fetchPlants = async () => {
-  //     try {
-  //       const response = await axios.get('http://10.110.203.52:5000/api/plants'); // Replace with your actual endpoint
-  //       setPlantOptions(response.data);
-  //     } catch (error) {
-  //       console.error('Error fetching plant options:', error);
-  //     }
-  //   };
+// useEffect(() => {
+//   // Fetch plant options from your endpoint
+//   const fetchPlants = async () => {
+//     try {
+//       const response = await axios.get('http://localhost:5000/api/plants'); // Replace with your actual endpoint
+//       setPlantOptions(response.data);
+//     } catch (error) {
+//       console.error('Error fetching plant options:', error);
+//     }
+//   };
 
-  //   // Call the fetchPlants function
-  //   fetchPlants();
-  // }, []);
+//   // Call the fetchPlants function
+//   fetchPlants();
+// }, []);
