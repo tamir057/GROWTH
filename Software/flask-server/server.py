@@ -61,18 +61,6 @@ def get_data():
         return jsonify(plot_array)
     except Exception as e:
         return jsonify({'error': str(e)})
-    
-app.get('/api/get-plant-names', methods=['GET'])
-def get_plant_names():
-    try:
-        print("TRYING TO GET PLANT NAMES")
-        # Modify the MongoDB query to project only the 'name' field
-        plant_cursor = plants.find({}, {'_id': False, 'name': True})
-        plant_names_array = list(plant_cursor)
-
-        return jsonify(plant_names_array)
-    except Exception as e:
-        return jsonify({'error': str(e)})
 
 @app.route('/api/addPlots', methods=['POST'])
 def add_data():

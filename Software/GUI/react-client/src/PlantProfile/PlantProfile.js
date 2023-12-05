@@ -78,8 +78,18 @@ function PlantProfile() {
       );
   };
 
+  const getPlantNames = async () => {
+    const responsePlants = await axios.get(
+      "http://10.110.203.52:5000/api/plants"
+    ); // Replace with your actual endpoint
+    const plantNames = responsePlants.data.map((plant) => plant.name);
+    return plantNames;
+  };
+
   const callOpenAIForPlantRec = async () => {
     try {
+      const plantNames = await getPlantNames();
+      const plantNamesString = plantNames.join(", ");
       const response = await axios.post(
         `https://api.openai.com/v1/chat/completions`,
         {
@@ -87,7 +97,7 @@ function PlantProfile() {
           messages: [
             {
               role: "user",
-              content: `given a list {basil, lettuce, tomato, scallions} please generate three plant that grow well hydroponically that are not in the list. Please return only a JSON object with fields {"plant1": {"plantName", "plantDesc"}, "plant2": {"plantName", "plantDesc"}, "plant3": {"plantName", "plantDesc"}, }`,
+              content: `given a list ${plantNamesString} please generate three plants that grow well hydroponically that are not in the list. Please return only a JSON object with fields {"plant1": {"plantName", "plantDesc"}, "plant2": {"plantName", "plantDesc"}, "plant3": {"plantName", "plantDesc"}, }`,
             },
           ],
           max_tokens: 200,
@@ -237,7 +247,7 @@ function PlantProfile() {
               </div>
             </div>
             <div className={"plantField"}>
-              <div className={"plantFieldTitle"}>Ideal EC:</div>
+              <div className={"plantFieldTitle"}>Ideal EC (mS/cm):</div>
               <div className={"plantFieldsInputNumbersContainer"}>
                 <input
                   placeholder="ex. 1.3"
