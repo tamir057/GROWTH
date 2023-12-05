@@ -244,7 +244,7 @@ export default Select;
 // useEffect(() => {
 //   const fetchPlot = async () => {
 //     try {
-//       const response = await axios.get(`http://localhost:5000/api/plots/${plotNumber}`);
+//       const response = await axios.get(`http://10.110.203.52:5000/api/plots/${plotNumber}`);
 //       const plot = response.data;
 
 //       const isEmptyPlot = plot.plant_id === '';
@@ -252,7 +252,7 @@ export default Select;
 
 //       if (!isEmptyPlot) {
 //         try {
-//           const sensorResponse = await axios.get(`http://localhost:5000/api/plants/last-sensor-readings/${plotNumber}`);
+//           const sensorResponse = await axios.get(`http://10.110.203.52:5000/api/plants/last-sensor-readings/${plotNumber}`);
 //           setSensorReadings(sensorResponse.data);
 //         } catch (sensorError) {
 //           console.error('Error fetching sensor readings:', sensorError);
@@ -266,7 +266,7 @@ export default Select;
 //   const fetchMinMaxValues = async () => {
 //     console.log("plot number: " + plotNumber);
 //     try {
-//       const response = await axios.get(`http://localhost:5000/api/plants/min-max-values/${plotNumber}`);
+//       const response = await axios.get(`http://10.110.203.52:5000/api/plants/min-max-values/${plotNumber}`);
 //       console.log("DATA:", response.data);
 //       setIdealMinPH(response.data['minPH']);
 //       console.log("MIN ph from data", response.data['minPH'])
@@ -287,7 +287,7 @@ export default Select;
 
 //   const fetchPlants = async () => {
 //     try {
-//       const response = await axios.get('http://localhost:5000/api/plants');
+//       const response = await axios.get('http://10.110.203.52:5000/api/plants');
 //       setPlantOptions(response.data);
 //     } catch (error) {
 //       console.error('Error fetching plant options:', error);
@@ -303,7 +303,7 @@ export default Select;
 //   const fetchSensorReadings = async () => {
 //     try {
 //       if (!emptyPlot) {
-//         const sensorResponse = await axios.get(`http://localhost:5000/api/plants/last-sensor-readings/${plotNumber}`);
+//         const sensorResponse = await axios.get(`http://10.110.203.52:5000/api/plants/last-sensor-readings/${plotNumber}`);
 //         setSensorReadings(sensorResponse.data);
 //         console.log("sensor: " + sensorResponse.data);
 //       }
@@ -326,7 +326,7 @@ export default Select;
 //   // Fetch plant options from your endpoint
 //   const fetchPlants = async () => {
 //     try {
-//       const response = await axios.get('http://localhost:5000/api/plants'); // Replace with your actual endpoint
+//       const response = await axios.get('http://10.110.203.52:5000/api/plants'); // Replace with your actual endpoint
 //       setPlantOptions(response.data);
 //     } catch (error) {
 //       console.error('Error fetching plant options:', error);
