@@ -1,0 +1,247 @@
+body {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.popup-content {
+  margin: auto;
+  background: rgb(255, 255, 255);
+  width: 50%;
+  padding: 5px;
+}
+
+.popup-arrow {
+  color: rgb(255, 255, 255);
+}
+
+[role='tooltip'].popup-content {
+  width: 200px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
+}
+
+.fullHeightDiv {
+  height: 100%;
+  background-color: #f0f0f0;
+  /* Optional: Set a background color for visibility */
+}
+
+/* .popup-overlay {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  [data-popup='tooltip'].popup-overlay {
+    background: transparent;
+  } */
+
+/* .saveButton {
+    border: none;
+    background: #CFE1C9;
+    color: black;
+    padding: 12px 24px;
+    margin: 8px;
+    font-size: 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100px; 
+    font-family: "Poppins"; 
+  
+  } */
+
+/* Styling for the search bar */
+.modal-body input[type="text"] {
+  width: 100%;
+  /* Make the search input full width */
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10%;
+}
+
+/* Additional styling for the search bar when focused */
+.modal-body input[type="text"]:focus {
+  outline: none;
+  /* Change border color on focus */
+}
+
+.modal-footer {
+  display: flex;
+  flex-direction: column;
+  /* Adjust the direction to place the button below other content */
+  align-items: center;
+  /* Center the content horizontally */
+  justify-content: center;
+  /* Center the content vertically */
+  padding: 15px;
+  /* Add padding to the footer */
+  text-align: center;
+  /* Center the content text */
+  color: black;
+  padding: 12px 24px;
+  margin: 8px;
+  font-size: 24px;
+}
+
+/* Remove the width and line-height from the button styling */
+.saveButton {
+  background: #CFE1C9;
+  /* Background color for the button */
+  color: black;
+  /* Text color for the button */
+  border: none;
+  /* Remove button border */
+  border-radius: 8px;
+  /* Add a border radius for rounded corners */
+  padding: 10px;
+  /* Add padding to the button */
+  cursor: pointer;
+  /* Display a pointer cursor on hover */
+  font-family: "Poppins";
+}
+
+/* Styling for the "Save" button on hover (adjust as needed) */
+.modal-footer button:hover {
+  background-color: #0056b3;
+  /* Background color on hover */
+}
+
+.subtitle2Container {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10%;
+  font-family: "Poppins";
+  margin-bottom: 10%;
+}
+
+.subtitle3Container {
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10%;
+  font-family: "Poppins";
+}
+
+.bg-grey-c {
+  background-color: #C2BEBE !important;
+}
+
+.nav-padding {
+  padding-top: 59px !important;
+}
+
+.round-10 {
+  border-radius: 10px !important;
+}
+
+.pos-fixed {
+  position: fixed !important;
+  right: 0px !important;
+  z-index: 50 !important;
+}
+
+.bg-secondary-green {
+  background-color: #D0DFDF !important;
+}
+
+.bg-primary-green {
+  background-color: #acbb99 !important;
+}
+
+.round-15 {
+  border-radius: 15px !important;
+}
+
+.button-primary-2 {
+  width: 109px !important;
+  height: 32px !important;
+  line-height: 20px !important;
+  text-align: center !important;
+  background-color: #b5d3b1 !important;
+  color: #F7FCFC !important;
+}
+
+/* CSS for the button hover effect */
+.button-primary-2:hover {
+  background-color: #6CB136 !important;
+  /* Background color on hover */
+  color: #F7FCFC !important;
+  /* Text color on hover */
+}
+
+.button-square {
+  height: 70px !important;
+  width: 180px !important;
+  line-height: 20px !important;
+  text-align: center !important;
+  background-color: #b5d3b1 !important;
+  color: #F7FCFC !important;
+}
+
+.button-square:hover {
+  background-color: #6CB136 !important;
+  color: #ffffff !important;
+}
+
+.white-text {
+  color: #F7FCFC !important;
+}
+
+
+.italic-time {
+  color: gray;
+  font-style: italic;
+
+}
+
+
+.loading-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  /* Semi-transparent white background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  /* Ensure the loading popup is on top of other elements */
+}
+
+.loading-content {
+  text-align: center;
+}
+
+.loading-spinner {
+  border: 10px solid #c0b6b6;
+  /* Light gray border */
+  border-top: 10px solid #3498db;
+  /* Blue border for the loading spinner */
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: spin 1s linear infinite;
+  /* Animation for the spinner rotation */
+  margin-bottom: 10px;
+}
+
+.loading-text {
+  font-size: 18px;
+  color: #333;
+  /* Dark gray text color */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

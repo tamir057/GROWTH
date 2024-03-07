@@ -1,0 +1,13 @@
+[build]
+  command = "pip install -r requirements.txt"
+
+[build.environment]
+  # Optional: Set environment variables if needed
+  FLASK_ENV = "production"
+  # Other environment variables...
+
+[context.production.environment]
+  FLASK_ENV = "production"
+
+[context.deploy-preview.environment]
+  FLASK_ENV = "development"

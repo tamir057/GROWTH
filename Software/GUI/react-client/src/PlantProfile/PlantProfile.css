@@ -1,0 +1,173 @@
+body {
+  font-family: "Poppins", sans-serif !important;
+}
+
+.mainContainer {
+  background-color: #c2bebe;
+  font-family: "Poppins", sans-serif !important;
+  /* display: grid;
+  grid-template-columns: 50% 50%;
+  background-color: #d0dfdf;
+  margin: 2%;
+  border-radius: 10px; */
+  height: 100vh;
+}
+
+.bodyContainer {
+  font-family: "Poppins", sans-serif !important;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  background-color: #d0dfdf;
+  margin: 1%;
+  border-radius: 10px;
+  padding: 10px 30px;
+}
+
+.profileContainer {
+  font-family: "Poppins", sans-serif !important;
+  margin: 5%;
+  /* width: 100%;
+  height: 100%; */
+  background-color: grey;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: space-between; */
+}
+
+.header {
+  font-family: "Poppins", sans-serif !important;
+  display: flex;
+  flex-direction: column;
+  font-size: 28px;
+  align-items: left;
+  justify-content: left;
+  /* margin-left: 3%; */
+}
+
+.leftPanel {
+  margin: 2%;
+}
+
+.rightPanel {
+  margin: 2%;
+}
+
+.plantField {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.plantFieldTitle {
+  font-size: 20px;
+}
+
+.plantFieldsInputNumbersContainer {
+  justify-content: space-between;
+}
+
+.plantFieldInput {
+  border-radius: 10px;
+  border: solid 1px #f7fcfc;
+  padding: 0px 20px;
+  margin: 0px 12px;
+}
+
+.plantFieldInputNumber {
+  width: 105px;
+}
+
+.plotInput {
+  border-radius: 5px;
+  border: solid 1px #acba99;
+  padding: 0px 40px;
+}
+
+.wd-nudge-up {
+  bottom: 3px;
+  left: 25px;
+}
+
+.searchBar {
+  padding: 20px 0px;
+}
+
+.searchInput {
+  margin-left: 10px;
+}
+
+.searchIcon {
+  left: 4px;
+}
+
+.searchFieldButton {
+  width: 70px;
+}
+
+.navBar {
+  background-color: #acba99;
+  height: 54px;
+  font-size: 25px;
+  color: #f7fcfc;
+  text-align: right;
+  padding: 10px 20px;
+}
+
+.imgContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+.longPlantDescription {
+  font-size: 18px;
+}
+
+.plotContainer {
+  border-radius: 5px;
+  /* border: solid 75px #d9d9d9; */
+  padding: 0px 40px;
+  height: 150px;
+  border: #d0dfdf solid 5px;
+}
+
+.plotRow {
+  border-radius: 7px;
+  border: solid 15px #acba99;
+  margin: 10px 20px;
+  height: 30px;
+}
+
+.plotRowEmpty {
+  border-radius: 7px;
+  border: solid 15px #989595;
+  margin: 10px 20px;
+  height: 30px;
+}
+
+.savePlantButton {
+  width: 90px;
+}
+
+.plantRecButton {
+  border: 2px solid red;
+}
+
+.plantRecTitle {
+  font-family: "Poppins", sans-serif !important;
+  font-size: 20px;
+}
+
+.plantRecContainer {
+  border-radius: 10px;
+  background-color: #95a67e3d;
+  padding: 10px;
+  margin: 10px 10px 10px 0px;
+}
+
+.plantRecName {
+  font-size: 19px;
+}

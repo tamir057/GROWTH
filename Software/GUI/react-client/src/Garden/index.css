@@ -1,0 +1,175 @@
+body {
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.popup-content {
+  margin: auto;
+  background: rgb(255, 255, 255);
+  width: 50%;
+  padding: 5px;
+}
+
+.popup-arrow {
+  color: rgb(255, 255, 255);
+}
+
+[role='tooltip'].popup-content {
+  width: 200px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 3px;
+}
+
+.popup-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+[data-popup='tooltip'].popup-overlay {
+  background: transparent;
+}
+
+
+/* Styling for the search bar */
+.modal-body input[type="text"] {
+  width: 100%;
+  /* Make the search input full width */
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10%;
+}
+
+/* Additional styling for the search bar when focused */
+.modal-body input[type="text"]:focus {
+  outline: none;
+  /* Change border color on focus */
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  /* Center the content horizontally */
+  align-items: center;
+  /* Center the content vertically */
+  padding: 15px;
+  /* Add padding to the footer */
+  text-align: center;
+  /* Center the content text */
+}
+
+/* Styling for the "Save" button within the modal footer */
+.modal-footer button {
+  background-color: #007bff;
+  /* Background color for the button */
+  color: #fff;
+  /* Text color for the button */
+  border: none;
+  /* Remove button border */
+  border-radius: 5px;
+  /* Add a border radius for rounded corners */
+  padding: 10px 20px;
+  /* Add padding to the button */
+  cursor: pointer;
+  /* Display a pointer cursor on hover */
+}
+
+/* Styling for the "Save" button on hover (adjust as needed) */
+.modal-footer button:hover {
+  background-color: #0056b3;
+  /* Background color on hover */
+}
+
+
+.subtitle2Container {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10%;
+  font-family: "Poppins";
+}
+
+.subtitle3Container {
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10%;
+  font-family: "Poppins";
+}
+
+/* 
+  input[type="button"] {
+    border: none;
+    background: #d1d2d1;
+    color: black;
+    padding: 12px;
+    margin: 8px;
+    font-size: 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100px; 
+    margin-top: 100%;
+    font-family: "Poppins"; 
+
+}
+   */
+
+.bg-grey-c {
+  background-color: #C2BEBE;
+}
+
+.nav-padding {
+  padding-top: 59px;
+}
+
+.round-10 {
+  border-radius: 10px;
+}
+
+.pos-fixed {
+  position: fixed;
+  right: 0px;
+  z-index: 50;
+}
+
+.bg-secondary-green {
+  background-color: #D0DFDF;
+}
+
+.bg-primary-green {
+  background-color: #acbb99;
+}
+
+
+.round-15 {
+  border-radius: 15px;
+}
+
+.button-primary {
+  width: 109px;
+  height: 32px;
+  line-height: 20px;
+  text-align: center;
+  background-color: #b5d3b1;
+  color: #F7FCFC;
+}
+
+/* CSS for the button hover effect */
+.button-primary:hover {
+  background-color: #b5d3b1;
+  /* Background color on hover */
+  color: #F7FCFC;
+  /* Text color on hover */
+}
+
+.button-square {
+  height: 70px;
+  width: 70px;
+  line-height: 20px;
+  text-align: center;
+  background-color: #b5d3b1;
+  color: #F7FCFC;
+}
