@@ -1,0 +1,112 @@
+// **********************************************************************
+// USBIO_Menu.c  Simple terminal menu using USB (CDC) Serial I/O 
+// Use this as a template for more advanced projects
+// **********************************************************************
+#include "pico/stdlib.h"
+#include "pico/stdio_usb.h"
+#include "tusb.h"               // for tud_cdc_available()
+
+//*** Utility Functions ***
+void toggleLED(void);
+void showMenu(void);
+void processMenuCmd(uint8_t cmd);
+
+const uint LED_PIN = 15;
+
+int main() {
+
+    uint8_t k, x, ctBlink=100;
+    
+    gpio_init(LED_PIN);               // Configure GP25 for output   
+    gpio_set_dir(LED_PIN, GPIO_OUT);
+
+    stdio_usb_init();  //*** for USB serial I/O  only  ***
+
+    for(x=0; x<10; x++) {
+        // Wait for up to 10 seconds for USB serial connection
+        // allows us time to connect our terminal program 
+        sleep_ms(1000);   // and see the program output. (otherwise we might miss it)
+
+        if(stdio_usb_connected())
+            break;
+        }
+        
+    showMenu();   // show the user menu on the terminal
+
+    while(1) {
+        
+        // If USB Serial data available
+        if(tud_cdc_available()) {
+            k = getchar_timeout_us(1);      // Get serial input (should be ready so no wait)
+            if (k != PICO_ERROR_TIMEOUT)    // If we got something valid...
+                processMenuCmd(k);          // process it
+            }
+        else {
+            sleep_ms(10);                   // Otherwise just delay 10ms
+        }
+
+        if(--ctBlink == 0) {
+            // Happens every 1sec (when no input is being processed)
+            ctBlink=100;
+            toggleLED();
+        }
+    }
+
+    return 0;
+}
+
+
+//************************************************************************
+// toggleLED() toggle the state of the GPIO pin connected to LED_PIN
+//************************************************************************
+void toggleLED(void)
+{
+    if(gpio_get(LED_PIN)) {
+        gpio_put(LED_PIN, 0);
+    } else {
+        gpio_put(LED_PIN, 1);
+    }
+}
+
+//************************************************************************
+// showMenu()
+//************************************************************************
+void showMenu(void) {
+    printf("\r\n **** USBIO Menu ****\r\n");
+    printf(" 1. Option One\r\n");
+    printf(" 2. Option Two\r\n");
+    printf(" B. Blink LED\r\n");
+    printf(" M. Show Menu \r\n");
+}
+
+//************************************************************************
+// processMenuCmd(cmd)  process the user's menu selection
+//************************************************************************
+void processMenuCmd(uint8_t cmd) {
+    
+    switch(cmd) {
+    case '1':
+        printf("You Pressed 1\r\n");
+        break;
+
+    case '2':
+        printf("You Pressed Two\r\n");
+        break;
+
+    case 'B':
+        printf("Blink LED 10x...\r\n");
+        for(uint8_t x=0; x<20; x++)
+            {
+            toggleLED();
+            sleep_ms(200);  
+            }
+
+        printf("Done\r\n");
+        break;
+
+    case 'm':
+    case 'M':
+        showMenu();
+        break;
+    }
+}
