@@ -66,7 +66,7 @@ function PlantProfile() {
       description: plantDesc,
     };
     // Make a POST request to save plant profile in the db
-    fetch("http://localhost:5000/api/save-plant-profile", {
+    fetch("http://10.110.203.52:5000/api/save-plant-profile", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -81,7 +81,9 @@ function PlantProfile() {
   };
 
   const getPlantNames = async () => {
-    const responsePlants = await axios.get("http://localhost:5000/api/plants"); // Replace with your actual endpoint
+    const responsePlants = await axios.get(
+      "http://10.110.203.52:5000/api/plants"
+    ); // Replace with your actual endpoint
     const plantNames = responsePlants.data.map((plant) => plant.name);
     return plantNames;
   };

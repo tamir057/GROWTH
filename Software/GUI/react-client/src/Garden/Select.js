@@ -24,7 +24,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
       try {
         // Fetch plot data
         const plotResponse = await axios.get(
-          `http://localhost:5000/api/plots/${plotNumber}`
+          `http://10.110.203.52:5000/api/plots/${plotNumber}`
         );
         const plot = plotResponse.data;
         const isEmptyPlot = plot.plant_id === "";
@@ -33,7 +33,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
         if (!emptyPlot) {
           // Fetch sensor readings
           const sensorResponse = await axios.get(
-            `http://localhost:5000/api/plants/last-sensor-readings/${plotNumber}`
+            `http://10.110.203.52:5000/api/plants/last-sensor-readings/${plotNumber}`
           );
           setSensorReadings(sensorResponse.data);
         }
@@ -41,7 +41,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
         // Fetch min-max values
         if (!emptyPlot) {
           const minMaxResponse = await axios.get(
-            `http://localhost:5000/api/plants/min-max-values/${plotNumber}`
+            `http://10.110.203.52:5000/api/plants/min-max-values/${plotNumber}`
           );
           const minMaxValues = minMaxResponse.data;
           setIdealMinPH(minMaxValues["minPH"]);
@@ -51,7 +51,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
         }
         // Fetch plant options
         const plantsResponse = await axios.get(
-          "http://localhost:5000/api/plants"
+          "http://10.110.203.52:5000/api/plants"
         );
         setPlantOptions(plantsResponse.data);
       } catch (error) {
@@ -85,7 +85,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
     try {
       // Make a POST request to your backend endpoint with plot number and selected plant
       const response = await axios.post(
-        `http://localhost:5000/api/assign-plant`,
+        `http://10.110.203.52:5000/api/assign-plant`,
         {
           plotNumber: plotNumber,
           selectedPlant: selectedPlant,

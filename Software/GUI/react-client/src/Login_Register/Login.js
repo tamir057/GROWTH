@@ -19,7 +19,7 @@ function Login() {
       }
 
       // Make a POST request to login the user
-      const response = await fetch("http://localhost:5000/api/login", {
+      const response = await fetch("http://10.110.203.52:5000/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
