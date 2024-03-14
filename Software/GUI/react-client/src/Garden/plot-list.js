@@ -12,7 +12,6 @@ const PlotList = ({ onCheckAll, isCheckedAll, onPlotCheckboxChange }) => {
       .then((data) => {
         console.log("Received Data:", data);
         setPlotsArray(data);
-        console.log(data);
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []); // The empty dependency array ensures the effect runs only once on mount
@@ -37,7 +36,7 @@ const PlotList = ({ onCheckAll, isCheckedAll, onPlotCheckboxChange }) => {
       <ul className="list-group">
         {plotsArray.map((plot) => (
           <PlotItem
-            key={plot._id}
+            key={plot.plot_number}
             plot={plot}
             isCheckedAll={isCheckedAll}
             onPlotCheckboxChange={onPlotCheckboxChange}

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./Garden-index.css";
-import Select from './Select';
+import Select from "./Select";
 
 const PlotItem = ({ plot, isCheckedAll, onPlotCheckboxChange }) => {
-
   const [showAddPopup, setShowAddPopup] = useState(false);
   const [isChecked, setIsChecked] = useState(isCheckedAll);
   const [imagePath, setImagePath] = useState(`/images/${plot.plant}.jpg`);
@@ -30,7 +29,11 @@ const PlotItem = ({ plot, isCheckedAll, onPlotCheckboxChange }) => {
   }
 
   return (
-    <li id="" className="list-group-item bg-secondary-green mt-2 mb-2">
+    <li
+      key={plot.plot_number}
+      id=""
+      className="list-group-item bg-secondary-green mt-2 mb-2"
+    >
       <div className="row">
         <div className="col-2">
           <input
@@ -49,14 +52,18 @@ const PlotItem = ({ plot, isCheckedAll, onPlotCheckboxChange }) => {
             Plot {plot.plot_number} {plot.plant}
           </button>
           {showAddPopup && (
-            <Select showModal={showAddPopup} handleClose={closeAddPopup} plotNumber={plot.plot_number} />
+            <Select
+              showModal={showAddPopup}
+              handleClose={closeAddPopup}
+              plotNumber={plot.plot_number}
+            />
           )}
         </div>
 
         <div className="col-10 mt-2">
           <div>
             <img
-              style={{ width: '100%' }}
+              style={{ width: "100%" }}
               className="float-end"
               src={imagePath}
               alt="Plant"

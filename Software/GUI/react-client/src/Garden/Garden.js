@@ -40,7 +40,6 @@ function Garden() {
 
   const fetchLastCalibrationTime = async () => {
     try {
-      console.log("im in here");
       const response = await fetch(
         "http://localhost:5000/api/get-last-calibration-time"
       );

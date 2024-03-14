@@ -80,7 +80,9 @@ def add_data():
                 "last_reading": {
                     "time": "",
                     "ph": 0,
-                    "ec": 0
+                    "ec": 0,
+                    "temperature": 0,
+                    "nutrients_pumped": False,
                 },  
                 "steps": 0              
             })

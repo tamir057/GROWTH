@@ -6,10 +6,13 @@ import "./select_index.css";
 
 const Select = ({ showModal, handleClose, plotNumber }) => {
   const [emptyPlot, setEmptyPlot] = useState(true);
+  const [nullSensorReadings, setNullSensorReadings] = useState(true);
   const [sensorReadings, setSensorReadings] = useState({
     pH: 0,
     temperature: 0,
     ec: 0,
+    time: "",
+    nutrients_pumped: false,
   });
 
   const [selectedPlant, setSelectedPlant] = useState("");
@@ -36,6 +39,9 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
             `http://localhost:5000/api/plants/last-sensor-readings/${plotNumber}`
           );
           setSensorReadings(sensorResponse.data);
+          const isNullSensorReadings = sensorReadings.time === "";
+          setNullSensorReadings(isNullSensorReadings);
+          console.log(sensorReadings);
         }
 
         // Fetch min-max values
@@ -149,7 +155,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
           </div>
         </div>
       )}
-      {!emptyPlot && (
+      {!emptyPlot && !nullSensorReadings && (
         <div style={modalStyle}>
           <div className="modal-content">
             <div className="modal-header">
@@ -233,6 +239,20 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
             <div className="modal-footer" style={footerStyle}>
               <div className="topPadding"></div>
             </div>
+          </div>
+        </div>
+      )}
+      {!emptyPlot && nullSensorReadings && (
+        <div style={modalStyle}>
+          <div className="modal-content">
+            <div className="modal-header">
+              <button type="button" className="close" onClick={handleClose}>
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <p>
+              <strong>No sensor readings recorded yet.</strong>
+            </p>
           </div>
         </div>
       )}
