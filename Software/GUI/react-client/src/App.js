@@ -9,18 +9,6 @@ import Garden from "./Garden/Garden";
 import PlantProfile from "./PlantProfile/PlantProfile";
 
 function App() {
-  // const [data, setData] = useState([{}])
-  //   useEffect(() => {
-  //     fetch("/members").then(
-  //       res => res.json()
-
-  //   ).then(
-  //     data => {
-  //       setData(data)
-  //       console.log(data)
-  //     }
-  //   )
-  // }, [])
   return (
     <div>
       <HashRouter>

@@ -453,7 +453,6 @@ def register_user():
         if result.inserted_id:
             return jsonify({'success': True, 'message': 'User registered successfully'})
         else:
-            # print("lol")
             return jsonify({'error': 'Failed to register user'}), 500
 
     except Exception as e:
