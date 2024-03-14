@@ -25,7 +25,7 @@ function Login() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: email,
+          email,
           password,
         }),
       });
@@ -37,7 +37,7 @@ function Login() {
         navigate("/garden");
       } else {
         // Login unsuccessful, set error message
-        setError(data.error || "Invalid username or password");
+        setError(data.error || "Invalid email or password");
       }
     } catch (error) {
       setError("An unexpected error occurred");

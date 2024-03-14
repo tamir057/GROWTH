@@ -430,21 +430,19 @@ def register_user():
         data = request.json 
         print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!") 
         print(data)
-        username = data.get('username')
         email = data.get('email')
         password = data.get('password')
         firstName = data.get('firstName')
         lastName = data.get('lastName')
 
-        # Check if the username or email already exists
+        # Check if the email already exists
         existing_user = users.find_one({"email": email})
 
         if existing_user:
-            return jsonify({'error': 'Username or email already exists'}), 400
+            return jsonify({'error': 'Email already exists'}), 400
 
         # Insert a new document into the users collection
         result = users.insert_one({
-            "username": username,
             "email": email,
             "password": password,
             "firstName": firstName,
@@ -455,7 +453,6 @@ def register_user():
         if result.inserted_id:
             return jsonify({'success': True, 'message': 'User registered successfully'})
         else:
-            print("lol")
             return jsonify({'error': 'Failed to register user'}), 500
 
     except Exception as e:
@@ -466,28 +463,29 @@ def register_user():
 def login_user():
     try:
         data = request.json  # Assuming the request contains JSON data
-        username = data.get('username')
+        email = data.get('email')
         password = data.get('password')
 
-        # Find the user based on the provided username and password
-        user = users.find_one({"username": username, "password": password})
+        # Find the user based on the provided email and password
+        user = users.find_one({"email": email, "password": password})
 
         if user:
             return jsonify({'success': True, 'message': 'Login successful'})
         else:
-            return jsonify({'error': 'Invalid username or password'}), 401
+            return jsonify({'error': 'Invalid email or password'}), 401
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/api/generate-plant-info')
-def generate_plant_info():
-    try:
-        plantName = request.json
-        generatePlantInfo(plantName)
-        return jsonify({'success': True})
-    except Exception as e:
-        return jsonify({'error': str(e)})
+# Implemented in PlantProfile
+# @app.route('/api/generate-plant-info')
+# def generate_plant_info():
+#     try:
+#         plantName = request.json
+#         generatePlantInfo(plantName)
+#         return jsonify({'success': True})
+#     except Exception as e:
+#         return jsonify({'error': str(e)})
     
 if __name__ == "__main__":
     # app.run(debug=True)
