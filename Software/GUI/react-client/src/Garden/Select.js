@@ -24,7 +24,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
       try {
         // Fetch plot data
         const plotResponse = await axios.get(
-          `http://10.110.203.52:5000/api/plots/${plotNumber}`
+          `http://localhost:5000/api/plots/${plotNumber}`
         );
         const plot = plotResponse.data;
         const isEmptyPlot = plot.plant_id === "";
@@ -33,7 +33,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
         if (!emptyPlot) {
           // Fetch sensor readings
           const sensorResponse = await axios.get(
-            `http://10.110.203.52:5000/api/plants/last-sensor-readings/${plotNumber}`
+            `http://localhost:5000/api/plants/last-sensor-readings/${plotNumber}`
           );
           setSensorReadings(sensorResponse.data);
         }
@@ -41,7 +41,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
         // Fetch min-max values
         if (!emptyPlot) {
           const minMaxResponse = await axios.get(
-            `http://10.110.203.52:5000/api/plants/min-max-values/${plotNumber}`
+            `http://localhost:5000/api/plants/min-max-values/${plotNumber}`
           );
           const minMaxValues = minMaxResponse.data;
           setIdealMinPH(minMaxValues["minPH"]);
@@ -51,7 +51,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
         }
         // Fetch plant options
         const plantsResponse = await axios.get(
-          "http://10.110.203.52:5000/api/plants"
+          "http://localhost:5000/api/plants"
         );
         setPlantOptions(plantsResponse.data);
       } catch (error) {
@@ -85,7 +85,7 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
     try {
       // Make a POST request to your backend endpoint with plot number and selected plant
       const response = await axios.post(
-        `http://10.110.203.52:5000/api/assign-plant`,
+        `http://localhost:5000/api/assign-plant`,
         {
           plotNumber: plotNumber,
           selectedPlant: selectedPlant,
@@ -241,99 +241,3 @@ const Select = ({ showModal, handleClose, plotNumber }) => {
 };
 
 export default Select;
-
-// useEffect(() => {
-//   const fetchPlot = async () => {
-//     try {
-//       const response = await axios.get(`http://10.110.203.52:5000/api/plots/${plotNumber}`);
-//       const plot = response.data;
-
-//       const isEmptyPlot = plot.plant_id === '';
-//       setEmptyPlot(isEmptyPlot);
-
-//       if (!isEmptyPlot) {
-//         try {
-//           const sensorResponse = await axios.get(`http://10.110.203.52:5000/api/plants/last-sensor-readings/${plotNumber}`);
-//           setSensorReadings(sensorResponse.data);
-//         } catch (sensorError) {
-//           console.error('Error fetching sensor readings:', sensorError);
-//         }
-//       }
-//     } catch (error) {
-//       console.error('Error fetching plot:', error);
-//     }
-//   };
-
-//   const fetchMinMaxValues = async () => {
-//     console.log("plot number: " + plotNumber);
-//     try {
-//       const response = await axios.get(`http://10.110.203.52:5000/api/plants/min-max-values/${plotNumber}`);
-//       console.log("DATA:", response.data);
-//       setIdealMinPH(response.data['minPH']);
-//       console.log("MIN ph from data", response.data['minPH'])
-//       setIdealMaxPH(response.data['maxPH']);
-//       setIdealMinEC(response.data['minEC']);
-//       setIdealMaxEC(response.data['maxEC']);
-//       // console.log("Min PH: ", idealMinPH)
-//       // console.log("Max PH: ", idealMaxPH)
-//       // console.log("Min EC: ", idealMinEC)
-//       // console.log("Max EC: ", idealMaxEC)
-
-//       // setMinMaxValues(response.data);
-//       // console.log("min max: ", response.data);
-//     } catch (error) {
-//       console.error('Error fetching min-max values:', error);
-//     }
-//   };
-
-//   const fetchPlants = async () => {
-//     try {
-//       const response = await axios.get('http://10.110.203.52:5000/api/plants');
-//       setPlantOptions(response.data);
-//     } catch (error) {
-//       console.error('Error fetching plant options:', error);
-//     }
-//   };
-
-//   fetchPlot();
-//   fetchMinMaxValues();
-//   fetchPlants();
-// }, [plotNumber, emptyPlot]);
-
-// useEffect(() => {
-//   const fetchSensorReadings = async () => {
-//     try {
-//       if (!emptyPlot) {
-//         const sensorResponse = await axios.get(`http://10.110.203.52:5000/api/plants/last-sensor-readings/${plotNumber}`);
-//         setSensorReadings(sensorResponse.data);
-//         console.log("sensor: " + sensorResponse.data);
-//       }
-//     } catch (error) {
-//       console.error('Error fetching sensor readings:', error);
-//     }
-//   };
-
-//   fetchSensorReadings();
-// }, [plotNumber, emptyPlot]);
-
-// useEffect(() => {
-//   console.log("Min PH: ", idealMinPH);
-//   console.log("Max PH: ", idealMaxPH);
-//   console.log("Min EC: ", idealMinEC);
-//   console.log("Max EC: ", idealMaxEC);
-// }, [idealMinPH, idealMaxPH, idealMinEC, idealMaxEC]);
-
-// useEffect(() => {
-//   // Fetch plant options from your endpoint
-//   const fetchPlants = async () => {
-//     try {
-//       const response = await axios.get('http://10.110.203.52:5000/api/plants'); // Replace with your actual endpoint
-//       setPlantOptions(response.data);
-//     } catch (error) {
-//       console.error('Error fetching plant options:', error);
-//     }
-//   };
-
-//   // Call the fetchPlants function
-//   fetchPlants();
-// }, []);

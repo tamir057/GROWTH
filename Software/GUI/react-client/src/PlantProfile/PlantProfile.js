@@ -5,8 +5,10 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./PlantProfile.css";
 import img from "./lettuce.png";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function PlantProfile() {
+  const navigate = useNavigate();
   const initPlantRecs = {
     plant1: {
       plantName: "",
@@ -36,10 +38,9 @@ function PlantProfile() {
   const [plantRecs, setPlantRecs] = useState(initPlantRecs);
   const [showRecs, setShowRecs] = useState(true);
 
-  const openaiApiKey = "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";
+  const openaiApiKey = "{insert OpenAI API key}";
 
   useEffect(() => {
-    console.log("use Effect again");
     const fetchPlantRecs = async () => {
       try {
         await generatePlantRecs();
@@ -65,7 +66,7 @@ function PlantProfile() {
       description: plantDesc,
     };
     // Make a POST request to save plant profile in the db
-    fetch("http://10.110.203.52:5000/api/save-plant-profile", {
+    fetch("http://localhost:5000/api/save-plant-profile", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -76,12 +77,11 @@ function PlantProfile() {
       .catch((error) =>
         console.error("Error saving new plant profile:", error)
       );
+    navigate("/garden");
   };
 
   const getPlantNames = async () => {
-    const responsePlants = await axios.get(
-      "http://10.110.203.52:5000/api/plants"
-    ); // Replace with your actual endpoint
+    const responsePlants = await axios.get("http://localhost:5000/api/plants"); // Replace with your actual endpoint
     const plantNames = responsePlants.data.map((plant) => plant.name);
     return plantNames;
   };
@@ -90,6 +90,7 @@ function PlantProfile() {
     try {
       const plantNames = await getPlantNames();
       const plantNamesString = plantNames.join(", ");
+      console.log("plant names in db: ", plantNamesString);
       const response = await axios.post(
         `https://api.openai.com/v1/chat/completions`,
         {
@@ -97,7 +98,7 @@ function PlantProfile() {
           messages: [
             {
               role: "user",
-              content: `given a list ${plantNamesString} please generate three plants that grow well hydroponically that are not in the list. Please return only a JSON object with fields {"plant1": {"plantName", "plantDesc"}, "plant2": {"plantName", "plantDesc"}, "plant3": {"plantName", "plantDesc"}, }`,
+              content: `given this list of plants: ${plantNamesString}, please generate three plants that grow well hydroponically that are NOT in the given list. Make sure the new plants are not in the given list. Please return only a JSON object with fields {"plant1": {"plantName", "plantDesc"}, "plant2": {"plantName", "plantDesc"}, "plant3": {"plantName", "plantDesc"}, }`,
             },
           ],
           max_tokens: 200,

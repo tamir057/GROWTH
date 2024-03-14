@@ -19,13 +19,13 @@ function Login() {
       }
 
       // Make a POST request to login the user
-      const response = await fetch("http://10.110.203.52:5000/api/login", {
+      const response = await fetch("http://localhost:5000/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: email,
+          email,
           password,
         }),
       });
@@ -37,7 +37,7 @@ function Login() {
         navigate("/garden");
       } else {
         // Login unsuccessful, set error message
-        setError(data.error || "Invalid username or password");
+        setError(data.error || "Invalid email or password");
       }
     } catch (error) {
       setError("An unexpected error occurred");
